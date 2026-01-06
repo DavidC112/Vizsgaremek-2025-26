@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
@@ -18,21 +19,21 @@ namespace Vizsgaremek.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
-        private readonly HealthAppDbContext _ctx;
+        private readonly HealthAppDbContext _context;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, HealthAppDbContext ctx)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, HealthAppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _config = config;
-            _ctx = ctx;
+            _context = context;
         }
 
 
         [HttpGet("test")]
-        public async Task<IActionResult> Get() 
+        public async Task<IActionResult> Get()
         {
-            var users = await _ctx.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
             return Ok(users);
         }
 
@@ -41,14 +42,14 @@ namespace Vizsgaremek.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
-            var user = new User { 
-                FirstName = registerDto.FirstName, 
-                LastName = registerDto.LastName, 
-                Email = registerDto.Email, 
+            var user = new User {
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                Email = registerDto.Email,
                 UserName = registerDto.Email
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
-            if (result.Succeeded) 
+            if (result.Succeeded)
             {
                 return Ok();
             }
@@ -66,32 +67,80 @@ namespace Vizsgaremek.Controllers
             if (!result.Succeeded) return Unauthorized();
 
             var refreshToken = Guid.NewGuid().ToString();
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7); 
-            await _userManager.UpdateAsync(user);
+            var refreshTokenHash = HashToken(refreshToken);
 
-            var token = GenerateJwtToken(user); 
+
+            var refreshTokenEntity = new RefreshToken
+            {
+                UserId = user.Id,
+                TokenHash = refreshTokenHash,
+                Expiry = DateTime.UtcNow.AddDays(7),
+                IsRevoked = false
+            };
+            
+            _context.RefreshTokens.Add(refreshTokenEntity);
+            await _context.SaveChangesAsync();
+            var token = GenerateJwtToken(user);
+
+
+            Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = refreshTokenEntity.Expiry
+            });
 
             return Ok(new
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                refreshtoken = refreshToken
+                token = new JwtSecurityTokenHandler().WriteToken(token)
             });
         }
+
 
 
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken(RefreshDto refreshDto)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshDto.RefreshToken);
-            if (user == null || user.RefreshTokenExpiryTime <= DateTime.Now)
-                return Unauthorized("Invalid or expired refresh token");
-            var newToken = GenerateJwtToken(user); 
+            var refreshToken = Request.Cookies["refreshToken"];
+            if (string.IsNullOrEmpty(refreshToken)) return Unauthorized();
 
-            return Ok(new
+            var refreshTokenHash = HashToken(refreshToken);
+
+            var storedToken = await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.TokenHash == refreshTokenHash);
+            if (storedToken == null || storedToken.IsRevoked || storedToken.Expiry <= DateTime.UtcNow)
             {
-                token = new JwtSecurityTokenHandler().WriteToken(newToken)
-            });
+                return Unauthorized();
+            }
+            var user = await _userManager.FindByIdAsync(storedToken.UserId);
+            if (user == null) return Unauthorized();
+
+            var newToken = GenerateJwtToken(user);
+
+            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(newToken) });
+        }
+
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+
+            if (!string.IsNullOrEmpty(refreshToken))
+            {
+                var hash = HashToken(refreshToken);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var tokenEntity = await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.TokenHash == hash && rt.UserId == userId);
+
+                if (tokenEntity != null)
+                {
+                    _context.RefreshTokens.Remove(tokenEntity);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            Response.Cookies.Delete("refreshToken");
+            return Ok("logged out");
         }
 
 
@@ -107,7 +156,7 @@ namespace Vizsgaremek.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            return  new JwtSecurityToken(
+            return new JwtSecurityToken(
                 issuer: _config["JWT:Issuer"],
                 audience: _config["JWT:Audience"],
                 claims: claims,
@@ -115,5 +164,13 @@ namespace Vizsgaremek.Controllers
                 signingCredentials: creds
             );
         }
+
+        private static string HashToken(string token)
+        {
+            using var sha256 = SHA256.Create();
+            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(token));
+            return Convert.ToBase64String(bytes);
+        }
+        
     }
 }

@@ -12,5 +12,6 @@ namespace Vizsgaremek.Data
         }
 
         public DbSet<Models.User> Users { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }
