@@ -6,6 +6,5 @@
         public string? UserId { get; set; }
         public DateTime Expiry{ get; set; }
         public string? TokenHash { get; set; }
-        public bool IsRevoked { get; set; }
     }
 }

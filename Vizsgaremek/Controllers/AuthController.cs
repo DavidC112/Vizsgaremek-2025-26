@@ -75,7 +75,6 @@ namespace Vizsgaremek.Controllers
                 UserId = user.Id,
                 TokenHash = refreshTokenHash,
                 Expiry = DateTime.UtcNow.AddDays(7),
-                IsRevoked = false
             };
             
             _context.RefreshTokens.Add(refreshTokenEntity);
@@ -108,7 +107,7 @@ namespace Vizsgaremek.Controllers
             var refreshTokenHash = HashToken(refreshToken);
 
             var storedToken = await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.TokenHash == refreshTokenHash);
-            if (storedToken == null || storedToken.IsRevoked || storedToken.Expiry <= DateTime.UtcNow)
+            if (storedToken == null || storedToken.Expiry <= DateTime.UtcNow)
             {
                 return Unauthorized();
             }

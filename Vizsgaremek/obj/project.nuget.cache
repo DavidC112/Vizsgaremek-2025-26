@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W4V/7np6o+8=",
+  "dgSpecHash": "Bso6rZN0fKk=",
   "success": true,
-  "projectFilePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+  "projectFilePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cornu\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\cornu\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
@@ -100,9 +100,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Microsoft.AspNet.WebApi.Client 4.0.20710' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "filePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "libraryId": "Microsoft.AspNet.WebApi.Client",
       "targetGraphs": [
         "net10.0"
@@ -112,9 +112,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Microsoft.AspNet.WebApi.Core 4.0.20710' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "filePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "libraryId": "Microsoft.AspNet.WebApi.Core",
       "targetGraphs": [
         "net10.0"
@@ -124,9 +124,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Microsoft.AspNet.WebApi.WebHost 4.0.20710' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "filePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "libraryId": "Microsoft.AspNet.WebApi.WebHost",
       "targetGraphs": [
         "net10.0"
@@ -136,9 +136,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Microsoft.Net.Http 2.0.20710' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "filePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "libraryId": "Microsoft.Net.Http",
       "targetGraphs": [
         "net10.0"
@@ -148,9 +148,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "filePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "libraryId": "Microsoft.Web.Infrastructure",
       "targetGraphs": [
         "net10.0"
@@ -160,9 +160,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Swashbuckle.Core 5.6.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "filePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "libraryId": "Swashbuckle.Core",
       "targetGraphs": [
         "net10.0"
@@ -172,9 +172,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'WebActivatorEx 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+      "filePath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
       "libraryId": "WebActivatorEx",
       "targetGraphs": [
         "net10.0"
