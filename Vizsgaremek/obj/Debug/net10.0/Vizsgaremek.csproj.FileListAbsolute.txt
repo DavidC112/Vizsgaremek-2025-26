@@ -218,7 +218,6 @@ C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\runtime
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\runtimes\win-x86\native\e_sqlite3.dll
-C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\appsettings.Development.json
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\appsettings.json
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\dotnet-tools.json
@@ -441,3 +440,5 @@ E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgaremek.pd
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgaremek.genruntimeconfig.cache
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\ref\Vizsgaremek.dll
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgaremek.sourcelink.json
+C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

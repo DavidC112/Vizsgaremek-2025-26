@@ -154,9 +154,6 @@ namespace Vizsgaremek.Migrations
                     b.Property<DateTime>("Expiry")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("TokenHash")
                         .HasColumnType("TEXT");
 
@@ -217,12 +214,6 @@ namespace Vizsgaremek.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("RefreshTokenExpiryTime")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");

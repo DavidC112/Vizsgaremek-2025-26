@@ -11,8 +11,8 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260106173334_newMigration")]
-    partial class newMigration
+    [Migration("20260108071923_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -157,9 +157,6 @@ namespace Vizsgaremek.Migrations
                     b.Property<DateTime>("Expiry")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("TokenHash")
                         .HasColumnType("TEXT");
 
@@ -220,12 +217,6 @@ namespace Vizsgaremek.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("RefreshTokenExpiryTime")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");

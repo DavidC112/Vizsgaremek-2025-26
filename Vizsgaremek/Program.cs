@@ -9,12 +9,28 @@ namespace Vizsgaremek
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Local", policy =>
+                {
+                    policy.WithOrigins("https://localhost:7145")
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials();
+                });
+            });
+
+
+
             builder.Services.AddDbContext<HealthAppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("HealthCare")));
             builder.Services.AddSwaggerGen();
+
 
             builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<HealthAppDbContext>().AddDefaultTokenProviders();
 
@@ -50,6 +66,7 @@ namespace Vizsgaremek
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("Local");
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
