@@ -1,10 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-
-
+import { useAuthContext } from "../context/AuthContextProvider";
 
 export const PublicOnlyRoute = () => {
-  const {accessToken} = useAuth()
+  const {accessToken} = useAuthContext()
 
   if (accessToken) {
      return <Navigate to="/" replace />;
@@ -14,7 +12,7 @@ export const PublicOnlyRoute = () => {
 }
 
 export const ProtectedRoute = () => {
-  const { accessToken } = useAuth();
+  const { accessToken } = useAuthContext();
 
 
   if (!accessToken) {

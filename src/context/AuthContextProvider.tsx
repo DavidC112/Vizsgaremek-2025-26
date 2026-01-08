@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { setAccessToken  as setAxiosToken} from "../services/authTokenService";
 import { loginUser, logoutUser, type LoginResult } from "../services/auth";
 
@@ -12,7 +12,18 @@ export type AuthContextType = {
     logout: () => void,
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAuthContext = () => {
+    const ctx = useContext(AuthContext);
+
+    if (!ctx){
+        throw new Error("useAuthContext must be used within AuthContextProvider");
+    }
+
+    return ctx;
+}
 
 const AuthContextProvider = (props: {children: React.ReactNode}) => {
     const [accessToken, setAccessToken] = useState<string | null>(null)
@@ -24,7 +35,6 @@ const AuthContextProvider = (props: {children: React.ReactNode}) => {
         
         if(!result.error) {return {}}
         return {error: result.error}
-        
     }
 
     const logout = async () => {

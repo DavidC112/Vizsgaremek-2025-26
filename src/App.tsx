@@ -3,11 +3,11 @@ import LandingPage from "./pages/LandingPage";
 import { DetailsPage } from "./pages/DetailsPage";
 import LoginPage from "./pages/LoginPage";
 import { ProtectedRoute, PublicOnlyRoute } from "./utils/RouterGuard";
-import { useAuth } from "./hooks/useAuth";
+import { useAuthContext } from "./context/AuthContextProvider";
 
 
 const App = () => {
-  const {accessToken} = useAuth()
+  const {accessToken} = useAuthContext();
 
   console.log(accessToken ? "Logged in" : "Not logged in");
 

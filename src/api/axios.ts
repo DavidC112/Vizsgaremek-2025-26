@@ -7,7 +7,7 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(config => {
-    const token = getAccessToken()
+    const token = getAccessToken();
     if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`
     }
@@ -31,11 +31,11 @@ api.interceptors.response.use(response => {return response},
                 const newToken = response.data?.token
                 setAccessToken(newToken)
 
+
                 originalRequest.headers.Authorization = `Bearer ${newToken}`
                 return api(originalRequest)
             }catch {
                 setAccessToken(null)
-                console.error("Baj van de nagy")
             }
         }
         

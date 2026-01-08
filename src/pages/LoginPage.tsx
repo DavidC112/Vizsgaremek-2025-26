@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthContext } from "../context/AuthContextProvider";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login } = useAuth();
+    const { login } = useAuthContext();
     const navigate = useNavigate();
 
     const handleLogin = async () => {
+
         const data = await login(email, password)
 
         if(!data.error){

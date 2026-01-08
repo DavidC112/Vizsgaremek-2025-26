@@ -1,4 +1,5 @@
 import api from "../api/axios";
+import { setAccessToken } from "./authTokenService";
 
 export type TokenResponse = {
     token: string
@@ -15,18 +16,19 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
          const response = await api.post<TokenResponse>(
         `/api/auth/login`,
         { email, password }
-    );   
+    );
 
-    return {token: response.data.token}
+    setAccessToken(response.data.token);
+
+    return {token: response.data.token} 
     } catch (error) {
         //TODO: better error handling
         console.error("Login error:", error);
-        return {error: "Login failed"};
+        return {error: error instanceof Error ? error.message : String(error)};
     }
-    
-   
 };
 
 export const logoutUser = async () => {
     await api.post("/api/auth/logout", {}, {withCredentials: true})
+    localStorage.removeItem("accessToken");
 }

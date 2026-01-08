@@ -1,9 +1,12 @@
-let accessToken: string | null = null
 
 export const setAccessToken = (token:string | null) => {
-    accessToken = token
+    if (token) {
+       localStorage.setItem("accessToken", token);
+    } else {
+        localStorage.removeItem("accessToken");
+    }
 }
 
 export const getAccessToken = (): string | null => {
-    return accessToken
+    return localStorage.getItem("accessToken") || null;
 }
