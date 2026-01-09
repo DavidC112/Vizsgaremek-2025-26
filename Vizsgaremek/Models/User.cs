@@ -7,7 +7,7 @@ namespace Vizsgaremek.Models
     {
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
-        public required DateOnly BirthDate { get; set; }
+        public required DateOnly BirthDate { get; set; } = new DateOnly(2000, 0, 0);
 
         [NotMapped]
         public int Age 

@@ -46,12 +46,16 @@ namespace Vizsgaremek.Controllers
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 Email = registerDto.Email,
-                UserName = registerDto.Email
+                UserName = registerDto.Email,
+                BirthDate = registerDto.BirthDate, 
+                Gender = registerDto.Gender,
+                CreatedAt = DateTime.UtcNow
+
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             if (result.Succeeded)
             {
-                return Ok();
+                return Created($"{user.FirstName} {user.LastName} has successfully registered", user);
             }
             return BadRequest(result);
         }

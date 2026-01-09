@@ -167,6 +167,14 @@
           "password": {
             "type": "string",
             "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date"
           }
         },
         "additionalProperties": false

@@ -8,7 +8,5 @@ namespace Vizsgaremek.Models
         public string UserId { get; set; }
         public User User { get; set; }
 
-        [NotMapped]
-
     }
 }
