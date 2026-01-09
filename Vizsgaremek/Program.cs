@@ -19,7 +19,7 @@ namespace Vizsgaremek
             {
                 options.AddPolicy("Local", policy =>
                 {
-                    policy.WithOrigins("https://localhost:7145")
+                    policy.WithOrigins("https://localhost:173", "http://localhost:5173")
                            .AllowAnyMethod()
                            .AllowAnyHeader()
                            .AllowCredentials();
@@ -66,8 +66,8 @@ namespace Vizsgaremek
                 app.UseSwaggerUI();
             }
 
-            app.UseCors("Local");
             app.UseHttpsRedirection();
+            app.UseCors("Local");
             app.UseAuthentication();
             app.UseAuthorization();
 
