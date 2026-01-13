@@ -16,8 +16,8 @@ namespace Vizsgaremek.Controllers
         private readonly UserManager<User> _userManager;
         public AttributeController(HealthAppDbContext context, UserManager<User> userManager)
         {
-            context = _context;
-            userManager = _userManager;
+            _context = context;
+            _userManager = userManager;
         }
 
 
@@ -32,7 +32,7 @@ namespace Vizsgaremek.Controllers
         [Authorize]
         public async Task<IActionResult>Create([FromBody] AttributesDto dto)
         {
-            var user = await _userManager.GetUserAsync(User);
+                var user = await _userManager.GetUserAsync(User);
             if (user == null)  return Unauthorized(); 
 
             var existing = await _context.UserAttributes.FirstOrDefaultAsync(ua => ua.UserId == user.Id);
@@ -43,7 +43,14 @@ namespace Vizsgaremek.Controllers
                 existing.MeasuredAt = dto.MeasuredAt;
                 _context.UserAttributes.Update(existing);
                 await _context.SaveChangesAsync();
-                return Ok(existing);
+                var resultDtoUpdate = new AttributesDto
+                {
+                    Weight = existing.Weight,
+                    Height = existing.Height,
+                    MeasuredAt = existing.MeasuredAt
+                };
+
+                return Ok(resultDtoUpdate);
             }
             var userAttributes = new UserAttributes
             {
@@ -53,9 +60,23 @@ namespace Vizsgaremek.Controllers
                 MeasuredAt = dto.MeasuredAt
             };
 
+            _context.UserAttributes.Add(userAttributes);
 
-            return Created();
-        } 
-            
+            var resultDto = new AttributesDto
+            {
+                Weight = userAttributes.Weight,
+                Height = userAttributes.Height,
+                MeasuredAt = userAttributes.MeasuredAt
+            };
+
+
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(
+                nameof(Create),
+                new { id = userAttributes.Id },
+                resultDto);
+
+        }
+
     }
 }

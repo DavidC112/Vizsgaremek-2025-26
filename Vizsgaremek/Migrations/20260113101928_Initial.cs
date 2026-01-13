@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Vizsgaremek.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,7 +49,7 @@ namespace Vizsgaremek.Migrations
                     BirthDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Gender = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsAdmin = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -329,7 +329,7 @@ namespace Vizsgaremek.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAttributers",
+                name: "UserAttributes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -337,13 +337,13 @@ namespace Vizsgaremek.Migrations
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     Weight = table.Column<double>(type: "REAL", nullable: false),
                     Height = table.Column<double>(type: "REAL", nullable: false),
-                    Measured_At = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    MeasuredAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAttributers", x => x.Id);
+                    table.PrimaryKey("PK_UserAttributes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAttributers_AspNetUsers_UserId",
+                        name: "FK_UserAttributes_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -496,8 +496,8 @@ namespace Vizsgaremek.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAttributers_UserId",
-                table: "UserAttributers",
+                name: "IX_UserAttributes_UserId",
+                table: "UserAttributes",
                 column: "UserId",
                 unique: true);
         }
@@ -539,7 +539,7 @@ namespace Vizsgaremek.Migrations
                 name: "UserActivities");
 
             migrationBuilder.DropTable(
-                name: "UserAttributers");
+                name: "UserAttributes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

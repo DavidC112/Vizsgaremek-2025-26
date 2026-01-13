@@ -36,7 +36,23 @@ namespace Vizsgaremek.Controllers
         [HttpGet("test")]
         public async Task<IActionResult> Get()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users
+                .Include(u => u.UserAttributes)
+                .Select(u => new UserResponseDto
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                    UserAttributes = u.UserAttributes == null ? null : new AttributesDto
+                    {
+                        Weight = u.UserAttributes.Weight,
+                        Height = u.UserAttributes.Height,
+                        MeasuredAt = u.UserAttributes.MeasuredAt
+                    }
+                })
+                .ToListAsync();
+
             return Ok(users);
         }
 

@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-Vizsgaremek-3e31ca7a-ae18-4c61-a8bd-805ab0bf0aa7</UserSecretsId>
+    <StartupObject>Vizsgaremek.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

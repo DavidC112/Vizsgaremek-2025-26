@@ -11,8 +11,8 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260109094409_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20260113101928_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -413,7 +413,7 @@ namespace Vizsgaremek.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IsAdmin")
+                    b.Property<bool>("IsAdmin")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
@@ -493,7 +493,7 @@ namespace Vizsgaremek.Migrations
                     b.ToTable("UserActivities");
                 });
 
-            modelBuilder.Entity("Vizsgaremek.Models.UserAttributers", b =>
+            modelBuilder.Entity("Vizsgaremek.Models.UserAttributes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -502,7 +502,7 @@ namespace Vizsgaremek.Migrations
                     b.Property<double>("Height")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime>("Measured_At")
+                    b.Property<DateTime>("MeasuredAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
@@ -517,7 +517,7 @@ namespace Vizsgaremek.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserAttributers");
+                    b.ToTable("UserAttributes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -674,11 +674,11 @@ namespace Vizsgaremek.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vizsgaremek.Models.UserAttributers", b =>
+            modelBuilder.Entity("Vizsgaremek.Models.UserAttributes", b =>
                 {
                     b.HasOne("Vizsgaremek.Models.User", "User")
-                        .WithOne("UserAttributers")
-                        .HasForeignKey("Vizsgaremek.Models.UserAttributers", "UserId")
+                        .WithOne("UserAttributes")
+                        .HasForeignKey("Vizsgaremek.Models.UserAttributes", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -707,7 +707,7 @@ namespace Vizsgaremek.Migrations
 
                     b.Navigation("UserActivities");
 
-                    b.Navigation("UserAttributers");
+                    b.Navigation("UserAttributes");
                 });
 #pragma warning restore 612, 618
         }
