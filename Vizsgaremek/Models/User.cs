@@ -7,8 +7,8 @@ namespace Vizsgaremek.Models
     {
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
-        public required DateOnly BirthDate { get; set; } = new DateOnly(2000, 0, 0);
-
+        public required DateOnly BirthDate { get; set; }
+        
         [NotMapped]
         public int Age 
         { 
@@ -21,8 +21,8 @@ namespace Vizsgaremek.Models
         }
         public required string Gender { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int IsAdmin { get; set; }
-        public UserAttributers? UserAttributers { get; set; } = null;
+        public bool IsAdmin { get; set; }
+        public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
         public ICollection<Goals>? Goals { get; set; } = null;
         public ICollection<Meal>? Meals { get; set; } = null;

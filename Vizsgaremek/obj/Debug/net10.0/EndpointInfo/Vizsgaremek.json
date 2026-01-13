@@ -1,10 +1,53 @@
 {
   "openapi": "3.0.4",
   "info": {
-    "title": "Vizsgaremek",
-    "version": "1.0"
+    "title": "HealthApp API",
+    "version": "v1"
   },
   "paths": {
+    "/api/profile/attribute/test": {
+      "get": {
+        "tags": [
+          "Attribute"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/profile/attribute/add": {
+      "post": {
+        "tags": [
+          "Attribute"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttributesDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttributesDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttributesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/auth/test": {
       "get": {
         "tags": [
@@ -125,6 +168,24 @@
   },
   "components": {
     "schemas": {
+      "AttributesDto": {
+        "type": "object",
+        "properties": {
+          "weight": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          },
+          "measuredAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginDto": {
         "type": "object",
         "properties": {
@@ -179,9 +240,25 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "JWT Authorization header using the Bearer scheme.\r\nEnter 'Bearer' [space] and then your token.\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
   },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ],
   "tags": [
+    {
+      "name": "Attribute"
+    },
     {
       "name": "Auth"
     }

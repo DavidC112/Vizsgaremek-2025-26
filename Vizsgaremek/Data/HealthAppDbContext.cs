@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Data
@@ -10,7 +11,6 @@ namespace Vizsgaremek.Data
         {
             
         }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +26,11 @@ namespace Vizsgaremek.Data
                 .WithMany(r => r.RecipeIngredients)
                 .HasForeignKey(ri => ri.IngredientId);
 
+            builder.Entity<UserAttributes>()
+                .HasOne(ua => ua.User)
+                .WithOne(u => u.UserAttributes) 
+                .HasForeignKey<UserAttributes>(ua => ua.UserId);
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -34,7 +39,7 @@ namespace Vizsgaremek.Data
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
-        public DbSet<UserAttributers> UserAttributers { get; set; }
+        public DbSet<UserAttributes> UserAttributes { get; set; }
         public DbSet<UserActivity> UserActivities { get; set; }
         public DbSet<Goals> Goals { get; set; }
         public DbSet<DailyTarget> DailyTargets { get; set; }

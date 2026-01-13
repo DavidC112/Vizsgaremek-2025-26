@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;    
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
+using System.Security.Claims;
 using Vizsgaremek.Data;
 using Vizsgaremek.Models;
+
 
 namespace Vizsgaremek
 {
@@ -29,7 +32,33 @@ namespace Vizsgaremek
 
 
             builder.Services.AddDbContext<HealthAppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("HealthCare")));
-            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "HealthApp API",
+                    Version = "v1"
+                });
+
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme.\r\n" +
+                      "Enter 'Bearer' [space] and then your token.\r\n" +
+                      "Example: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",          
+                    BearerFormat = "JWT"
+                });
+
+                options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+                {
+                    [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+                });
+
+            });
 
 
             builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<HealthAppDbContext>().AddDefaultTokenProviders();
@@ -52,6 +81,10 @@ namespace Vizsgaremek
                 };
             });
 
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
