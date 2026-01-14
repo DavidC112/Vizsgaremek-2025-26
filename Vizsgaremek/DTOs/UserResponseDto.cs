@@ -1,4 +1,5 @@
 ﻿using Vizsgaremek.DTOs;
+using Vizsgaremek.DTOs.Attributes;
 
 public class UserResponseDto
 {

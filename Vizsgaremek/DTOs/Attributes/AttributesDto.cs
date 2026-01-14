@@ -1,4 +1,6 @@
-﻿namespace Vizsgaremek.DTOs
+﻿using Vizsgaremek.Models;
+
+namespace Vizsgaremek.DTOs
 {
     public class AttributesDto
     {

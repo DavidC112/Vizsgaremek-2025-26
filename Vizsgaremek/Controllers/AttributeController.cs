@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
+using Vizsgaremek.DTOs.Attributes;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Controllers
@@ -22,15 +23,28 @@ namespace Vizsgaremek.Controllers
 
 
         [HttpGet("test")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAttributes()
         {
-            var attributes = await _context.UserAttributes.ToListAsync();
+            var attributes = await _context.UserAttributes.Include(ua => ua.User).Select(ua => new AttributesResponseDto
+            {
+                Id = ua.Id,
+                Weight = ua.Weight,
+                Height = ua.Height,
+                MeasuredAt = ua.MeasuredAt,
+                Bmi = ua.Bmi,
+                User =  new AttributesUserResponseDto
+                {
+                    FirstName = ua.User.FirstName,
+                    LastName = ua.User.LastName,
+                    Email = ua.User.Email
+                }
+            }).ToListAsync();
             return Ok(attributes);
         }
 
         [HttpPost("add")]
         [Authorize]
-        public async Task<IActionResult>Create([FromBody] AttributesDto dto)
+        public async Task<IActionResult>CreateAttributes([FromBody] AttributesDto dto)
         {
                 var user = await _userManager.GetUserAsync(User);
             if (user == null)  return Unauthorized(); 
@@ -72,7 +86,7 @@ namespace Vizsgaremek.Controllers
 
             await _context.SaveChangesAsync();
             return CreatedAtAction(
-                nameof(Create),
+                nameof(CreateAttributes),
                 new { id = userAttributes.Id },
                 resultDto);
 

@@ -12,7 +12,7 @@ namespace Vizsgaremek.Models
         public DateTime MeasuredAt { get; set; }
 
         [NotMapped]
-        public double Bmi => Weight / ((Height / 100) * (Height / 100));
+        public double Bmi => Math.Round(Weight / ((Height / 100) * (Height / 100)), 2);
 
     }
 }

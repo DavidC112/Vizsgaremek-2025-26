@@ -34,7 +34,7 @@ namespace Vizsgaremek.Controllers
 
 
         [HttpGet("test")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetUsers()
         {
             var users = await _context.Users
                 .Include(u => u.UserAttributes)
@@ -59,7 +59,7 @@ namespace Vizsgaremek.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
         {
             var user = new User {
                 FirstName = registerDto.FirstName,
@@ -83,7 +83,7 @@ namespace Vizsgaremek.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        public async Task<IActionResult> LoginUser(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null) return Unauthorized();
@@ -146,7 +146,7 @@ namespace Vizsgaremek.Controllers
 
         [HttpPost("logout")]
         [Authorize]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> LogoutUser()
         {
             var refreshToken = Request.Cookies["refreshToken"];
 

@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "Vizsgaremek.Controllers.AuthController",
-    "Method": "Login",
+    "Method": "LoginUser",
     "RelativePath": "api/auth/login",
     "HttpMethod": "POST",
     "IsController": true,
@@ -17,7 +17,7 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.AuthController",
-    "Method": "Logout",
+    "Method": "LogoutUser",
     "RelativePath": "api/auth/logout",
     "HttpMethod": "POST",
     "IsController": true,
@@ -43,7 +43,7 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.AuthController",
-    "Method": "Register",
+    "Method": "RegisterUser",
     "RelativePath": "api/auth/register",
     "HttpMethod": "POST",
     "IsController": true,
@@ -59,7 +59,7 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.AuthController",
-    "Method": "Get",
+    "Method": "GetUsers",
     "RelativePath": "api/auth/test",
     "HttpMethod": "GET",
     "IsController": true,
@@ -69,7 +69,7 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.AttributeController",
-    "Method": "Create",
+    "Method": "CreateAttributes",
     "RelativePath": "api/profile/attribute/add",
     "HttpMethod": "POST",
     "IsController": true,
@@ -85,7 +85,7 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.AttributeController",
-    "Method": "Get",
+    "Method": "GetAttributes",
     "RelativePath": "api/profile/attribute/test",
     "HttpMethod": "GET",
     "IsController": true,
