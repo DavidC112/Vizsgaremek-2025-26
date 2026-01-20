@@ -4,8 +4,8 @@ namespace Vizsgaremek.DTOs
 {
     public class AttributesDto
     {
-        public double Weight { get; set; }
-        public double Height { get; set; }
+        public decimal Weight { get; set; }
+        public decimal Height { get; set; }
         public DateTime MeasuredAt { get; set; }
     }
 }

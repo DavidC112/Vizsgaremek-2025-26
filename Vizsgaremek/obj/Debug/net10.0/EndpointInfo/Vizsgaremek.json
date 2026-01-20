@@ -164,6 +164,49 @@
           }
         }
       }
+    },
+    "/api/profile/goal": {
+      "get": {
+        "tags": [
+          "Goal"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/profile/goal/add": {
+      "post": {
+        "tags": [
+          "Goal"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -180,6 +223,20 @@
             "format": "double"
           },
           "measuredAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GoalDto": {
+        "type": "object",
+        "properties": {
+          "targetWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "deadLine": {
             "type": "string",
             "format": "date-time"
           }
@@ -261,6 +318,9 @@
     },
     {
       "name": "Auth"
+    },
+    {
+      "name": "Goal"
     }
   ]
 }

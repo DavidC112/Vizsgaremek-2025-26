@@ -9,6 +9,7 @@ using System.Text;
 using System.Web.Http;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
+using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.Models;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
@@ -38,6 +39,7 @@ namespace Vizsgaremek.Controllers
         {
             var users = await _context.Users
                 .Include(u => u.UserAttributes)
+                .Include(u => u.Goals)
                 .Select(u => new UserResponseDto
                 {
                     Id = u.Id,
@@ -49,6 +51,11 @@ namespace Vizsgaremek.Controllers
                         Weight = u.UserAttributes.Weight,
                         Height = u.UserAttributes.Height,
                         MeasuredAt = u.UserAttributes.MeasuredAt
+                    },
+                    UserGoal = u.Goals == null ? null : new GoalDto
+                    {
+                        TargetWeight = u.Goals.TargetWeight,
+                        DeadLine = u.Goals.DeadLine
                     }
                 })
                 .ToListAsync();

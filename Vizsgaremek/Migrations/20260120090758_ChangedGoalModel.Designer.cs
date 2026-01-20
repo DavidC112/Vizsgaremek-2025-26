@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vizsgaremek.Data;
 
@@ -10,9 +11,11 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    partial class HealthAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260120090758_ChangedGoalModel")]
+    partial class ChangedGoalModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
@@ -196,7 +199,7 @@ namespace Vizsgaremek.Migrations
                     b.ToTable("DailyTargets");
                 });
 
-            modelBuilder.Entity("Vizsgaremek.Models.Goal", b =>
+            modelBuilder.Entity("Vizsgaremek.Models.Goals", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -214,8 +217,7 @@ namespace Vizsgaremek.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Goals");
                 });
@@ -577,11 +579,11 @@ namespace Vizsgaremek.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vizsgaremek.Models.Goal", b =>
+            modelBuilder.Entity("Vizsgaremek.Models.Goals", b =>
                 {
                     b.HasOne("Vizsgaremek.Models.User", "User")
-                        .WithOne("Goals")
-                        .HasForeignKey("Vizsgaremek.Models.Goal", "UserId")
+                        .WithMany("Goals")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -694,8 +696,7 @@ namespace Vizsgaremek.Migrations
                 {
                     b.Navigation("DailyTarget");
 
-                    b.Navigation("Goals")
-                        .IsRequired();
+                    b.Navigation("Goals");
 
                     b.Navigation("Meals");
 

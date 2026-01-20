@@ -32,7 +32,7 @@ namespace Vizsgaremek.Controllers
                 Height = ua.Height,
                 MeasuredAt = ua.MeasuredAt,
                 Bmi = ua.Bmi,
-                User =  new AttributesUserResponseDto
+                User =  new UserDataResponseDto
                 {
                     FirstName = ua.User.FirstName,
                     LastName = ua.User.LastName,

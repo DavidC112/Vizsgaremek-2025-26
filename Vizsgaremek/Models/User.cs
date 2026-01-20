@@ -24,7 +24,7 @@ namespace Vizsgaremek.Models
         public bool IsAdmin { get; set; }
         public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
-        public ICollection<Goals>? Goals { get; set; } = null;
+        public Goal Goals { get; set; } = null;
         public ICollection<Meal>? Meals { get; set; } = null;
         public ICollection<Recipe>? Recipes { get; set; } = null;
         public DailyTarget? DailyTarget { get; set; } = null;

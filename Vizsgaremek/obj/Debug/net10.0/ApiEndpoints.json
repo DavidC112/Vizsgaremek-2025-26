@@ -92,5 +92,31 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.GoalController",
+    "Method": "GetGoals",
+    "RelativePath": "api/profile/goal",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.GoalController",
+    "Method": "AddGoal",
+    "RelativePath": "api/profile/goal/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Vizsgaremek.DTOs.Goal.GoalDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

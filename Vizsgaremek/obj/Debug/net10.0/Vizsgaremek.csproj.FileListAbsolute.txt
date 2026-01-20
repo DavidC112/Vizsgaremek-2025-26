@@ -213,7 +213,6 @@ C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticw
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.development.json
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\swae.build.ex.cache
-C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgare.2561413E.Up2Date
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgaremek.dll
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\refint\Vizsgaremek.dll
