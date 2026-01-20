@@ -48,18 +48,6 @@
         }
       }
     },
-    "/api/auth/test": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/auth/register": {
       "post": {
         "tags": [
@@ -207,6 +195,30 @@
           }
         }
       }
+    },
+    "/api/user/all": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/me": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -321,6 +333,9 @@
     },
     {
       "name": "Goal"
+    },
+    {
+      "name": "User"
     }
   ]
 }

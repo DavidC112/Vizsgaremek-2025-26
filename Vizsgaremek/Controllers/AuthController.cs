@@ -33,37 +33,7 @@ namespace Vizsgaremek.Controllers
             _context = context;
         }
 
-
-        [HttpGet("test")]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await _context.Users
-                .Include(u => u.UserAttributes)
-                .Include(u => u.Goals)
-                .Select(u => new UserResponseDto
-                {
-                    Id = u.Id,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    Email = u.Email,
-                    UserAttributes = u.UserAttributes == null ? null : new AttributesDto
-                    {
-                        Weight = u.UserAttributes.Weight,
-                        Height = u.UserAttributes.Height,
-                        MeasuredAt = u.UserAttributes.MeasuredAt
-                    },
-                    UserGoal = u.Goals == null ? null : new GoalDto
-                    {
-                        TargetWeight = u.Goals.TargetWeight,
-                        DeadLine = u.Goals.DeadLine
-                    }
-                })
-                .ToListAsync();
-
-            return Ok(users);
-        }
-
-
+       
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
@@ -173,8 +143,7 @@ namespace Vizsgaremek.Controllers
             Response.Cookies.Delete("refreshToken");
             return Ok("logged out");
         }
-
-
+        
 
         private JwtSecurityToken GenerateJwtToken(User user)
         {

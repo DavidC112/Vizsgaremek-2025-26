@@ -58,16 +58,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.AuthController",
-    "Method": "GetUsers",
-    "RelativePath": "api/auth/test",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Vizsgaremek.Controllers.AttributeController",
     "Method": "CreateAttributes",
     "RelativePath": "api/profile/attribute/add",
@@ -117,6 +107,26 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.UserController",
+    "Method": "GetUsers",
+    "RelativePath": "api/user/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.UserController",
+    "Method": "GetLoggedUser",
+    "RelativePath": "api/user/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]
