@@ -11,8 +11,8 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260121091606_InitialCommit")]
-    partial class InitialCommit
+    [Migration("20260121113933_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

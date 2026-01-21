@@ -109,7 +109,7 @@ namespace Vizsgaremek
                     if (!await roleManager.RoleExistsAsync(role))
                         await roleManager.CreateAsync(new IdentityRole(role));
                 }
-
+                
                 string adminEmail = "systemadmin@healthcare.com";
                 string adminPassword = "Admin@1234";
 

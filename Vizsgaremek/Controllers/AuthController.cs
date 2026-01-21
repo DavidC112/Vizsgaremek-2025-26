@@ -99,7 +99,7 @@ namespace Vizsgaremek.Controllers
 
             return Ok(new
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token)
+                token = new JwtSecurityTokenHandler().WriteToken(await token)
             });
         }
 
@@ -123,7 +123,7 @@ namespace Vizsgaremek.Controllers
 
             var newToken = GenerateJwtToken(user);
 
-            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(newToken) });
+            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(await newToken) });
         }
 
 
@@ -149,16 +149,20 @@ namespace Vizsgaremek.Controllers
             Response.Cookies.Delete("refreshToken");
             return Ok("logged out");
         }
-        
 
-        private JwtSecurityToken GenerateJwtToken(User user)
+
+        private async Task<JwtSecurityToken> GenerateJwtToken(User user)
         {
-            var claims = new[]
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email ?? string.Empty)
             };
+
+            claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -171,7 +175,6 @@ namespace Vizsgaremek.Controllers
                 signingCredentials: creds
             );
         }
-
         private static string HashToken(string token)
         {
             using var sha256 = SHA256.Create();

@@ -28,6 +28,11 @@ namespace Vizsgaremek.Controllers
             {
                 return NotFound();
             }
+            var loggedInUserId = _userManager.GetUserId(User);
+            if (user.Id == loggedInUserId)
+            {
+                return BadRequest("Admin users cannot delete their own accounts.");
+            }
 
             var result = await _userManager.DeleteAsync(user);
 
