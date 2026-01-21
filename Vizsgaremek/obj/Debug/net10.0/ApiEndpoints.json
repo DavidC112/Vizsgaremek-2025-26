@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "Vizsgaremek.Controllers.AdminController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/admin/delete-user/{email}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.AuthController",
     "Method": "LoginUser",
     "RelativePath": "api/auth/login",

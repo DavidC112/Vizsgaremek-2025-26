@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Vizsgaremek.Data;
 using Vizsgaremek.Models;
 
@@ -14,7 +15,7 @@ namespace Vizsgaremek
     public class Program
     {
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +71,7 @@ namespace Vizsgaremek
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.MapInboundClaims = false; // 🔴 REQUIRED
+                options.MapInboundClaims = false; 
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -94,6 +95,57 @@ namespace Vizsgaremek
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
+
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+
+                var roles = new[] { "User", "Admin" };
+                foreach (var role in roles)
+                {
+                    if (!await roleManager.RoleExistsAsync(role))
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                }
+
+                string adminEmail = "systemadmin@healthcare.com";
+                string adminPassword = "Admin@1234";
+
+                var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+                if (adminUser == null)
+                {
+                    adminUser = new User
+                    {
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        Email = adminEmail,
+                        UserName = adminEmail,
+                        BirthDate = new DateOnly(2000, 1, 1),
+                        Gender = "male",
+                        CreatedAt = DateTime.UtcNow
+                    };
+
+                    var createResult = await userManager.CreateAsync(adminUser, adminPassword);
+
+                    if (!createResult.Succeeded)
+                    {
+                        foreach (var error in createResult.Errors)
+                        {
+                            Console.WriteLine("Admin creation error: " + error.Description);
+                        }
+                    }
+                    else
+                    {
+                        await userManager.AddToRoleAsync(adminUser, "Admin");
+                        Console.WriteLine("Admin created successfully");
+                    }
+                }
+            }
+
+
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();

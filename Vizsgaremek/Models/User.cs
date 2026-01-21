@@ -1,5 +1,8 @@
-﻿    using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
+
+
 
 namespace Vizsgaremek.Models
 {
@@ -21,7 +24,6 @@ namespace Vizsgaremek.Models
         }
         public required string Gender { get; set; }
         public DateTime CreatedAt { get; set; }
-        public bool IsAdmin { get; set; }
         public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
         public Goal Goals { get; set; } = null;

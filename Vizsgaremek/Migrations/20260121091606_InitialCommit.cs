@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Vizsgaremek.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,7 +49,6 @@ namespace Vizsgaremek.Migrations
                     BirthDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Gender = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -77,10 +76,10 @@ namespace Vizsgaremek.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Calories = table.Column<double>(type: "REAL", nullable: false),
-                    Protein = table.Column<double>(type: "REAL", nullable: false),
-                    Carbohydrates = table.Column<double>(type: "REAL", nullable: false),
-                    Fats = table.Column<double>(type: "REAL", nullable: false)
+                    Calories = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Protein = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Carbohydrates = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Fats = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,10 +214,10 @@ namespace Vizsgaremek.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    Calories = table.Column<double>(type: "REAL", nullable: false),
-                    Protein = table.Column<double>(type: "REAL", nullable: false),
-                    Carbohydrates = table.Column<double>(type: "REAL", nullable: false),
-                    Fats = table.Column<double>(type: "REAL", nullable: false),
+                    Calories = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Protein = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Carbohydrates = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Fats = table.Column<decimal>(type: "TEXT", nullable: false),
                     Date = table.Column<DateOnly>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -239,9 +238,8 @@ namespace Vizsgaremek.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    TargetWeight = table.Column<double>(type: "REAL", nullable: false),
-                    DeadLine = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Progress = table.Column<int>(type: "INTEGER", nullable: false)
+                    TargetWeight = table.Column<decimal>(type: "TEXT", nullable: false),
+                    DeadLine = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -284,10 +282,10 @@ namespace Vizsgaremek.Migrations
                     PreparationTime = table.Column<int>(type: "INTEGER", nullable: false),
                     CookingTime = table.Column<int>(type: "INTEGER", nullable: false),
                     Portions = table.Column<int>(type: "INTEGER", nullable: false),
-                    Calories = table.Column<double>(type: "REAL", nullable: false),
-                    Protein = table.Column<double>(type: "REAL", nullable: false),
-                    Carbohydrates = table.Column<double>(type: "REAL", nullable: false),
-                    Fats = table.Column<double>(type: "REAL", nullable: false),
+                    Calories = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Protein = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Carbohydrates = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Fats = table.Column<decimal>(type: "TEXT", nullable: false),
                     IsCommunity = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -308,7 +306,7 @@ namespace Vizsgaremek.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     ActivityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Duration = table.Column<double>(type: "REAL", nullable: false),
+                    Duration = table.Column<decimal>(type: "TEXT", nullable: false),
                     ActivityDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -335,8 +333,8 @@ namespace Vizsgaremek.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    Weight = table.Column<double>(type: "REAL", nullable: false),
-                    Height = table.Column<double>(type: "REAL", nullable: false),
+                    Weight = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Height = table.Column<decimal>(type: "TEXT", nullable: false),
                     MeasuredAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -388,7 +386,7 @@ namespace Vizsgaremek.Migrations
                 {
                     IngredientId = table.Column<int>(type: "INTEGER", nullable: false),
                     RecipeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Amount = table.Column<double>(type: "REAL", nullable: false)
+                    Amount = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -453,7 +451,8 @@ namespace Vizsgaremek.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Goals_UserId",
                 table: "Goals",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MealItems_IngredientId",

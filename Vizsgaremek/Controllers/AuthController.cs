@@ -9,9 +9,7 @@ using System.Text;
 using System.Web.Http;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
-using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.Models;
-using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 
 namespace Vizsgaremek.Controllers
@@ -38,24 +36,32 @@ namespace Vizsgaremek.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
         {
-            var user = new User {
+            var user = new User
+            {
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 Email = registerDto.Email,
                 UserName = registerDto.Email,
-                BirthDate = registerDto.BirthDate, 
+                BirthDate = registerDto.BirthDate,
                 Gender = registerDto.Gender,
-                CreatedAt = DateTime.UtcNow,
-                IsAdmin = false
-
+                CreatedAt = DateTime.UtcNow
             };
+
             var result = await _userManager.CreateAsync(user, registerDto.Password);
-            if (result.Succeeded)
+
+            if (!result.Succeeded)
             {
-                return Created($"{user.FirstName} {user.LastName} has successfully registered", user);
+                return BadRequest(result);
             }
-            return BadRequest(result);
+
+            await _userManager.AddToRoleAsync(user, "User");
+
+            return Created(
+                "api/user/me",
+                null
+            );
         }
+
 
 
 
@@ -98,7 +104,7 @@ namespace Vizsgaremek.Controllers
         }
 
 
-
+            
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken(RefreshDto refreshDto)
         {

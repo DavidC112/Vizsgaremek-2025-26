@@ -11,8 +11,8 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260113101928_Initial")]
-    partial class Initial
+    [Migration("20260121091606_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,20 +172,20 @@ namespace Vizsgaremek.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Calories")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Calories")
+                        .HasColumnType("TEXT");
 
-                    b.Property<double>("Carbohydrates")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Carbohydrates")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Fats")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Fats")
+                        .HasColumnType("TEXT");
 
-                    b.Property<double>("Protein")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Protein")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -199,7 +199,7 @@ namespace Vizsgaremek.Migrations
                     b.ToTable("DailyTargets");
                 });
 
-            modelBuilder.Entity("Vizsgaremek.Models.Goals", b =>
+            modelBuilder.Entity("Vizsgaremek.Models.Goal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -208,11 +208,8 @@ namespace Vizsgaremek.Migrations
                     b.Property<DateTime>("DeadLine")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Progress")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("TargetWeight")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("TargetWeight")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -220,7 +217,8 @@ namespace Vizsgaremek.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Goals");
                 });
@@ -231,21 +229,21 @@ namespace Vizsgaremek.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Calories")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Calories")
+                        .HasColumnType("TEXT");
 
-                    b.Property<double>("Carbohydrates")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Carbohydrates")
+                        .HasColumnType("TEXT");
 
-                    b.Property<double>("Fats")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Fats")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Protein")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Protein")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -304,17 +302,17 @@ namespace Vizsgaremek.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Calories")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Calories")
+                        .HasColumnType("TEXT");
 
-                    b.Property<double>("Carbohydrates")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Carbohydrates")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("CookingTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Fats")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Fats")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCommunity")
                         .HasColumnType("INTEGER");
@@ -329,8 +327,8 @@ namespace Vizsgaremek.Migrations
                     b.Property<int>("PreparationTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Protein")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Protein")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
@@ -350,8 +348,8 @@ namespace Vizsgaremek.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("RecipeId", "IngredientId");
 
@@ -412,9 +410,6 @@ namespace Vizsgaremek.Migrations
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -477,8 +472,8 @@ namespace Vizsgaremek.Migrations
                     b.Property<int>("ActivityId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Duration")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -499,8 +494,8 @@ namespace Vizsgaremek.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Height")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Height")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("MeasuredAt")
                         .HasColumnType("TEXT");
@@ -509,8 +504,8 @@ namespace Vizsgaremek.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -582,11 +577,11 @@ namespace Vizsgaremek.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vizsgaremek.Models.Goals", b =>
+            modelBuilder.Entity("Vizsgaremek.Models.Goal", b =>
                 {
                     b.HasOne("Vizsgaremek.Models.User", "User")
-                        .WithMany("Goals")
-                        .HasForeignKey("UserId")
+                        .WithOne("Goals")
+                        .HasForeignKey("Vizsgaremek.Models.Goal", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -699,7 +694,8 @@ namespace Vizsgaremek.Migrations
                 {
                     b.Navigation("DailyTarget");
 
-                    b.Navigation("Goals");
+                    b.Navigation("Goals")
+                        .IsRequired();
 
                     b.Navigation("Meals");
 
