@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "Vizsgaremek.Controllers.ActivityContorller",
+    "Method": "AddActivity",
+    "RelativePath": "api/activity/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityDto",
+        "Type": "Vizsgaremek.DTOs.Activity.ActivityDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.ActivityContorller",
+    "Method": "GetActivities",
+    "RelativePath": "api/activity/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.AdminController",
     "Method": "DeleteUser",
     "RelativePath": "api/admin/delete-user/{email}",
@@ -74,9 +100,39 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Vizsgaremek.Controllers.UserController",
+    "Method": "GetUsers",
+    "RelativePath": "api/users/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.UserController",
+    "Method": "GetLoggedUser",
+    "RelativePath": "api/users/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.AttributeController",
+    "Method": "GetLoggedUserAttributes",
+    "RelativePath": "api/users/me/attributes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.AttributeController",
     "Method": "CreateAttributes",
-    "RelativePath": "api/profile/attribute/add",
+    "RelativePath": "api/users/me/attributes/add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -92,7 +148,7 @@
   {
     "ContainingType": "Vizsgaremek.Controllers.AttributeController",
     "Method": "GetAttributes",
-    "RelativePath": "api/profile/attribute/test",
+    "RelativePath": "api/users/me/attributes/test",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -101,8 +157,8 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.GoalController",
-    "Method": "GetGoals",
-    "RelativePath": "api/profile/goal",
+    "Method": "GetLoggedUserGoals",
+    "RelativePath": "api/users/me/goal",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -112,7 +168,7 @@
   {
     "ContainingType": "Vizsgaremek.Controllers.GoalController",
     "Method": "AddGoal",
-    "RelativePath": "api/profile/goal/add",
+    "RelativePath": "api/users/me/goal/add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -126,19 +182,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.UserController",
-    "Method": "GetUsers",
-    "RelativePath": "api/user/all",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.UserController",
-    "Method": "GetLoggedUser",
-    "RelativePath": "api/user/me",
+    "ContainingType": "Vizsgaremek.Controllers.GoalController",
+    "Method": "GetGoals",
+    "RelativePath": "api/users/me/goal/test",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

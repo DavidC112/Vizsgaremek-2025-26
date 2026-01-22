@@ -10,7 +10,7 @@ using Vizsgaremek.Models;
 namespace Vizsgaremek.Controllers
 {
     [ApiController]
-    [Route("api/profile/attribute")]
+    [Route("api/users/me/attributes")]
     public class AttributeController : Controller
     {
         private readonly HealthAppDbContext _context;
@@ -42,13 +42,36 @@ namespace Vizsgaremek.Controllers
             return Ok(attributes);
         }
 
+        [HttpGet("")]
+        [Authorize]
+        public async Task<IActionResult> GetLoggedUserAttributes()
+        {
+            var userId = await _userManager.GetUserAsync(User);
+            if(userId == null)
+            {
+                return Unauthorized();
+            }
+            var attributes = await _context.UserAttributes
+                .Where(ua => ua.UserId == userId.Id)
+                .Select(ua => new AttributesDto
+                {
+                    Weight = ua.Weight,
+                    Height = ua.Height,
+                    MeasuredAt = ua.MeasuredAt
+                })
+                .FirstOrDefaultAsync();
+            return Ok(attributes);
+        }
+
         [HttpPost("add")]
         [Authorize]
         public async Task<IActionResult>CreateAttributes([FromBody] AttributesDto dto)
         {
                 var user = await _userManager.GetUserAsync(User);
-            if (user == null)  return Unauthorized(); 
-
+            if (user == null)
+            {
+                return Unauthorized();
+            }
             var existing = await _context.UserAttributes.FirstOrDefaultAsync(ua => ua.UserId == user.Id);
             if (existing != null)
             {
@@ -89,8 +112,6 @@ namespace Vizsgaremek.Controllers
                 nameof(CreateAttributes),
                 new { id = userAttributes.Id },
                 resultDto);
-
         }
-
     }
 }

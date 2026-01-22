@@ -10,7 +10,7 @@ using Vizsgaremek.Models;
 namespace Vizsgaremek.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/users")]
     public class UserController : Controller
     {
         public HealthAppDbContext _context;
@@ -56,8 +56,11 @@ namespace Vizsgaremek.Controllers
         public async Task<IActionResult> GetLoggedUser()
         {
             var userId = _userManager.GetUserId(User);
-            if (userId == null) return Unauthorized();
-
+            if (userId == null) 
+            {
+                return Unauthorized();
+            }
+            
             var user = await _context.Users.Include(u => u.UserAttributes).Include(u => u.Goals).FirstOrDefaultAsync(u => u.Id == userId);
             
             var response = new UserResponseDto

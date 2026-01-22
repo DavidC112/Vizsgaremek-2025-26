@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
+using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Controllers
 {
     [ApiController]
-    [Route("api/profile/goal")]
+    [Route("api/users/me/goal")]
     public class GoalController : Controller
     {
         private readonly HealthAppDbContext _context;
@@ -21,7 +22,7 @@ namespace Vizsgaremek.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("test")]
         public async Task<IActionResult> GetGoals()
         {
             var goals = await _context.Goals.Include(g => g.User).Select(g => new GoalResponseDto
@@ -40,7 +41,28 @@ namespace Vizsgaremek.Controllers
             return Ok(goals);
         }
 
-        [HttpPost("add")]
+        [HttpGet("")]
+        [Authorize]
+        public async Task<IActionResult> GetLoggedUserGoals()
+        {
+            var userId = await _userManager.GetUserAsync(User);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            var goals = await _context.Goals
+                .Where(g => g.UserId == userId.Id)
+                .Select(g => new GoalDto
+                {
+                    TargetWeight = g.TargetWeight,
+                    DeadLine = g.DeadLine
+                })
+                .FirstOrDefaultAsync();
+            return Ok(goals);
+        }
+
+
+            [HttpPost("add")]
         [Authorize]
         public async Task<IActionResult> AddGoal([FromBody] GoalDto dto)
         {
@@ -63,7 +85,7 @@ namespace Vizsgaremek.Controllers
                 };
                 return Ok(updateResponseDto);
             }
-            var goal = new Goal
+            var goal = new UserGoal
             {
                 UserId = user.Id,
                 TargetWeight = dto.TargetWeight,

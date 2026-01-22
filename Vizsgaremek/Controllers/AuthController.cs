@@ -69,9 +69,15 @@ namespace Vizsgaremek.Controllers
         public async Task<IActionResult> LoginUser(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            if (user == null) return Unauthorized();
+            if (user == null)
+            {
+                return Unauthorized();
+            }
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
-            if (!result.Succeeded) return Unauthorized();
+            if (!result.Succeeded)
+            {
+                return Unauthorized();
+            }
 
             var refreshToken = Guid.NewGuid().ToString();
             var refreshTokenHash = HashToken(refreshToken);
@@ -109,7 +115,10 @@ namespace Vizsgaremek.Controllers
         public async Task<IActionResult> RefreshToken(RefreshDto refreshDto)
         {
             var refreshToken = Request.Cookies["refreshToken"];
-            if (string.IsNullOrEmpty(refreshToken)) return Unauthorized();
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                return Unauthorized();
+            }
 
             var refreshTokenHash = HashToken(refreshToken);
 
@@ -119,7 +128,10 @@ namespace Vizsgaremek.Controllers
                 return Unauthorized();
             }
             var user = await _userManager.FindByIdAsync(storedToken.UserId);
-            if (user == null) return Unauthorized();
+            if (user == null)
+            {
+                return Unauthorized();
+            }
 
             var newToken = GenerateJwtToken(user);
 

@@ -239,7 +239,7 @@ namespace Vizsgaremek.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     TargetWeight = table.Column<decimal>(type: "TEXT", nullable: false),
-                    DeadLine = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    DeadLine = table.Column<DateOnly>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -306,8 +306,7 @@ namespace Vizsgaremek.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     ActivityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Duration = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ActivityDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Duration = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -335,7 +334,7 @@ namespace Vizsgaremek.Migrations
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     Weight = table.Column<decimal>(type: "TEXT", nullable: false),
                     Height = table.Column<decimal>(type: "TEXT", nullable: false),
-                    MeasuredAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    MeasuredAt = table.Column<DateOnly>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

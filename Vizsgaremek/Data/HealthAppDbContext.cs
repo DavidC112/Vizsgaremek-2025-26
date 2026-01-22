@@ -40,7 +40,7 @@ namespace Vizsgaremek.Data
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public DbSet<UserAttributes> UserAttributes { get; set; }
         public DbSet<UserActivity> UserActivities { get; set; }
-        public DbSet<Goal> Goals { get; set; }
+        public DbSet<UserGoal> Goals { get; set; }
         public DbSet<DailyTarget> DailyTargets { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<MealItem> MealItems { get; set; }

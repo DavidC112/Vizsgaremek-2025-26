@@ -7,7 +7,7 @@ namespace Vizsgaremek.DTOs
         public int Id { get; set; }
         public decimal Weight { get; set; }
         public decimal Height { get; set; }
-        public DateTime MeasuredAt { get; set; }
+        public DateOnly MeasuredAt { get; set; }
         public decimal Bmi { get; set; }
         public UserDataResponseDto User { get; set; }
 

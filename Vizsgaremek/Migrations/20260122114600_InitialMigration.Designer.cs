@@ -11,7 +11,7 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260121113933_InitialMigration")]
+    [Migration("20260122114600_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -197,30 +197,6 @@ namespace Vizsgaremek.Migrations
                         .IsUnique();
 
                     b.ToTable("DailyTargets");
-                });
-
-            modelBuilder.Entity("Vizsgaremek.Models.Goal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DeadLine")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("TargetWeight")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("Vizsgaremek.Models.Ingredient", b =>
@@ -466,9 +442,6 @@ namespace Vizsgaremek.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ActivityDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("ActivityId")
                         .HasColumnType("INTEGER");
 
@@ -497,7 +470,7 @@ namespace Vizsgaremek.Migrations
                     b.Property<decimal>("Height")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("MeasuredAt")
+                    b.Property<DateOnly>("MeasuredAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
@@ -513,6 +486,30 @@ namespace Vizsgaremek.Migrations
                         .IsUnique();
 
                     b.ToTable("UserAttributes");
+                });
+
+            modelBuilder.Entity("Vizsgaremek.Models.UserGoal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateOnly>("DeadLine")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TargetWeight")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -571,17 +568,6 @@ namespace Vizsgaremek.Migrations
                     b.HasOne("Vizsgaremek.Models.User", "User")
                         .WithOne("DailyTarget")
                         .HasForeignKey("Vizsgaremek.Models.DailyTarget", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Vizsgaremek.Models.Goal", b =>
-                {
-                    b.HasOne("Vizsgaremek.Models.User", "User")
-                        .WithOne("Goals")
-                        .HasForeignKey("Vizsgaremek.Models.Goal", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -680,6 +666,17 @@ namespace Vizsgaremek.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Vizsgaremek.Models.UserGoal", b =>
+                {
+                    b.HasOne("Vizsgaremek.Models.User", "User")
+                        .WithOne("Goals")
+                        .HasForeignKey("Vizsgaremek.Models.UserGoal", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Vizsgaremek.Models.Ingredient", b =>
                 {
                     b.Navigation("RecipeIngredients");
@@ -694,8 +691,7 @@ namespace Vizsgaremek.Migrations
                 {
                     b.Navigation("DailyTarget");
 
-                    b.Navigation("Goals")
-                        .IsRequired();
+                    b.Navigation("Goals");
 
                     b.Navigation("Meals");
 

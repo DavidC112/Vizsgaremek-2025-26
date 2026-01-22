@@ -9,7 +9,7 @@ namespace Vizsgaremek.Models
         public User User { get; set; }
         public decimal Weight { get; set; } 
         public decimal Height { get; set; }
-        public DateTime MeasuredAt { get; set; }
+        public DateOnly MeasuredAt { get; set; }
 
         [NotMapped]
         public decimal Bmi => Math.Round(Weight / ((Height / 100m) * (Height / 100m)), 2);

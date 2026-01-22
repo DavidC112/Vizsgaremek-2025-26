@@ -23,10 +23,10 @@ namespace Vizsgaremek.Models
                 } 
         }
         public required string Gender { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public required DateTime CreatedAt { get; set; }
         public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
-        public Goal Goals { get; set; } = null;
+        public UserGoal? Goals { get; set; } = null;
         public ICollection<Meal>? Meals { get; set; } = null;
         public ICollection<Recipe>? Recipes { get; set; } = null;
         public DailyTarget? DailyTarget { get; set; } = null;

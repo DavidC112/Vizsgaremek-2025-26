@@ -13,6 +13,50 @@
     }
   ],
   "paths": {
+    "/api/activity/all": {
+      "get": {
+        "tags": [
+          "ActivityContorller"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activity/add": {
+      "post": {
+        "tags": [
+          "ActivityContorller"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/admin/delete-user/{email}": {
       "delete": {
         "tags": [
@@ -35,7 +79,7 @@
         }
       }
     },
-    "/api/profile/attribute/test": {
+    "/api/users/me/attributes/test": {
       "get": {
         "tags": [
           "Attribute"
@@ -47,7 +91,19 @@
         }
       }
     },
-    "/api/profile/attribute/add": {
+    "/api/users/me/attributes": {
+      "get": {
+        "tags": [
+          "Attribute"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/me/attributes/add": {
       "post": {
         "tags": [
           "Attribute"
@@ -187,7 +243,7 @@
         }
       }
     },
-    "/api/profile/goal": {
+    "/api/users/me/goal/test": {
       "get": {
         "tags": [
           "Goal"
@@ -199,7 +255,19 @@
         }
       }
     },
-    "/api/profile/goal/add": {
+    "/api/users/me/goal": {
+      "get": {
+        "tags": [
+          "Goal"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/me/goal/add": {
       "post": {
         "tags": [
           "Goal"
@@ -231,7 +299,7 @@
         }
       }
     },
-    "/api/user/all": {
+    "/api/users/all": {
       "get": {
         "tags": [
           "User"
@@ -243,7 +311,7 @@
         }
       }
     },
-    "/api/user/me": {
+    "/api/users/me": {
       "get": {
         "tags": [
           "User"
@@ -258,6 +326,22 @@
   },
   "components": {
     "schemas": {
+      "ActivityDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "caloriesBurnedPerHour": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
       "AttributesDto": {
         "type": "object",
         "properties": {
@@ -279,7 +363,7 @@
           },
           "measuredAt": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         }
       },
@@ -296,7 +380,7 @@
           },
           "deadLine": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         }
       },
@@ -346,6 +430,9 @@
     }
   },
   "tags": [
+    {
+      "name": "ActivityContorller"
+    },
     {
       "name": "Admin"
     },

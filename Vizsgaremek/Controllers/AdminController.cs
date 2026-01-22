@@ -28,6 +28,7 @@ namespace Vizsgaremek.Controllers
             {
                 return NotFound();
             }
+
             var loggedInUserId = _userManager.GetUserId(User);
             if (user.Id == loggedInUserId)
             {

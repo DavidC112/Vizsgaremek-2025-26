@@ -7,7 +7,7 @@ namespace Vizsgaremek.DTOs.Goal
         public int Id { get; set; }
         public string UserId { get; set; } = null!;
         public decimal TargetWeight { get; set; }
-        public DateTime TargetDate { get; set; }
+        public DateOnly TargetDate { get; set; }
         public UserDataResponseDto User { get; set; }
     }
 }

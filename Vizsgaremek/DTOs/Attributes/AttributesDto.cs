@@ -6,6 +6,6 @@ namespace Vizsgaremek.DTOs
     {
         public decimal Weight { get; set; }
         public decimal Height { get; set; }
-        public DateTime MeasuredAt { get; set; }
+        public DateOnly MeasuredAt { get; set; }
     }
 }

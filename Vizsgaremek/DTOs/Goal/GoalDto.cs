@@ -3,6 +3,6 @@
     public class GoalDto
     {
         public decimal TargetWeight { get; set; }
-        public DateTime DeadLine { get; set; }
+        public DateOnly DeadLine { get; set; }
     }
 }
