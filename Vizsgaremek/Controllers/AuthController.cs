@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -6,11 +7,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web.Http;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.Models;
-using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+
+
 
 namespace Vizsgaremek.Controllers
 {
@@ -34,7 +35,7 @@ namespace Vizsgaremek.Controllers
        
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterDto registerDto)
         {
             var user = new User
             {
@@ -66,7 +67,7 @@ namespace Vizsgaremek.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginUser(LoginDto loginDto)
+        public async Task<IActionResult> LoginUser([FromBody] LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
@@ -112,7 +113,7 @@ namespace Vizsgaremek.Controllers
 
             
         [HttpPost("refresh")]
-        public async Task<IActionResult> RefreshToken(RefreshDto refreshDto)
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshDto refreshDto)
         {
             var refreshToken = Request.Cookies["refreshToken"];
             if (string.IsNullOrEmpty(refreshToken))
@@ -163,7 +164,7 @@ namespace Vizsgaremek.Controllers
         }
 
 
-        private async Task<JwtSecurityToken> GenerateJwtToken(User user)
+        private async Task<JwtSecurityToken> GenerateJwtToken([FromBody] User user)
         {
             var roles = await _userManager.GetRolesAsync(user);
 

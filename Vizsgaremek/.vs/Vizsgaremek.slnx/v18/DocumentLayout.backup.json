@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\data\\healthappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:data\\healthappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\activitycontorller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\activitycontorller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\goalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\goalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\data\\healthappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:data\\healthappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\goal\\goalresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -47,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -62,24 +66,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 0,
+              "Title": "ActivityContorller.cs",
+              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\ActivityContorller.cs",
+              "RelativeDocumentMoniker": "Controllers\\ActivityContorller.cs",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\ActivityContorller.cs",
+              "RelativeToolTip": "Controllers\\ActivityContorller.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwCUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T12:06:22.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "AttributeController.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\AttributeController.cs",
               "RelativeDocumentMoniker": "Controllers\\AttributeController.cs",
               "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\AttributeController.cs",
               "RelativeToolTip": "Controllers\\AttributeController.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAAwDUAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAAwEoAAABpAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-22T09:50:17.04Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "UserGoal.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\UserGoal.cs",
               "RelativeDocumentMoniker": "Models\\UserGoal.cs",
@@ -92,7 +109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "GoalController.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\GoalController.cs",
               "RelativeDocumentMoniker": "Controllers\\GoalController.cs",
@@ -111,14 +128,14 @@
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAvwD8AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAADgvz8AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-20T11:49:49.809Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "GoalDto.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Goal\\GoalDto.cs",
               "RelativeDocumentMoniker": "DTOs\\Goal\\GoalDto.cs",
@@ -131,7 +148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "HealthAppDbContext.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Data\\HealthAppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\HealthAppDbContext.cs",
@@ -144,7 +161,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "UserActivity.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\UserActivity.cs",
               "RelativeDocumentMoniker": "Models\\UserActivity.cs",
@@ -157,7 +174,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -170,7 +187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "GoalResponseDto.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Goal\\GoalResponseDto.cs",
               "RelativeDocumentMoniker": "DTOs\\Goal\\GoalResponseDto.cs",
@@ -183,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "UserAttribute.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\UserAttribute.cs",
               "RelativeDocumentMoniker": "Models\\UserAttribute.cs",
@@ -196,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "AttributesDto.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Attributes\\AttributesDto.cs",
               "RelativeDocumentMoniker": "DTOs\\Attributes\\AttributesDto.cs",
@@ -209,7 +226,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "AttributesResponseDto.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Attributes\\AttributesResponseDto.cs",
               "RelativeDocumentMoniker": "DTOs\\Attributes\\AttributesResponseDto.cs",
@@ -222,7 +239,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",

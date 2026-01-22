@@ -62,7 +62,7 @@ namespace Vizsgaremek.Controllers
         }
 
 
-            [HttpPost("add")]
+        [HttpPost("add")]
         [Authorize]
         public async Task<IActionResult> AddGoal([FromBody] GoalDto dto)
         {

@@ -120,6 +120,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Vizsgaremek.Controllers.UserActivityController",
+    "Method": "GetLoggedUserActivities",
+    "RelativePath": "api/users/me/activities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.UserActivityController",
+    "Method": "CreateActivity",
+    "RelativePath": "api/users/me/activities/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Vizsgaremek.DTOs.Activity.UserActivityDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.AttributeController",
     "Method": "GetLoggedUserAttributes",
     "RelativePath": "api/users/me/attributes",

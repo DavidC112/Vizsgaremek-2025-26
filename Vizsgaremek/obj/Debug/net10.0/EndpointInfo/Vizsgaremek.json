@@ -299,6 +299,50 @@
         }
       }
     },
+    "/api/users/me/activities": {
+      "get": {
+        "tags": [
+          "UserActivity"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/me/activities/add": {
+      "post": {
+        "tags": [
+          "UserActivity"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserActivityDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserActivityDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserActivityDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/users/all": {
       "get": {
         "tags": [
@@ -326,6 +370,30 @@
   },
   "components": {
     "schemas": {
+      "Activity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "caloriesBurnedPerHour": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
       "ActivityDto": {
         "type": "object",
         "properties": {
@@ -426,6 +494,33 @@
             "format": "date"
           }
         }
+      },
+      "UserActivityDto": {
+        "type": "object",
+        "properties": {
+          "duration": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "activity": {
+            "$ref": "#/components/schemas/Activity"
+          },
+          "caloriesBurned": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "activityName": {
+            "type": "string"
+          }
+        }
       }
     }
   },
@@ -444,6 +539,9 @@
     },
     {
       "name": "Goal"
+    },
+    {
+      "name": "UserActivity"
     },
     {
       "name": "User"

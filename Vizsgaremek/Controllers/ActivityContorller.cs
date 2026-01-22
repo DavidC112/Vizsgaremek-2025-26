@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
@@ -27,7 +28,8 @@ namespace Vizsgaremek.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddActivity (ActivityDto activityDto)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddActivity ([FromBody] ActivityDto activityDto)
         {
             var activity = new Activity
             {
