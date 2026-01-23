@@ -12,5 +12,15 @@
 }
 
 @theme {
-  --color-primary-green: #6b9080;
+  --color-primary-green-50: #f5f8f6;
+  --color-primary-green-100: #dee9e4;
+  --color-primary-green-200: #bdd2c8;
+  --color-primary-green-300: #94b4a5;
+  --color-primary-green-400: #6b9080;
+  --color-primary-green-500: #547869;
+  --color-primary-green-600: #416053;
+  --color-primary-green-700: #374e45;
+  --color-primary-green-800: #2f403a;
+  --color-primary-green-900: #2a3732;
+  --color-primary-green-950: #151e1b;
 }
