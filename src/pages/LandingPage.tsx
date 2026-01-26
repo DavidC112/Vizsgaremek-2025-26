@@ -11,7 +11,8 @@ const LandingPage = () => {
       <Navbar>
         <div className="flex space-x-15">
           <section className="my-auto hidden w-full md:block md:w-auto">
-            <ul className="flex space-x-15">
+            {/* TODO: Implement anchor points */}
+            {/* <ul className="flex space-x-15">
               <li>
                 <a href="#">Link 1</a>
               </li>
@@ -21,7 +22,7 @@ const LandingPage = () => {
               <li>
                 <a href="#">Link 3</a>
               </li>
-            </ul>
+            </ul> */}
           </section>
 
           <section>

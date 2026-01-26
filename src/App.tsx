@@ -4,6 +4,7 @@ import { DetailsPage } from "./pages/DetailsPage";
 import LoginPage from "./pages/LoginPage";
 import { ProtectedRoute, PublicOnlyRoute } from "./utils/RouterGuard";
 import { useAuthContext } from "./context/AuthContextProvider";
+import ScrollToTop from "./utils/ScrollToTop";
 
 const App = () => {
   const { accessToken } = useAuthContext();
@@ -12,6 +13,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"

@@ -91,7 +91,7 @@ const FeaturesGrid = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true }}
           className="grid gap-8 px-10 lg:grid-cols-3 lg:px-30"
         >
           {featuresList.map((features, _) => (

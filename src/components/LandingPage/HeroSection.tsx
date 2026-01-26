@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 const HeroSection = () => {
   return (
     <>
-      <div className="from-primary-green-50 relative overflow-hidden bg-linear-to-br via-white to-blue-50 px-15 py-10 md:py-30 lg:px-13 lg:py-25 xl:py-50">
+      <div className="from-primary-green-50 relative overflow-hidden bg-linear-to-br via-white to-blue-50 px-15 py-10 md:py-40 lg:px-13 lg:max-xl:py-25">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
