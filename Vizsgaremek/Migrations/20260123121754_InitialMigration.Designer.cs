@@ -11,7 +11,7 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260122114600_InitialMigration")]
+    [Migration("20260123121754_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

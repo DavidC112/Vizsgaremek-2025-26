@@ -10,7 +10,7 @@ namespace Vizsgaremek.Models
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }
         public decimal Duration { get; set; }
-
+           
         [NotMapped]
         public decimal CaloriesBurned => (Activity.CaloriesBurnedPerHour * Duration) / 60m;
     }

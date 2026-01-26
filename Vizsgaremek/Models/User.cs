@@ -26,7 +26,7 @@ namespace Vizsgaremek.Models
         public required DateTime CreatedAt { get; set; }
         public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
-        public UserGoal? Goals { get; set; } = null;
+        public UserGoal? UserGoals { get; set; } = null;
         public ICollection<Meal>? Meals { get; set; } = null;
         public ICollection<Recipe>? Recipes { get; set; } = null;
         public DailyTarget? DailyTarget { get; set; } = null;

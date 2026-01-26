@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
+using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.Models;
 
@@ -27,29 +28,41 @@ namespace Vizsgaremek.Controllers
         {
             var users = await _context.Users
                 .Include(u => u.UserAttributes)
-                .Include(u => u.Goals)
+                .Include(u => u.UserGoals)
+                .Include(u => u.UserActivities)
+                    .ThenInclude(ua => ua.Activity)
                 .Select(u => new UserResponseDto
                 {
                     Id = u.Id,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Email = u.Email,
+
                     UserAttributes = u.UserAttributes == null ? null : new AttributesDto
                     {
                         Weight = u.UserAttributes.Weight,
                         Height = u.UserAttributes.Height,
                         MeasuredAt = u.UserAttributes.MeasuredAt
                     },
-                    UserGoal = u.Goals == null ? null : new GoalDto
+
+                    UserGoal = u.UserGoals == null ? null : new GoalDto
                     {
-                        TargetWeight = u.Goals.TargetWeight,
-                        DeadLine = u.Goals.DeadLine
-                    }
+                        TargetWeight = u.UserGoals.TargetWeight,
+                        DeadLine = u.UserGoals.DeadLine
+                    },
+
+                    UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
+                    {
+                        ActivityName = ua.Activity.Name,
+                        Duration = ua.Duration,
+                        CaloriesBurned = ua.CaloriesBurned
+                    }).ToList()
                 })
                 .ToListAsync();
 
             return Ok(users);
         }
+
 
         [HttpGet("me")]
         [Authorize]
@@ -61,8 +74,13 @@ namespace Vizsgaremek.Controllers
                 return Unauthorized();
             }
             
-            var user = await _context.Users.Include(u => u.UserAttributes).Include(u => u.Goals).FirstOrDefaultAsync(u => u.Id == userId);
-            
+            var user = await _context.Users
+            .Include(u => u.UserAttributes)
+            .Include(u => u.UserGoals)
+            .Include(u => u.UserActivities)
+            .ThenInclude(ua => ua.Activity)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
             var response = new UserResponseDto
             {
                 Id = user.Id,
@@ -75,11 +93,17 @@ namespace Vizsgaremek.Controllers
                     Height = user.UserAttributes.Height,
                     MeasuredAt = user.UserAttributes.MeasuredAt
                 },
-                UserGoal = user.Goals == null ? null : new GoalDto
+                UserGoal = user.UserGoals == null ? null : new GoalDto
                 {
-                    TargetWeight = user.Goals.TargetWeight,
-                    DeadLine = user.Goals.DeadLine
-                }
+                    TargetWeight = user.UserGoals.TargetWeight,
+                    DeadLine = user.UserGoals.DeadLine
+                },
+                UserActivities = user.UserActivities.Select(ua => new UserActivityResponseDto
+                {
+                    ActivityName = ua.Activity.Name,
+                    Duration = ua.Duration,
+                    CaloriesBurned = ua.CaloriesBurned
+                }).ToList()
             };
 
             return Ok(response);

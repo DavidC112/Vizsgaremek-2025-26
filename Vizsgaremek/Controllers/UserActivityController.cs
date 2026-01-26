@@ -29,7 +29,12 @@ namespace Vizsgaremek.Controllers
                 return Unauthorized();
             }
             var activities = _context.UserActivities
-                .Where(ua => ua.UserId == user.Id)
+                .Where(ua => ua.UserId == user.Id).Select(ua => new UserActivityResponseDto
+                {
+                    ActivityName = ua.Activity.Name,
+                    Duration = ua.Duration,
+                    CaloriesBurned = (ua.Activity.CaloriesBurnedPerHour * ua.Duration) / 60m
+                })
                 .ToList();
             return Ok(activities);
         }
@@ -53,17 +58,19 @@ namespace Vizsgaremek.Controllers
             {
                 UserId = user.Id,
                 ActivityId = activity.Id,
+                Activity = activity,
+                User = user,
                 Duration = dto.Duration,
             };
 
             _context.UserActivities.Add(userActivity);
             await _context.SaveChangesAsync();
 
-            var response = new UserActivityDto
+            var response = new UserActivityResponseDto
             {
                 Duration = userActivity.Duration,
-                Activity = activity,
-                ActivityName = activity.Name
+                ActivityName = activity.Name,
+                CaloriesBurned = userActivity.CaloriesBurned
             };
 
             return CreatedAtAction(nameof(GetLoggedUserActivities), response);

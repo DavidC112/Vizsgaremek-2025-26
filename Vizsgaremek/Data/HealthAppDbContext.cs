@@ -30,6 +30,8 @@ namespace Vizsgaremek.Data
                 .WithOne(u => u.UserAttributes) 
                 .HasForeignKey<UserAttributes>(ua => ua.UserId);
 
+
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -40,7 +42,7 @@ namespace Vizsgaremek.Data
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public DbSet<UserAttributes> UserAttributes { get; set; }
         public DbSet<UserActivity> UserActivities { get; set; }
-        public DbSet<UserGoal> Goals { get; set; }
+        public DbSet<UserGoal> UserGoals { get; set; }
         public DbSet<DailyTarget> DailyTargets { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<MealItem> MealItems { get; set; }

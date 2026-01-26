@@ -25,7 +25,7 @@ namespace Vizsgaremek.Controllers
         [HttpGet("test")]
         public async Task<IActionResult> GetGoals()
         {
-            var goals = await _context.Goals.Include(g => g.User).Select(g => new GoalResponseDto
+            var goals = await _context.UserGoals.Include(g => g.User).Select(g => new GoalResponseDto
             {
                 Id = g.Id,
                 UserId = g.UserId,
@@ -50,7 +50,7 @@ namespace Vizsgaremek.Controllers
             {
                 return Unauthorized();
             }
-            var goals = await _context.Goals
+            var goals = await _context.UserGoals
                 .Where(g => g.UserId == userId.Id)
                 .Select(g => new GoalDto
                 {
@@ -71,12 +71,12 @@ namespace Vizsgaremek.Controllers
             {
                 return Unauthorized();
             }
-            var existing = await _context.Goals.FirstOrDefaultAsync(g => g.UserId == user.Id);
+            var existing = await _context.UserGoals.FirstOrDefaultAsync(g => g.UserId == user.Id);
             if (existing != null)
             {
                 existing.TargetWeight = dto.TargetWeight;
                 existing.DeadLine = dto.DeadLine;
-                _context.Goals.Update(existing);
+                _context.UserGoals.Update(existing);
                 await _context.SaveChangesAsync();
                 var updateResponseDto = new GoalDto
                 {
@@ -92,7 +92,7 @@ namespace Vizsgaremek.Controllers
                 DeadLine = dto.DeadLine
             };
 
-            _context.Goals.Add(goal);
+            _context.UserGoals.Add(goal);
 
             var result = new GoalDto
             {

@@ -1,6 +1,8 @@
 ﻿using Vizsgaremek.DTOs;
+using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.DTOs.Attributes;
 using Vizsgaremek.DTOs.Goal;
+using Vizsgaremek.Models;
 
 public class UserResponseDto
 {
@@ -10,4 +12,5 @@ public class UserResponseDto
     public string Email { get; set; } = null!;
     public AttributesDto? UserAttributes { get; set; }
     public GoalDto? UserGoal { get; set; }
+    public ICollection<UserActivityResponseDto>? UserActivities { get; set; }
 }

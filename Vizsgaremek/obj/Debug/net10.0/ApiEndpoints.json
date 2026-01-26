@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "Vizsgaremek.Controllers.ActivityContorller",
+    "ContainingType": "Vizsgaremek.Controllers.ActivityController",
     "Method": "AddActivity",
     "RelativePath": "api/activity/add",
     "HttpMethod": "POST",
@@ -16,7 +16,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.ActivityContorller",
+    "ContainingType": "Vizsgaremek.Controllers.ActivityController",
     "Method": "GetActivities",
     "RelativePath": "api/activity/all",
     "HttpMethod": "GET",

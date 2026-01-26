@@ -10,11 +10,11 @@ namespace Vizsgaremek.Controllers
 {
     [ApiController]
     [Route("api/activity")]
-    public class ActivityContorller : Controller
+    public class ActivityController : Controller
     {
         private readonly HealthAppDbContext _context;
 
-        public ActivityContorller(HealthAppDbContext context)
+        public ActivityController(HealthAppDbContext context)
         {
             _context = context;
 
@@ -40,6 +40,5 @@ namespace Vizsgaremek.Controllers
             await _context.SaveChangesAsync();
             return Ok(activity);
         }
-
     }
 }
