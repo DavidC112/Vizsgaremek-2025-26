@@ -25,10 +25,32 @@
         }
       }
     },
-    "/api/activity/add": {
+    "/api/delete-user/{email}": {
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities/add": {
       "post": {
         "tags": [
-          "Activity"
+          "Admin"
         ],
         "requestBody": {
           "content": {
@@ -57,14 +79,14 @@
         }
       }
     },
-    "/api/admin/delete-user/{email}": {
+    "/api/activities/delete/{name}": {
       "delete": {
         "tags": [
           "Admin"
         ],
         "parameters": [
           {
-            "name": "email",
+            "name": "name",
             "in": "path",
             "required": true,
             "schema": {
@@ -299,6 +321,18 @@
         }
       }
     },
+    "/api/ingredient/all": {
+      "get": {
+        "tags": [
+          "Ingredient"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/users/me/activities": {
       "get": {
         "tags": [
@@ -504,6 +538,9 @@
     },
     {
       "name": "Goal"
+    },
+    {
+      "name": "Ingredient"
     },
     {
       "name": "UserActivity"

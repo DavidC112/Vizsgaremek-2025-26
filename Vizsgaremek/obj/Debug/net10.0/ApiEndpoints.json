@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "Vizsgaremek.Controllers.ActivityController",
+    "ContainingType": "Vizsgaremek.Controllers.AdminController",
     "Method": "AddActivity",
-    "RelativePath": "api/activity/add",
+    "RelativePath": "api/activities/add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -16,6 +16,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Vizsgaremek.Controllers.AdminController",
+    "Method": "DeleteActivity",
+    "RelativePath": "api/activities/delete/{name}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.ActivityController",
     "Method": "GetActivities",
     "RelativePath": "api/activity/all",
@@ -23,22 +39,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.AdminController",
-    "Method": "DeleteUser",
-    "RelativePath": "api/admin/delete-user/{email}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": []
   },
   {
@@ -97,6 +97,32 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.AdminController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/delete-user/{email}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.IngredientController",
+    "Method": "GetIngredients",
+    "RelativePath": "api/ingredient/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

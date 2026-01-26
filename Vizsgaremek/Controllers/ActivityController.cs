@@ -26,19 +26,5 @@ namespace Vizsgaremek.Controllers
             var activities = await _context.Activities.ToListAsync();
             return Ok(activities);
         }
-
-        [HttpPost("add")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddActivity ([FromBody] ActivityDto activityDto)
-        {
-            var activity = new Activity
-            {
-                Name = activityDto.Name,
-                CaloriesBurnedPerHour = activityDto.CaloriesBurnedPerHour
-            };
-            _context.Activities.Add(activity);
-            await _context.SaveChangesAsync();
-            return Ok(activity);
-        }
     }
 }
