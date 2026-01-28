@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.Models;
 
-namespace Vizsgaremek.Controllers
+namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/users/me/activities")]
@@ -28,14 +29,16 @@ namespace Vizsgaremek.Controllers
             {
                 return Unauthorized();
             }
-            var activities = _context.UserActivities
-                .Where(ua => ua.UserId == user.Id).Select(ua => new UserActivityResponseDto
+            var activities = await _context.UserActivities
+                .Where(ua => ua.UserId == user.Id)
+                .Include(ua => ua.Activity)
+                .IgnoreQueryFilters()
+                .Select(ua => new UserActivityResponseDto
                 {
                     ActivityName = ua.Activity.Name,
                     Duration = ua.Duration,
-                    CaloriesBurned = (ua.Activity.CaloriesBurnedPerHour * ua.Duration) / 60m
-                })
-                .ToList();
+                    CaloriesBurned = ua.CaloriesBurned
+                }).ToListAsync();
             return Ok(activities);
         }
 
@@ -68,12 +71,12 @@ namespace Vizsgaremek.Controllers
 
             var response = new UserActivityResponseDto
             {
-                Duration = userActivity.Duration,
                 ActivityName = activity.Name,
+                Duration = userActivity.Duration,
                 CaloriesBurned = userActivity.CaloriesBurned
             };
 
-            return CreatedAtAction(nameof(GetLoggedUserActivities), response);
+            return Created("api/users/me/activities", response);
         }
     }
 }

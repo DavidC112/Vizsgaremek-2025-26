@@ -7,7 +7,7 @@ using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Attributes;
 using Vizsgaremek.Models;
 
-namespace Vizsgaremek.Controllers
+namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/users/me/attributes")]
@@ -108,10 +108,8 @@ namespace Vizsgaremek.Controllers
 
 
             await _context.SaveChangesAsync();
-            return CreatedAtAction(
-                nameof(CreateAttributes),
-                new { id = userAttributes.Id },
-                resultDto);
+            return Created("/api/users/me/attributes", resultDto);
+
         }
     }
 }

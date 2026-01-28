@@ -11,8 +11,8 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260126093941_NewMigration")]
-    partial class NewMigration
+    [Migration("20260127134835_RenamingIngredients")]
+    partial class RenamingIngredients
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -157,6 +157,9 @@ namespace Vizsgaremek.Migrations
                     b.Property<int>("CaloriesBurnedPerHour")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -208,11 +211,14 @@ namespace Vizsgaremek.Migrations
                     b.Property<decimal>("Calories")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Carbohydrates")
+                    b.Property<decimal>("Carbohydrate")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Fats")
+                    b.Property<decimal>("Fat")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -281,13 +287,13 @@ namespace Vizsgaremek.Migrations
                     b.Property<decimal>("Calories")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Carbohydrates")
+                    b.Property<decimal>("Carbohydrate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("CookingTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Fats")
+                    b.Property<decimal>("Fat")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCommunity")
@@ -350,6 +356,8 @@ namespace Vizsgaremek.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens");
                 });
@@ -636,6 +644,13 @@ namespace Vizsgaremek.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("Vizsgaremek.Models.RefreshToken", b =>
+                {
+                    b.HasOne("Vizsgaremek.Models.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Vizsgaremek.Models.UserActivity", b =>
                 {
                     b.HasOne("Vizsgaremek.Models.Activity", "Activity")
@@ -694,6 +709,8 @@ namespace Vizsgaremek.Migrations
                     b.Navigation("Meals");
 
                     b.Navigation("Recipes");
+
+                    b.Navigation("RefreshTokens");
 
                     b.Navigation("UserActivities");
 

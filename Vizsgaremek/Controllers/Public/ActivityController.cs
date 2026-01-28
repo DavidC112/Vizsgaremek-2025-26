@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs.Activity;
-using Vizsgaremek.Models;
 
-namespace Vizsgaremek.Controllers
+
+namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/activity")]
@@ -23,7 +22,11 @@ namespace Vizsgaremek.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetActivities()
         {
-            var activities = await _context.Activities.ToListAsync();
+            var activities = await _context.Activities.Select(a => new ActivityDto 
+            {
+                Name = a.Name,
+                CaloriesBurnedPerHour = a.CaloriesBurnedPerHour
+            }).ToListAsync();
             return Ok(activities);
         }
     }

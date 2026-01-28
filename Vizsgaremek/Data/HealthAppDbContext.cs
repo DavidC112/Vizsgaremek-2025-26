@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Data
@@ -30,7 +31,8 @@ namespace Vizsgaremek.Data
                 .WithOne(u => u.UserAttributes) 
                 .HasForeignKey<UserAttributes>(ua => ua.UserId);
 
-
+            builder.Entity<Activity>()
+                .HasQueryFilter(x => x.IsDeleted == false);
 
         }
 

@@ -1,10 +1,8 @@
 ﻿using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
-using Vizsgaremek.DTOs.Attributes;
 using Vizsgaremek.DTOs.Goal;
-using Vizsgaremek.Models;
 
-public class UserResponseDto
+public record class UserResponseDto
 {
     public string Id { get; set; } = null!;
     public string FirstName { get; set; } = null!;

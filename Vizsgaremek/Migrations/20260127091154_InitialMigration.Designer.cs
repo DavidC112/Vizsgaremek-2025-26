@@ -11,7 +11,7 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    [Migration("20260123121754_InitialMigration")]
+    [Migration("20260127091154_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -155,6 +155,9 @@ namespace Vizsgaremek.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CaloriesBurnedPerHour")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -509,7 +512,7 @@ namespace Vizsgaremek.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Goals");
+                    b.ToTable("UserGoals");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -669,7 +672,7 @@ namespace Vizsgaremek.Migrations
             modelBuilder.Entity("Vizsgaremek.Models.UserGoal", b =>
                 {
                     b.HasOne("Vizsgaremek.Models.User", "User")
-                        .WithOne("Goals")
+                        .WithOne("UserGoals")
                         .HasForeignKey("Vizsgaremek.Models.UserGoal", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -691,8 +694,6 @@ namespace Vizsgaremek.Migrations
                 {
                     b.Navigation("DailyTarget");
 
-                    b.Navigation("Goals");
-
                     b.Navigation("Meals");
 
                     b.Navigation("Recipes");
@@ -700,6 +701,8 @@ namespace Vizsgaremek.Migrations
                     b.Navigation("UserActivities");
 
                     b.Navigation("UserAttributes");
+
+                    b.Navigation("UserGoals");
                 });
 #pragma warning restore 612, 618
         }

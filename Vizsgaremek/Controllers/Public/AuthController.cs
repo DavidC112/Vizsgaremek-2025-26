@@ -13,7 +13,7 @@ using Vizsgaremek.Models;
 
 
 
-namespace Vizsgaremek.Controllers
+namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/auth")]

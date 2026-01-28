@@ -25,82 +25,6 @@
         }
       }
     },
-    "/api/delete-user/{email}": {
-      "delete": {
-        "tags": [
-          "Admin"
-        ],
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/activities/add": {
-      "post": {
-        "tags": [
-          "Admin"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActivityDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActivityDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActivityDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/activities/delete/{name}": {
-      "delete": {
-        "tags": [
-          "Admin"
-        ],
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/users/me/attributes/test": {
       "get": {
         "tags": [
@@ -333,6 +257,28 @@
         }
       }
     },
+    "/api/ingredient/{name}": {
+      "get": {
+        "tags": [
+          "Ingredient"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/users/me/activities": {
       "get": {
         "tags": [
@@ -393,6 +339,136 @@
       "get": {
         "tags": [
           "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities/activities/add": {
+      "post": {
+        "tags": [
+          "ActivityAdmin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities/activities/{name}/soft-delete": {
+      "patch": {
+        "tags": [
+          "ActivityAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities/activities/{name}/restore": {
+      "patch": {
+        "tags": [
+          "ActivityAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ingredients/add": {
+      "post": {
+        "tags": [
+          "IngredientAdmin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngredientDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngredientDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngredientDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/delete-user/{email}": {
+      "delete": {
+        "tags": [
+          "UserAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -462,6 +538,53 @@
           }
         }
       },
+      "IngredientDto": {
+        "required": [
+          "name",
+          "calories",
+          "protein",
+          "carbohydrates",
+          "fats"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "calories": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "protein": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "carbohydrates": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "fats": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          }
+        }
+      },
       "LoginDto": {
         "type": "object",
         "properties": {
@@ -508,6 +631,9 @@
       "UserActivityDto": {
         "type": "object",
         "properties": {
+          "activityName": {
+            "type": "string"
+          },
           "duration": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
@@ -515,9 +641,6 @@
               "string"
             ],
             "format": "double"
-          },
-          "activityName": {
-            "type": "string"
           }
         }
       }
@@ -526,9 +649,6 @@
   "tags": [
     {
       "name": "Activity"
-    },
-    {
-      "name": "Admin"
     },
     {
       "name": "Attribute"
@@ -547,6 +667,15 @@
     },
     {
       "name": "User"
+    },
+    {
+      "name": "ActivityAdmin"
+    },
+    {
+      "name": "IngredientAdmin"
+    },
+    {
+      "name": "UserAdmin"
     }
   ]
 }

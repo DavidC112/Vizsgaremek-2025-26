@@ -24,13 +24,14 @@ namespace Vizsgaremek
             {
                 options.AddPolicy("Local", policy =>
                 {
-                    policy.WithOrigins("https://localhost:173", "http://localhost:5173")
+                    policy.WithOrigins("https://localhost:5173", "http://localhost:5173")
                            .AllowAnyMethod()
                            .AllowAnyHeader()
                            .AllowCredentials();
                 });
             });
 
+            
 
 
             builder.Services.AddDbContext<HealthAppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("HealthCare")));

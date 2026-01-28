@@ -8,7 +8,7 @@ using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.Models;
 
-namespace Vizsgaremek.Controllers
+namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/users")]
@@ -69,11 +69,11 @@ namespace Vizsgaremek.Controllers
         public async Task<IActionResult> GetLoggedUser()
         {
             var userId = _userManager.GetUserId(User);
-            if (userId == null) 
+            if (userId == null)
             {
                 return Unauthorized();
             }
-            
+
             var user = await _context.Users
             .Include(u => u.UserAttributes)
             .Include(u => u.UserGoals)
@@ -107,7 +107,6 @@ namespace Vizsgaremek.Controllers
             };
 
             return Ok(response);
-
         }
     }
 }

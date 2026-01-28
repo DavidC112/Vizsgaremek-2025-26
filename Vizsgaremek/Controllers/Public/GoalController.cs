@@ -7,7 +7,7 @@ using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.Models;
 
-namespace Vizsgaremek.Controllers
+namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/users/me/goal")]
@@ -101,7 +101,7 @@ namespace Vizsgaremek.Controllers
             };
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(AddGoal),new { id = goal.Id, result });
+            return Created("/api/users/me/goal", result);
         }
 
     }

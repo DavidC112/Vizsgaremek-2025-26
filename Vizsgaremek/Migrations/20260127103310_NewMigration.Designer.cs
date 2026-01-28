@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vizsgaremek.Data;
 
@@ -10,9 +11,11 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    partial class HealthAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260127103310_NewMigration")]
+    partial class NewMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
@@ -208,14 +211,11 @@ namespace Vizsgaremek.Migrations
                     b.Property<decimal>("Calories")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Carbohydrate")
+                    b.Property<decimal>("Carbohydrates")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Fat")
+                    b.Property<decimal>("Fats")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -284,13 +284,13 @@ namespace Vizsgaremek.Migrations
                     b.Property<decimal>("Calories")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Carbohydrate")
+                    b.Property<decimal>("Carbohydrates")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("CookingTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Fat")
+                    b.Property<decimal>("Fats")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCommunity")

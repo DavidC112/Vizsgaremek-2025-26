@@ -219,4 +219,3 @@ C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\refint\
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgaremek.pdb
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgaremek.genruntimeconfig.cache
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\ref\Vizsgaremek.dll
-C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

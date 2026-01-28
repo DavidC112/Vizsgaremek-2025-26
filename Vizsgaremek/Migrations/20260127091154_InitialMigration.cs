@@ -18,7 +18,8 @@ namespace Vizsgaremek.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    CaloriesBurnedPerHour = table.Column<int>(type: "INTEGER", nullable: false)
+                    CaloriesBurnedPerHour = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,27 +233,6 @@ namespace Vizsgaremek.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Goals",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    TargetWeight = table.Column<decimal>(type: "TEXT", nullable: false),
-                    DeadLine = table.Column<DateOnly>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Goals", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Goals_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Meals",
                 columns: table => new
                 {
@@ -341,6 +321,27 @@ namespace Vizsgaremek.Migrations
                     table.PrimaryKey("PK_UserAttributes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserAttributes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserGoals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    TargetWeight = table.Column<decimal>(type: "TEXT", nullable: false),
+                    DeadLine = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserGoals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserGoals_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -448,12 +449,6 @@ namespace Vizsgaremek.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Goals_UserId",
-                table: "Goals",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MealItems_IngredientId",
                 table: "MealItems",
                 column: "IngredientId");
@@ -498,6 +493,12 @@ namespace Vizsgaremek.Migrations
                 table: "UserAttributes",
                 column: "UserId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGoals_UserId",
+                table: "UserGoals",
+                column: "UserId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -522,9 +523,6 @@ namespace Vizsgaremek.Migrations
                 name: "DailyTargets");
 
             migrationBuilder.DropTable(
-                name: "Goals");
-
-            migrationBuilder.DropTable(
                 name: "MealItems");
 
             migrationBuilder.DropTable(
@@ -538,6 +536,9 @@ namespace Vizsgaremek.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserAttributes");
+
+            migrationBuilder.DropTable(
+                name: "UserGoals");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
