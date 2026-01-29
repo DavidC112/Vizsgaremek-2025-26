@@ -274,9 +274,25 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.RecipeAdminController",
+    "Method": "CreateRecipe",
+    "RelativePath": "api/recipe/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Vizsgaremek.DTOs.Recipes.RecipeCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.Public.RecipeController",
     "Method": "CreateRecipe",
-    "RelativePath": "api/recipe/community/create",
+    "RelativePath": "api/recipe/create/community",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -291,15 +307,31 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.Admin.RecipeAdminController",
-    "Method": "CreateRecipe",
-    "RelativePath": "api/recipe/create",
-    "HttpMethod": "POST",
+    "Method": "DeleteOwnRecipe",
+    "RelativePath": "api/recipe/delete/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "Vizsgaremek.DTOs.Recipes.RecipeCreateDto",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Public.RecipeController",
+    "Method": "DeleteOwnRecipe",
+    "RelativePath": "api/recipe/delete/{id}/community",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

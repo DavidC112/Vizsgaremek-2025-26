@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -93,7 +94,7 @@ namespace Vizsgaremek.Controllers.Public
         }
 
 
-        [HttpPost("community/create")]
+        [HttpPost("create/community")]
         [Authorize]
         public async Task<IActionResult> CreateRecipe([FromBody] RecipeCreateDto dto)
         {
@@ -137,5 +138,33 @@ namespace Vizsgaremek.Controllers.Public
             return Created($"api/recipe/{recipe.Id}", null);
         }
 
+        [HttpDelete("delete/{id:int}/community")]
+        [Authorize]
+        public async Task<IActionResult> DeleteOwnRecipe(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var recipe = await _context.Recipes.FindAsync(id);
+
+            if (user.Id != recipe.UserId)
+            {
+                return StatusCode(403, "You are not allowed to delete other user's recipes");
+            }
+            
+            
+            if (recipe == null) 
+            {
+                return NotFound();
+            }
+
+            _context.Recipes.Remove(recipe);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

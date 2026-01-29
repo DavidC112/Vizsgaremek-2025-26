@@ -317,7 +317,7 @@
         }
       }
     },
-    "/api/recipe/community/create": {
+    "/api/recipe/create/community": {
       "post": {
         "tags": [
           "Recipe"
@@ -342,6 +342,30 @@
           },
           "required": true
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recipe/delete/{id}/community": {
+      "delete": {
+        "tags": [
+          "Recipe"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -697,6 +721,30 @@
         }
       }
     },
+    "/api/recipe/delete/{id}": {
+      "delete": {
+        "tags": [
+          "RecipeAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/delete-user/{email}": {
       "delete": {
         "tags": [
@@ -931,7 +979,10 @@
             "format": "int32"
           },
           "description": {
-            "type": "string"
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "portions": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",

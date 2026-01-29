@@ -58,5 +58,27 @@ namespace Vizsgaremek.Controllers.Admin
 
             return Created($"api/recipe/{recipe.Id}", null);
         }
+
+        [HttpDelete("delete/{id:int}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteOwnRecipe(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var recipe = await _context.Recipes.FindAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            _context.Recipes.Remove(recipe);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

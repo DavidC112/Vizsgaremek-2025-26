@@ -67,7 +67,7 @@ namespace Vizsgaremek.Controllers.Public
         [Authorize]
         public async Task<IActionResult>CreateAttributes([FromBody] AttributesDto dto)
         {
-                var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return Unauthorized();
