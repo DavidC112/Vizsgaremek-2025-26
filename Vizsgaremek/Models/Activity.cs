@@ -1,6 +1,8 @@
-﻿namespace Vizsgaremek.Models
+﻿using Vizsgaremek.Interface;
+
+namespace Vizsgaremek.Models
 {
-    public class Activity
+    public class Activity : IDeletable
     {
         public int Id { get; set; }
         public string Name { get; set; }

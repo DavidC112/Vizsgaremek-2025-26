@@ -1,6 +1,7 @@
 ﻿using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.DTOs.Goal;
+using Vizsgaremek.DTOs.Recipes;
 
 public record class UserResponseDto
 {
@@ -11,4 +12,5 @@ public record class UserResponseDto
     public AttributesDto? UserAttributes { get; set; }
     public GoalDto? UserGoal { get; set; }
     public ICollection<UserActivityResponseDto>? UserActivities { get; set; }
+    public ICollection<UserRecipeDto>? UserRecipes { get; set; }
 }

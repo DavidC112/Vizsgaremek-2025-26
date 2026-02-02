@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.DataProtection.Repositories;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
+using Vizsgaremek.Interface;
+
 
 
 
 namespace Vizsgaremek.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser, IDeletable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,6 +26,7 @@ namespace Vizsgaremek.Models
         }
         public string Gender { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
         public UserGoal? UserGoals { get; set; } = null;

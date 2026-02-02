@@ -1,8 +1,18 @@
 [
   {
+    "ContainingType": "Vizsgaremek.Controllers.Public.ActivityController",
+    "Method": "GetActivities",
+    "RelativePath": "api/activity/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.Admin.ActivityAdminController",
-    "Method": "RestoreActivity",
-    "RelativePath": "api/activities/{id}/restore",
+    "Method": "SoftDeleteActivity",
+    "RelativePath": "api/admin/activities/{id}/delete",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -17,8 +27,8 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.Admin.ActivityAdminController",
-    "Method": "SoftDeleteActivity",
-    "RelativePath": "api/activities/{id}/soft-delete",
+    "Method": "RestoreActivity",
+    "RelativePath": "api/admin/activities/{id}/restore",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -34,7 +44,7 @@
   {
     "ContainingType": "Vizsgaremek.Controllers.Admin.ActivityAdminController",
     "Method": "UpdateActivity",
-    "RelativePath": "api/activities/{id}/update",
+    "RelativePath": "api/admin/activities/{id}/update",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -55,7 +65,7 @@
   {
     "ContainingType": "Vizsgaremek.Controllers.Admin.ActivityAdminController",
     "Method": "AddActivity",
-    "RelativePath": "api/activities/add",
+    "RelativePath": "api/admin/activities/add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -69,13 +79,157 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.Public.ActivityController",
-    "Method": "GetActivities",
-    "RelativePath": "api/activity/all",
+    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
+    "Method": "SoftDeleteIngredient",
+    "RelativePath": "api/admin/ingredients/{id}/delete",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
+    "Method": "RestoreIngredient",
+    "RelativePath": "api/admin/ingredients/{id}/restore",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
+    "Method": "UpdateIngredient",
+    "RelativePath": "api/admin/ingredients/{id}/update",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Vizsgaremek.DTOs.Ingredients.IngredientUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
+    "Method": "AddIngredient",
+    "RelativePath": "api/admin/ingredients/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Vizsgaremek.DTOs.Ingredients.IngredientDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.RecipeAdminController",
+    "Method": "DeleteRecipe",
+    "RelativePath": "api/admin/recipe/{id}/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.RecipeAdminController",
+    "Method": "CreateRecipe",
+    "RelativePath": "api/admin/recipe/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Vizsgaremek.DTOs.Recipes.RecipeCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.UserAdminController",
+    "Method": "GetUsers",
+    "RelativePath": "api/admin/users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "showDeleted",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.UserAdminController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/admin/users/{id}/delete-user",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.UserAdminController",
+    "Method": "RestoreUser",
+    "RelativePath": "api/admin/users/{id}/restore-user",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -137,22 +291,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.UserAdminController",
-    "Method": "DeleteUser",
-    "RelativePath": "api/delete-user/{email}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Vizsgaremek.Controllers.Public.IngredientController",
     "Method": "GetIngredient",
     "RelativePath": "api/ingredient/{id}",
@@ -176,75 +314,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
-    "Method": "RestoreIngredient",
-    "RelativePath": "api/ingredients/{id}/restore",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
-    "Method": "SoftDeleteIngredient",
-    "RelativePath": "api/ingredients/{id}/soft-delete",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
-    "Method": "UpdateIngredient",
-    "RelativePath": "api/ingredients/{id}/update",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "Vizsgaremek.DTOs.Ingredients.IngredientUpdateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
-    "Method": "AddIngredient",
-    "RelativePath": "api/ingredients/add",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Vizsgaremek.DTOs.Ingredients.IngredientDto",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": []
   },
   {
@@ -274,22 +343,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.RecipeAdminController",
-    "Method": "CreateRecipe",
-    "RelativePath": "api/recipe/create",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Vizsgaremek.DTOs.Recipes.RecipeCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Vizsgaremek.Controllers.Public.RecipeController",
     "Method": "CreateRecipe",
     "RelativePath": "api/recipe/create/community",
@@ -306,25 +359,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.RecipeAdminController",
-    "Method": "DeleteOwnRecipe",
-    "RelativePath": "api/recipe/delete/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Vizsgaremek.Controllers.Public.RecipeController",
     "Method": "DeleteOwnRecipe",
-    "RelativePath": "api/recipe/delete/{id}/community",
+    "RelativePath": "api/recipe/delete/community/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

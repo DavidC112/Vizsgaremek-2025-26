@@ -9,7 +9,7 @@ using Vizsgaremek.Models;
 namespace Vizsgaremek.Controllers.Admin
 {
     [ApiController]
-    [Route("api/recipe")]
+    [Route("api/admin/recipe")]
     [Authorize(Roles = "Admin")]
     public class RecipeAdminController : Controller
     {
@@ -59,9 +59,8 @@ namespace Vizsgaremek.Controllers.Admin
             return Created($"api/recipe/{recipe.Id}", null);
         }
 
-        [HttpDelete("delete/{id:int}")]
-        [Authorize]
-        public async Task<IActionResult> DeleteOwnRecipe(int id)
+        [HttpDelete("{id:int}/delete")]
+        public async Task<IActionResult> DeleteRecipe(int id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)

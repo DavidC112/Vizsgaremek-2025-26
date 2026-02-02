@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
+using System.Linq.Expressions;
+using Vizsgaremek.Interface;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Data
@@ -15,6 +16,7 @@ namespace Vizsgaremek.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             builder.Entity<RecipeIngredient>().HasKey(ri => new { ri.RecipeId, ri.IngredientId });
             builder.Entity<RecipeIngredient>()
                 .HasOne(ri => ri.Recipe)
@@ -31,8 +33,22 @@ namespace Vizsgaremek.Data
                 .WithOne(u => u.UserAttributes) 
                 .HasForeignKey<UserAttributes>(ua => ua.UserId);
 
-            builder.Entity<Activity>()
-                .HasQueryFilter(x => x.IsDeleted == false);
+            foreach(var entityType in builder.Model.GetEntityTypes())
+            {
+                if(typeof(IDeletable).IsAssignableFrom(entityType.ClrType))
+                {
+                    var parameter = Expression.Parameter(entityType.ClrType, "e");
+                    var isDeletedProperty = Expression.Call(
+                        typeof(EF), nameof(EF.Property), new[] { typeof(bool) },
+                        parameter,
+                        Expression.Constant("IsDeleted")
+                    );
+                    var compareExpression = Expression.Equal(isDeletedProperty, Expression.Constant(false));
+                    var lambda = Expression.Lambda(compareExpression, parameter);
+
+                    builder.Entity(entityType.ClrType).HasQueryFilter(lambda);
+                }
+            }
 
         }
 

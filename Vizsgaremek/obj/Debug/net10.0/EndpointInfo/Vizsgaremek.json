@@ -349,7 +349,7 @@
         }
       }
     },
-    "/api/recipe/delete/{id}/community": {
+    "/api/recipe/delete/community/{id}": {
       "delete": {
         "tags": [
           "Recipe"
@@ -361,7 +361,10 @@
             "required": true,
             "schema": {
               "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": "integer",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32"
             }
           }
@@ -441,7 +444,7 @@
         }
       }
     },
-    "/api/activities/add": {
+    "/api/admin/activities/add": {
       "post": {
         "tags": [
           "ActivityAdmin"
@@ -473,7 +476,7 @@
         }
       }
     },
-    "/api/activities/{id}/soft-delete": {
+    "/api/admin/activities/{id}/delete": {
       "patch": {
         "tags": [
           "ActivityAdmin"
@@ -497,7 +500,7 @@
         }
       }
     },
-    "/api/activities/{id}/restore": {
+    "/api/admin/activities/{id}/restore": {
       "patch": {
         "tags": [
           "ActivityAdmin"
@@ -521,7 +524,7 @@
         }
       }
     },
-    "/api/activities/{id}/update": {
+    "/api/admin/activities/{id}/update": {
       "patch": {
         "tags": [
           "ActivityAdmin"
@@ -565,7 +568,7 @@
         }
       }
     },
-    "/api/ingredients/add": {
+    "/api/admin/ingredients/add": {
       "post": {
         "tags": [
           "IngredientAdmin"
@@ -597,7 +600,7 @@
         }
       }
     },
-    "/api/ingredients/{id}/soft-delete": {
+    "/api/admin/ingredients/{id}/delete": {
       "patch": {
         "tags": [
           "IngredientAdmin"
@@ -621,7 +624,7 @@
         }
       }
     },
-    "/api/ingredients/{id}/restore": {
+    "/api/admin/ingredients/{id}/restore": {
       "patch": {
         "tags": [
           "IngredientAdmin"
@@ -645,7 +648,7 @@
         }
       }
     },
-    "/api/ingredients/{id}/update": {
+    "/api/admin/ingredients/{id}/update": {
       "patch": {
         "tags": [
           "IngredientAdmin"
@@ -689,7 +692,7 @@
         }
       }
     },
-    "/api/recipe/create": {
+    "/api/admin/recipe/create": {
       "post": {
         "tags": [
           "RecipeAdmin"
@@ -721,7 +724,7 @@
         }
       }
     },
-    "/api/recipe/delete/{id}": {
+    "/api/admin/recipe/{id}/delete": {
       "delete": {
         "tags": [
           "RecipeAdmin"
@@ -745,14 +748,65 @@
         }
       }
     },
-    "/api/delete-user/{email}": {
-      "delete": {
+    "/api/admin/users": {
+      "get": {
         "tags": [
           "UserAdmin"
         ],
         "parameters": [
           {
             "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "showDeleted",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/users/{id}/delete-user": {
+      "patch": {
+        "tags": [
+          "UserAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/users/{id}/restore-user": {
+      "patch": {
+        "tags": [
+          "UserAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {

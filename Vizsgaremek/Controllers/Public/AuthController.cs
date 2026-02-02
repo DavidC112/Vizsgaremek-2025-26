@@ -74,6 +74,12 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized();
             }
+
+            if(user.IsDeleted)
+            {
+                return Unauthorized();
+            }
+
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (!result.Succeeded)
             {

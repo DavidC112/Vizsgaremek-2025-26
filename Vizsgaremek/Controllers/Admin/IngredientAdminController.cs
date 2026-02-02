@@ -9,7 +9,7 @@ using Vizsgaremek.Models;
 namespace Vizsgaremek.Controllers.Admin
 {
     [ApiController]
-    [Route("api/ingredients")]
+    [Route("api/admin/ingredients")]
     [Authorize(Roles = "Admin")]
     public class IngredientAdminController : Controller
     {
@@ -37,13 +37,17 @@ namespace Vizsgaremek.Controllers.Admin
             return Created($"api/ingredient/{ingredient.Id}", null);
         }
 
-        [HttpPatch("{id:int}/soft-delete")]
+        [HttpPatch("{id:int}/delete")]
         public async Task<IActionResult> SoftDeleteIngredient(int id)
         {
             var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
             if (ingredient == null)
             {
                 return NotFound();
+            }
+            if (ingredient.IsDeleted)
+            {
+                return BadRequest("Ingredient is already deleted.");
             }
             ingredient.IsDeleted = true;
             await _context.SaveChangesAsync();
@@ -57,6 +61,10 @@ namespace Vizsgaremek.Controllers.Admin
             if (ingredient == null)
             {
                 return NotFound();
+            }
+            if (!ingredient.IsDeleted)
+            {
+                return BadRequest("Ingredient is not deleted.");
             }
             ingredient.IsDeleted = false;
             await _context.SaveChangesAsync();

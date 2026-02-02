@@ -10,16 +10,14 @@ using Vizsgaremek.Models;
 namespace Vizsgaremek.Controllers.Admin
 {
     [ApiController]
-    [Route("api/activities")]
+    [Route("api/admin/activities")]
     [Authorize(Roles = "Admin")]
     public class ActivityAdminController : Controller
     {
         private readonly HealthAppDbContext _context;
-        private readonly UserManager<User> _userManager;
-        public ActivityAdminController(HealthAppDbContext context, UserManager<User> userManager)
+        public ActivityAdminController(HealthAppDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         [HttpPost("add")]
@@ -35,7 +33,7 @@ namespace Vizsgaremek.Controllers.Admin
             return Ok(activity);
         }
 
-        [HttpPatch("{id:int}/soft-delete")]
+        [HttpPatch("{id:int}/delete")]
         public async Task<IActionResult> SoftDeleteActivity(int id)
         {
             var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == id);

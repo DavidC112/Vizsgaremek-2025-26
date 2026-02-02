@@ -6,6 +6,7 @@ using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.DTOs.Goal;
+using Vizsgaremek.DTOs.Recipes;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Controllers.Public
@@ -31,6 +32,9 @@ namespace Vizsgaremek.Controllers.Public
                 .Include(u => u.UserGoals)
                 .Include(u => u.UserActivities)
                     .ThenInclude(ua => ua.Activity)
+                .Include(u => u.Recipes)
+                    .ThenInclude(r => r.RecipeIngredients)
+                    .ThenInclude(ri => ri.Ingredient)
                 .Select(u => new UserResponseDto
                 {
                     Id = u.Id,
@@ -56,6 +60,20 @@ namespace Vizsgaremek.Controllers.Public
                         ActivityName = ua.Activity.Name,
                         Duration = ua.Duration,
                         CaloriesBurned = ua.CaloriesBurned
+                    }).ToList(),
+                    UserRecipes = u.Recipes.Select(r => new UserRecipeDto
+                    {
+                        Name = r.Name,
+                        PreparationTime = r.PreparationTime,
+                        CookingTime = r.CookingTime,
+                        Description = r.Description,
+                        Portions = r.Portions,
+                        Ingredients = r.RecipeIngredients.Select(ri => new RecipeIngredientResponseDto
+                        {
+                            IngredientId = ri.IngredientId,
+                            IngredientName = ri.Ingredient.Name,
+                            Amount = ri.Amount
+                        }).ToList()
                     }).ToList()
                 })
                 .ToListAsync();

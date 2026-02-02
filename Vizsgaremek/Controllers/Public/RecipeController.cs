@@ -138,7 +138,7 @@ namespace Vizsgaremek.Controllers.Public
             return Created($"api/recipe/{recipe.Id}", null);
         }
 
-        [HttpDelete("delete/{id:int}/community")]
+        [HttpDelete("delete/community/{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteOwnRecipe(int id)
         {
