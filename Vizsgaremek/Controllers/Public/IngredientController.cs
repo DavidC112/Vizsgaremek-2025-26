@@ -19,8 +19,9 @@ namespace Vizsgaremek.Controllers.Public
         [HttpGet("all")]
         public async Task<IActionResult> GetAllIngredients()
         {
-            var ingredients = await _context.Ingredients.Select(i => new IngredientDto
+            var ingredients = await _context.Ingredients.Select(i => new IngredientSearchDto
             {
+                Id = i.Id,
                 Name = i.Name,
                 Calories = i.Calories,
                 Protein = i.Protein,
@@ -30,6 +31,7 @@ namespace Vizsgaremek.Controllers.Public
             return Ok(ingredients);
         }
 
+
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetIngredient(int id)
         {
@@ -38,8 +40,9 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return NotFound();
             }
-            var response = new IngredientDto
+            var response = new IngredientSearchDto
             {
+                Id  = ingredient.Id,
                 Name = ingredient.Name,
                 Calories = ingredient.Calories,
                 Protein = ingredient.Protein,

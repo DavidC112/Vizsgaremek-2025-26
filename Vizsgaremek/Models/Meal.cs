@@ -5,8 +5,10 @@ namespace Vizsgaremek.Models
     public class Meal
     {
         public int Id { get; set; }
+        public string MealName { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
+        public ICollection<MealItem> MealItems { get; set; }
 
     }
 }

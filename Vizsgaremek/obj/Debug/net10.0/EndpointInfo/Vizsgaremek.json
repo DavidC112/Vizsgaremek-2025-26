@@ -281,6 +281,50 @@
         }
       }
     },
+    "/api/users/me/meals": {
+      "get": {
+        "tags": [
+          "Meal"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/me/meals/add": {
+      "post": {
+        "tags": [
+          "Meal"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MealCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MealCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MealCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/recipe/all": {
       "get": {
         "tags": [
@@ -1007,6 +1051,54 @@
           }
         }
       },
+      "MealCreateDto": {
+        "required": [
+          "mealName"
+        ],
+        "type": "object",
+        "properties": {
+          "mealName": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MealItemCreateDto"
+            }
+          }
+        }
+      },
+      "MealItemCreateDto": {
+        "type": "object",
+        "properties": {
+          "recipeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "ingredientId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "amount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          }
+        }
+      },
       "RecipeCreateDto": {
         "required": [
           "name"
@@ -1153,6 +1245,9 @@
     },
     {
       "name": "Ingredient"
+    },
+    {
+      "name": "Meal"
     },
     {
       "name": "Recipe"
