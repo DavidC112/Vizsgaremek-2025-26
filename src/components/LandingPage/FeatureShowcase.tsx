@@ -1,12 +1,7 @@
 import { Check, TrendingUp } from "lucide-react";
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const FeatureShowcase = () => {
-  useEffect(() => {
-    console.log(typeof Check);
-  }, []);
-
   return (
     <>
       {/*Calorie Tracking*/}
