@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Imagekit.Sdk;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.DTOs.Recipes;
+using Vizsgaremek.DTOs.UserDto;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Controllers.Public
@@ -15,13 +17,15 @@ namespace Vizsgaremek.Controllers.Public
     [Route("api/users")]
     public class UserController : Controller
     {
-        public HealthAppDbContext _context;
-        public UserManager<User> _userManager;
+        private HealthAppDbContext _context;
+        private UserManager<User> _userManager;
+        private ImageKitService _imageKit;
 
-        public UserController(HealthAppDbContext context, UserManager<User> userManager)
+        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit)
         {
             _context = context;
             _userManager = userManager;
+            _imageKit = imageKit;
         }
 
         [HttpGet("all")]
@@ -125,6 +129,29 @@ namespace Vizsgaremek.Controllers.Public
             };
 
             return Ok(response);
+        }
+
+        [HttpPost("upload-picture")]
+        [Authorize]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadProfilePicture(
+        [FromForm] UploadPictureDto dto)
+        {
+            if (dto.File == null || dto.File.Length == 0)
+                return BadRequest("No file selected");
+
+            var imageUrl = await _imageKit.UploadImage(dto.File);
+
+            var user = await _userManager.GetUserAsync(User);
+            user.ProfilePictureUrl = imageUrl.Url;
+            await _userManager.UpdateAsync(user);
+
+
+            var result = new ProfilePictureDto
+            {
+                Url = imageUrl.Url
+            };
+            return Ok(result);
         }
     }
 }

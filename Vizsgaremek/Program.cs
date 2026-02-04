@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Imagekit.Sdk;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;    
 using Microsoft.IdentityModel.Tokens;
@@ -92,6 +93,14 @@ namespace Vizsgaremek
                 options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
             });
 
+            builder.Services.AddSingleton(new ImagekitClient(
+                publicKey: builder.Configuration["ImageKit:PublicKey"],
+                privateKey: builder.Configuration["ImageKit:PrivateKey"],
+                urlEndPoint: builder.Configuration["ImageKit:UrlEndpoint"]
+                ));
+            builder.Services.AddScoped<ImageKitService>();
+
+            builder.Services.AddHttpClient();
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
 
