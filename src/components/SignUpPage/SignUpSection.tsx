@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import UserDetailsStep from "./UserDetailsStep";
 import { useSignUpContext } from "../../context/UserSignUpContext";
 import { useRef, useState } from "react";
-import { validateUserDetails } from "../../utils/signUpValidators";
+import {
+  validateUserAttributes,
+  validateUserDetails,
+} from "../../utils/signUpValidators";
+import UserAttributesStep from "./UserAttributesStep";
 
 const AnimatedDiv = ({ children }: { children: React.ReactNode }) => {
   const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
@@ -39,7 +43,12 @@ const desktopVariant: Variants = {
 };
 
 const SignUpSection = () => {
-  const { userDetails, updateUserDetails } = useSignUpContext();
+  const {
+    userDetails,
+    updateUserDetails,
+    userAttributes,
+    updateUserAttributes,
+  } = useSignUpContext();
 
   // key + initialStep to allow remounting Stepper to previous step if validation fails
   const [stepperKey, setStepperKey] = useState(0);
@@ -64,8 +73,19 @@ const SignUpSection = () => {
         setErrors({});
       }
     }
+    if (newStep > prev && prev === 2) {
+      const { isValid, errors: vErrors } =
+        validateUserAttributes(userAttributes);
+      if (!isValid) {
+        setErrors(vErrors as Record<string, string>);
+        setStepperInitial(prev);
+        setStepperKey((k) => k + 1);
+        return;
+      } else {
+        setErrors({});
+      }
+    }
 
-    // accept the move
     prevStepRef.current = newStep;
   };
 
@@ -88,9 +108,11 @@ const SignUpSection = () => {
             errors={errors}
           />
 
-          <Step>
-            <h2>Step 2</h2>
-          </Step>
+          <UserAttributesStep
+            details={userAttributes}
+            onChange={updateUserAttributes}
+            errors={errors}
+          />
           <Step>
             <h2>Step 3</h2>
           </Step>

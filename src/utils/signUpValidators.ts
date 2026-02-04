@@ -1,4 +1,7 @@
-import type { UserDetailsType } from "../context/UserSignUpContext";
+import type {
+  UserAttributesType,
+  UserDetailsType,
+} from "../context/UserSignUpContext";
 
 export type ValidationErrors<T> = Partial<Record<keyof T, string>>;
 
@@ -47,6 +50,22 @@ export const validateUserDetails = (
   if (!d.gender) errors.gender = "Please select a gender";
   if (!isValidIsoDate(d.birthDate))
     errors.birthDate = "Please enter a valid birth date";
+
+  return { isValid: Object.keys(errors).length === 0, errors };
+};
+
+export const validateUserAttributes = (
+  a: UserAttributesType,
+): {
+  isValid: boolean;
+  errors: ValidationErrors<UserAttributesType>;
+} => {
+  const errors: ValidationErrors<UserAttributesType> = {};
+
+  if (a.height <= 0) errors.height = "Height must be greater than zero";
+  if (a.weight <= 0) errors.weight = "Weight must be greater than zero";
+  if (!isValidIsoDate(a.measuredAt))
+    errors.measuredAt = "Please enter a valid measurement date";
 
   return { isValid: Object.keys(errors).length === 0, errors };
 };

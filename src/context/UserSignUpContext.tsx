@@ -73,6 +73,11 @@ const UserSignUpContext = ({ children }: { children: React.ReactNode }) => {
     value: UserAttributesType[K],
   ) => {
     setUserAttributes((prev) => ({ ...prev, [field]: value }));
+    const updatedAttributes = { ...userAttributes, [field]: value };
+    localStorage.setItem(
+      "signupUserAttributes",
+      JSON.stringify(updatedAttributes),
+    );
   };
 
   const updateUserGoals = <K extends keyof UserGoalsType>(
