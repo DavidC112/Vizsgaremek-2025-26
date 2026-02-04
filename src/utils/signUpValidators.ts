@@ -1,6 +1,7 @@
 import type {
   UserAttributesType,
   UserDetailsType,
+  UserGoalsType,
 } from "../context/UserSignUpContext";
 
 export type ValidationErrors<T> = Partial<Record<keyof T, string>>;
@@ -67,5 +68,27 @@ export const validateUserAttributes = (
   if (!isValidIsoDate(a.measuredAt))
     errors.measuredAt = "Please enter a valid measurement date";
 
+  return { isValid: Object.keys(errors).length === 0, errors };
+};
+
+export const validateUserGoals = (
+  g: UserGoalsType,
+): {
+  isValid: boolean;
+  errors: ValidationErrors<UserGoalsType>;
+} => {
+  const errors: ValidationErrors<UserGoalsType> = {};
+
+  if (g.targetweight <= 0)
+    errors.targetweight = "Target weight must be greater than zero";
+  if (!isValidIsoDate(g.deadline)) {
+    errors.deadline = "Please enter a valid deadline date";
+  } else {
+    const dealineMs = Date.parse(g.deadline);
+    const nowMs = Date.now();
+    if (dealineMs <= nowMs) {
+      errors.deadline = "Deadline must be a future date";
+    }
+  }
   return { isValid: Object.keys(errors).length === 0, errors };
 };

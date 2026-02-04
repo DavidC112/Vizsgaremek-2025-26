@@ -8,8 +8,10 @@ import { useRef, useState } from "react";
 import {
   validateUserAttributes,
   validateUserDetails,
+  validateUserGoals,
 } from "../../utils/signUpValidators";
 import UserAttributesStep from "./UserAttributesStep";
+import UserGoalStep from "./UserGoalStep";
 
 const AnimatedDiv = ({ children }: { children: React.ReactNode }) => {
   const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
@@ -48,11 +50,13 @@ const SignUpSection = () => {
     updateUserDetails,
     userAttributes,
     updateUserAttributes,
+    userGoals,
+    updateUserGoals,
   } = useSignUpContext();
 
   // key + initialStep to allow remounting Stepper to previous step if validation fails
   const [stepperKey, setStepperKey] = useState(0);
-  const [stepperInitial, setStepperInitial] = useState(1);
+  const [stepperInitial, setStepperInitial] = useState(4);
   const prevStepRef = useRef<number>(1);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -86,6 +90,18 @@ const SignUpSection = () => {
       }
     }
 
+    if (newStep > prev && prev === 3) {
+      const { isValid, errors: vErrors } = validateUserGoals(userGoals);
+      if (!isValid) {
+        setErrors(vErrors as Record<string, string>);
+        setStepperInitial(prev);
+        setStepperKey((k) => k + 1);
+        return;
+      } else {
+        setErrors({});
+      }
+    }
+
     prevStepRef.current = newStep;
   };
 
@@ -107,15 +123,16 @@ const SignUpSection = () => {
             onChange={updateUserDetails}
             errors={errors}
           />
-
           <UserAttributesStep
             details={userAttributes}
             onChange={updateUserAttributes}
             errors={errors}
           />
-          <Step>
-            <h2>Step 3</h2>
-          </Step>
+          <UserGoalStep
+            details={userGoals}
+            onChange={updateUserGoals}
+            errors={errors}
+          />
           <Step>
             <h2>Final Step</h2>
             <p>You made it!</p>
