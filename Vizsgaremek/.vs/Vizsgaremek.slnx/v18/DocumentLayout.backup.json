@@ -3,108 +3,12 @@
   "WorkspaceRootPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\public\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\public\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\services\\imagekitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:services\\imagekitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\userdto\\profilepicturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\userdto\\profilepicturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\userdto\\uploadpicturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\userdto\\uploadpicturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\public\\mealcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\public\\mealcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\meal\\mealitemresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\meal\\mealitemresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\meal\\mealresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\meal\\mealresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\meal\\mealcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\meal\\mealcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\meal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\meal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\ingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\ingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\recipes\\reciperesponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\recipes\\reciperesponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\recipes\\recipedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\recipes\\recipedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\recipes\\userrecipedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\recipes\\userrecipedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\public\\ingredientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\public\\ingredientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\dtos\\ingredients\\ingredientsearchdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:dtos\\ingredients\\ingredientsearchdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\admin\\ingredientadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\admin\\ingredientadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\admin\\recipeadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\admin\\recipeadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\admin\\activityadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\admin\\activityadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\admin\\useradmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\admin\\useradmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\activity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\activity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\data\\healthappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:data\\healthappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\interface\\deletable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:interface\\deletable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\public\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\public\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -114,17 +18,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\Public\\UserController.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\UserController.cs*",
-              "RelativeToolTip": "Controllers\\Public\\UserController.cs*",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAswBUAAAAeAAAAAAAAAA==",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\UserController.cs",
+              "RelativeToolTip": "Controllers\\Public\\UserController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAqwB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-02T09:10:36.489Z",
               "IsPinned": true,
@@ -132,328 +36,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MealController.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\MealController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Public\\MealController.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\MealController.cs",
-              "RelativeToolTip": "Controllers\\Public\\MealController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAwwC0AAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T11:31:34.12Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ProfilePictureDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\UserDto\\ProfilePictureDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\UserDto\\ProfilePictureDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\UserDto\\ProfilePictureDto.cs",
-              "RelativeToolTip": "DTOs\\UserDto\\ProfilePictureDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T12:42:07.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-04T07:30:03.897Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ImageKitService.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Services\\ImageKitService.cs",
-              "RelativeDocumentMoniker": "Services\\ImageKitService.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Services\\ImageKitService.cs",
-              "RelativeToolTip": "Services\\ImageKitService.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAiwC4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T12:07:16.168Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAWwF8AAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T11:57:09.501Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UploadPictureDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\UserDto\\UploadPictureDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\UserDto\\UploadPictureDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\UserDto\\UploadPictureDto.cs",
-              "RelativeToolTip": "DTOs\\UserDto\\UploadPictureDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T07:48:33.472Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserResponseDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\UserResponseDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\UserResponseDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\UserResponseDto.cs",
-              "RelativeToolTip": "DTOs\\UserResponseDto.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAA7wBAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T09:09:34.322Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MealItemResponseDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Meal\\MealItemResponseDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Meal\\MealItemResponseDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Meal\\MealItemResponseDto.cs",
-              "RelativeToolTip": "DTOs\\Meal\\MealItemResponseDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T09:21:22.54Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "MealResponseDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Meal\\MealResponseDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Meal\\MealResponseDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Meal\\MealResponseDto.cs",
-              "RelativeToolTip": "DTOs\\Meal\\MealResponseDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T08:26:44.721Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "MealCreateDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Meal\\MealCreateDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Meal\\MealCreateDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Meal\\MealCreateDto.cs",
-              "RelativeToolTip": "DTOs\\Meal\\MealCreateDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T12:17:36.04Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Meal.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Meal.cs",
-              "RelativeDocumentMoniker": "Models\\Meal.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Meal.cs",
-              "RelativeToolTip": "Models\\Meal.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T08:26:59.051Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Models\\User.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\User.cs",
-              "RelativeToolTip": "Models\\User.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAywB4AAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T08:22:44.676Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Ingredient.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Ingredient.cs",
-              "RelativeDocumentMoniker": "Models\\Ingredient.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Ingredient.cs",
-              "RelativeToolTip": "Models\\Ingredient.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T08:22:35.302Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "RecipeResponseDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Recipes\\RecipeResponseDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Recipes\\RecipeResponseDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Recipes\\RecipeResponseDto.cs",
-              "RelativeToolTip": "DTOs\\Recipes\\RecipeResponseDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T09:13:15.113Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "UserRecipeDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Recipes\\UserRecipeDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Recipes\\UserRecipeDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Recipes\\UserRecipeDto.cs",
-              "RelativeToolTip": "DTOs\\Recipes\\UserRecipeDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T09:57:39.03Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "RecipeDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Recipes\\RecipeDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Recipes\\RecipeDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Recipes\\RecipeDto.cs",
-              "RelativeToolTip": "DTOs\\Recipes\\RecipeDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T08:29:28.472Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "IngredientController.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\IngredientController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Public\\IngredientController.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\IngredientController.cs",
-              "RelativeToolTip": "Controllers\\Public\\IngredientController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBcAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T07:48:15.593Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "IngredientSearchDto.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Ingredients\\IngredientSearchDto.cs",
-              "RelativeDocumentMoniker": "DTOs\\Ingredients\\IngredientSearchDto.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\DTOs\\Ingredients\\IngredientSearchDto.cs",
-              "RelativeToolTip": "DTOs\\Ingredients\\IngredientSearchDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T07:49:48.243Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "IngredientAdminController.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\IngredientAdminController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Admin\\IngredientAdminController.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\IngredientAdminController.cs",
-              "RelativeToolTip": "Controllers\\Admin\\IngredientAdminController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwEkAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T09:47:43.772Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 0,
               "Title": "UserAdminController.cs",
               "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\UserAdminController.cs",
               "RelativeDocumentMoniker": "Controllers\\Admin\\UserAdminController.cs",
               "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\UserAdminController.cs",
               "RelativeToolTip": "Controllers\\Admin\\UserAdminController.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAwwAwAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAtwIEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T08:46:32.733Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "RecipeAdminController.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\RecipeAdminController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Admin\\RecipeAdminController.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\RecipeAdminController.cs",
-              "RelativeToolTip": "Controllers\\Admin\\RecipeAdminController.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAYwD0AAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T09:48:38.635Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "ActivityAdminController.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\ActivityAdminController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Admin\\ActivityAdminController.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Admin\\ActivityAdminController.cs",
-              "RelativeToolTip": "Controllers\\Admin\\ActivityAdminController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAA+wBEAAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T09:46:25.386Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Activity.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Activity.cs",
-              "RelativeDocumentMoniker": "Models\\Activity.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Activity.cs",
-              "RelativeToolTip": "Models\\Activity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T08:22:23.062Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "HealthAppDbContext.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Data\\HealthAppDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\HealthAppDbContext.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Data\\HealthAppDbContext.cs",
-              "RelativeToolTip": "Data\\HealthAppDbContext.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAYwCUAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T08:13:25.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Deletable.cs",
-              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Interface\\Deletable.cs",
-              "RelativeDocumentMoniker": "Interface\\Deletable.cs",
-              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Interface\\Deletable.cs",
-              "RelativeToolTip": "Interface\\Deletable.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T07:57:19.826Z",
+              "WhenOpened": "2026-02-05T10:35:21.584Z",
               "EditorCaption": ""
             }
           ]

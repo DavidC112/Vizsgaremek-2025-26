@@ -1,6 +1,6 @@
 ﻿namespace Vizsgaremek.DTOs.UserDto
 {
-    public class ProfilePictureDto
+    public class ImageDto
     {
         public string? FileId { get; set; }
         public IFormFile File { get; set; }

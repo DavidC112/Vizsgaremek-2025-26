@@ -1,7 +1,4 @@
 ﻿using Imagekit.Sdk;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Text;
 using Vizsgaremek.DTOs.UserDto;
 
 public class ImageKitService
@@ -13,7 +10,7 @@ public class ImageKitService
         _imagekit = imagekit;
     }
 
-    public async Task<ProfilePictureDto> UploadImage(IFormFile file)
+    public async Task<ImageDto> UploadImage(IFormFile file)
     {
         using var stream = file.OpenReadStream();
         using var memoryStream = new MemoryStream();
@@ -31,16 +28,26 @@ public class ImageKitService
 
         if(result == null)
         {
-            return new ProfilePictureDto
+            return new ImageDto
             {
                 FileId = null,
                 File = null
             };
         }
-        return new ProfilePictureDto
+        return new ImageDto
         {
             Url = result.url,
             FileId = result.fileId
         };
+    }
+
+    public async Task<bool> DeleteImage(string fileId)
+    {
+        if (string.IsNullOrWhiteSpace(fileId))
+            return false;
+
+        var result = _imagekit.DeleteFile(fileId);
+
+        return result != null;
     }
 }

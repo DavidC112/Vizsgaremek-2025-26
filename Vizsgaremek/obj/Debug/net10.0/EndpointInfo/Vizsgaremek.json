@@ -464,18 +464,6 @@
         }
       }
     },
-    "/api/users/all": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/users/me": {
       "get": {
         "tags": [
@@ -488,14 +476,14 @@
         }
       }
     },
-    "/api/users/upload-picture": {
+    "/api/users/me/upload-picture": {
       "post": {
         "tags": [
           "User"
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -508,6 +496,30 @@
           },
           "required": true
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/me/delete-picture": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/me/delete-account": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -811,6 +823,18 @@
               "format": "int32"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/users/all": {
+      "get": {
+        "tags": [
+          "UserAdmin"
         ],
         "responses": {
           "200": {

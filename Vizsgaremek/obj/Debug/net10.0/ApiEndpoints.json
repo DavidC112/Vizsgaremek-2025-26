@@ -233,6 +233,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.UserAdminController",
+    "Method": "GetUsers",
+    "RelativePath": "api/admin/users/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.Public.AuthController",
     "Method": "LoginUser",
     "RelativePath": "api/auth/login",
@@ -376,16 +386,6 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
-    "Method": "GetUsers",
-    "RelativePath": "api/users/all",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
     "Method": "GetLoggedUser",
     "RelativePath": "api/users/me",
     "HttpMethod": "GET",
@@ -457,6 +457,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
+    "Method": "DeleteAccount",
+    "RelativePath": "api/users/me/delete-account",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
+    "Method": "DeleteProfilePicture",
+    "RelativePath": "api/users/me/delete-picture",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Vizsgaremek.Controllers.Public.GoalController",
     "Method": "GetLoggedUserGoals",
     "RelativePath": "api/users/me/goal",
@@ -521,7 +541,7 @@
   {
     "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
     "Method": "UploadProfilePicture",
-    "RelativePath": "api/users/upload-picture",
+    "RelativePath": "api/users/me/upload-picture",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

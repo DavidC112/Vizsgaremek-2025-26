@@ -29,6 +29,7 @@ namespace Vizsgaremek.Models
         public bool IsDeleted { get; set; } = false;
 
         public string? ProfilePictureUrl { get; set; } = null;
+        public string? FileId { get; set; } = null;
         public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
         public UserGoal? UserGoals { get; set; } = null;
