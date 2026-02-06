@@ -26,18 +26,11 @@ public class ImageKitService
 
         var result = _imagekit.Upload(uploadRequest);
 
-        if(result == null)
-        {
-            return new ImageDto
-            {
-                FileId = null,
-                File = null
-            };
-        }
         return new ImageDto
         {
             Url = result.url,
-            FileId = result.fileId
+            FileId = result.fileId,
+            File = file
         };
     }
 

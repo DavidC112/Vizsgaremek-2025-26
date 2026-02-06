@@ -25,18 +25,6 @@
         }
       }
     },
-    "/api/users/me/attributes/test": {
-      "get": {
-        "tags": [
-          "Attribute"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/users/me/attributes": {
       "get": {
         "tags": [
@@ -181,18 +169,6 @@
       "post": {
         "tags": [
           "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/users/me/goal/test": {
-      "get": {
-        "tags": [
-          "Goal"
         ],
         "responses": {
           "200": {
@@ -361,7 +337,7 @@
         }
       }
     },
-    "/api/recipe/create/community": {
+    "/api/recipe/community/create": {
       "post": {
         "tags": [
           "Recipe"
@@ -393,7 +369,46 @@
         }
       }
     },
-    "/api/recipe/delete/community/{id}": {
+    "/api/recipe/community/create/{id}upload-image": {
+      "post": {
+        "tags": [
+          "Recipe"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "$ref": "#/components/schemas/IFormFile"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recipe/community/{id}/delete": {
       "delete": {
         "tags": [
           "Recipe"
@@ -405,10 +420,7 @@
             "required": true,
             "schema": {
               "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -583,30 +595,6 @@
         }
       }
     },
-    "/api/admin/activities/{id}/restore": {
-      "patch": {
-        "tags": [
-          "ActivityAdmin"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/admin/activities/{id}/update": {
       "patch": {
         "tags": [
@@ -707,30 +695,6 @@
         }
       }
     },
-    "/api/admin/ingredients/{id}/restore": {
-      "patch": {
-        "tags": [
-          "IngredientAdmin"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/admin/ingredients/{id}/update": {
       "patch": {
         "tags": [
@@ -795,6 +759,45 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/RecipeCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/recipe/create/{id}/upload-image": {
+      "post": {
+        "tags": [
+          "RecipeAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "$ref": "#/components/schemas/IFormFile"
+                  }
+                }
               }
             }
           },
@@ -1156,11 +1159,16 @@
       },
       "RecipeCreateDto": {
         "required": [
-          "name"
+          "name",
+          "category",
+          "description"
         ],
         "type": "object",
         "properties": {
           "name": {
+            "type": "string"
+          },
+          "category": {
             "type": "string"
           },
           "preparationTime": {
@@ -1180,10 +1188,7 @@
             "format": "int32"
           },
           "description": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "portions": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",

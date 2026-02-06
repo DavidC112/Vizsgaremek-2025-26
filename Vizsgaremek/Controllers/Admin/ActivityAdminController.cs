@@ -46,18 +46,6 @@ namespace Vizsgaremek.Controllers.Admin
             return Ok();
         }
 
-        [HttpPatch("{id:int}/restore")]
-        public async Task<IActionResult> RestoreActivity(int id)
-        {
-            var activity = await _context.Activities.IgnoreQueryFilters().FirstOrDefaultAsync(a => a.Id == id);
-            if (activity == null)
-            {
-                return NotFound();
-            }
-            activity.IsDeleted = false;
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
 
         [HttpPatch("{id:int}/update")]
         public async Task<IActionResult> UpdateActivity(int id, [FromBody] ActivityUpdateDto activityDto)

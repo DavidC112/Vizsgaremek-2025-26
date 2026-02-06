@@ -22,26 +22,7 @@ namespace Vizsgaremek.Controllers.Public
         }
 
 
-        [HttpGet("test")]
-        public async Task<IActionResult> GetGoals()
-        {
-            var goals = await _context.UserGoals.Include(g => g.User).Select(g => new GoalResponseDto
-            {
-                Id = g.Id,
-                UserId = g.UserId,
-                TargetWeight = g.TargetWeight,
-                TargetDate = g.DeadLine,
-                User = new DTOs.Attributes.UserDataResponseDto
-                {
-                    FirstName = g.User.FirstName,
-                    LastName = g.User.LastName,
-                    Email = g.User.Email
-                }
-            }).ToListAsync();
-            return Ok(goals);
-        }
-
-        [HttpGet("")]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetLoggedUserGoals()
         {

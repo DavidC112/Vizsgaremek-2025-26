@@ -104,7 +104,7 @@ namespace Vizsgaremek.Controllers.Admin
             return Ok(users);
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery] string? email, [FromQuery] bool showDeleted = false)
         {
             var query = _context.Users.AsQueryable();

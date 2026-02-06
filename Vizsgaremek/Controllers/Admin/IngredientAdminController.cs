@@ -54,22 +54,6 @@ namespace Vizsgaremek.Controllers.Admin
             return Ok();
         }
 
-        [HttpPatch("{id:int}/restore")]
-        public async Task<IActionResult> RestoreIngredient(int id)
-        {
-            var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
-            if (ingredient == null)
-            {
-                return NotFound();
-            }
-            if (!ingredient.IsDeleted)
-            {
-                return BadRequest("Ingredient is not deleted.");
-            }
-            ingredient.IsDeleted = false;
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
 
         [HttpPatch("{id:int}/update")]
         public async Task<IActionResult> UpdateIngredient(int id, [FromBody] IngredientUpdateDto dto)

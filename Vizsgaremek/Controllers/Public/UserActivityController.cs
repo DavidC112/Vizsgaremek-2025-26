@@ -21,7 +21,7 @@ namespace Vizsgaremek.Controllers.Public
             _userManager = userManager;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> GetLoggedUserActivities()
         {
             var user = await _userManager.GetUserAsync(User);

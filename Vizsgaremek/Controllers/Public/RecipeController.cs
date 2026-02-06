@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs.Recipes;
+using Vizsgaremek.DTOs.UserDto;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Controllers.Public
@@ -15,10 +16,12 @@ namespace Vizsgaremek.Controllers.Public
     {
         private readonly HealthAppDbContext _context;
         private readonly UserManager<User> _userManager;
-        public RecipeController(HealthAppDbContext context, UserManager<User> userManager)
+        private readonly ImageKitService _imageKit;
+        public RecipeController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit)
         {
             _context = context;
             _userManager = userManager;
+            _imageKit = imageKit;
         }
 
         [HttpGet("all")]
@@ -37,6 +40,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 Id = recipe.Id,
                 Name = recipe.Name,
+                Category = recipe.Category,
                 PreparationTime = recipe.PreparationTime,
                 CookingTime = recipe.CookingTime,
                 Description = recipe.Description,
@@ -94,7 +98,7 @@ namespace Vizsgaremek.Controllers.Public
         }
 
 
-        [HttpPost("create/community")]
+        [HttpPost("community/create")]
         [Authorize]
         public async Task<IActionResult> CreateRecipe([FromBody] RecipeCreateDto dto)
         {
@@ -108,6 +112,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 UserId = user.Id,
                 Name = dto.Name,
+                Category = dto.Category,
                 PreparationTime = dto.PreparationTime,
                 CookingTime = dto.CookingTime,
                 Description = dto.Description,
@@ -138,7 +143,43 @@ namespace Vizsgaremek.Controllers.Public
             return Created($"api/recipe/{recipe.Id}", null);
         }
 
-        [HttpDelete("delete/community/{id}")]
+        [HttpPost("community/create/{id:int}upload-image")]
+        [Authorize]
+        public async Task<IActionResult> UploadRecipeImage([FromRoute] int id, [FromForm] UploadImageDto dto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var recipe = await _context.Recipes.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (user.Id != recipe.UserId)
+            {
+                return StatusCode(403, "You are not allowed to upload images for other user's recipes");
+            }
+
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            if (dto.File == null || dto.File.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+
+            var imageUrl = await _imageKit.UploadImage(dto.File);
+
+            recipe.ImageUrl = imageUrl.Url;
+            recipe.FileId = imageUrl.FileId;
+
+            _context.Recipes.Update(recipe);
+            await _context.SaveChangesAsync();
+            return Ok(new { imageUrl.Url });
+
+        }
+
+        [HttpDelete("community/{id:int}/delete")]
         [Authorize]
         public async Task<IActionResult> DeleteOwnRecipe(int id)
         {
@@ -161,7 +202,9 @@ namespace Vizsgaremek.Controllers.Public
                 return NotFound();
             }
 
-            _context.Recipes.Remove(recipe);
+            await _imageKit.DeleteImage(recipe.FileId);
+
+            recipe.IsDeleted = true;
             await _context.SaveChangesAsync();
 
             return NoContent();

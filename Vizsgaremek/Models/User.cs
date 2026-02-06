@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using Vizsgaremek.Interface;
+using static System.Net.WebRequestMethods;
 
 
 
@@ -28,8 +29,8 @@ namespace Vizsgaremek.Models
         public DateTime CreatedAt { get; set; }
         public bool IsDeleted { get; set; } = false;
 
-        public string? ProfilePictureUrl { get; set; } = null;
-        public string? FileId { get; set; } = null;
+        public string? ProfilePictureUrl { get; set; } = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20pfp.jpeg";
+        public string? FileId { get; set; } = "698593d45c7cd75eb822b00b";
         public UserAttributes? UserAttributes { get; set; } = null;
         public ICollection<UserActivity>? UserActivities { get; set; } = null;
         public UserGoal? UserGoals { get; set; } = null;

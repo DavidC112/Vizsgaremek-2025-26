@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs.Recipes;
+using Vizsgaremek.DTOs.UserDto;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Controllers.Admin
@@ -15,11 +16,13 @@ namespace Vizsgaremek.Controllers.Admin
     {
         private readonly HealthAppDbContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly ImageKitService _imageKit;
 
-        public RecipeAdminController(HealthAppDbContext context, UserManager<User> userManager)
+        public RecipeAdminController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit)
         {
             _context = context;
             _userManager = userManager;
+            _imageKit = imageKit;
         }
 
         [HttpPost("create")]
@@ -29,6 +32,7 @@ namespace Vizsgaremek.Controllers.Admin
             {
                 UserId = null,
                 Name = dto.Name,
+                Category = dto.Category,
                 PreparationTime = dto.PreparationTime,
                 CookingTime = dto.CookingTime,
                 Description = dto.Description,
@@ -59,6 +63,41 @@ namespace Vizsgaremek.Controllers.Admin
             return Created($"api/recipe/{recipe.Id}", null);
         }
 
+        [HttpPost("create/{id:int}/upload-image")]
+        public async Task<IActionResult> UploadRecipeImage([FromRoute] int id, [FromForm] UploadImageDto dto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var recipe = await _context.Recipes.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (user.Id != recipe.UserId)
+            {
+                return StatusCode(403, "You are not allowed to upload images for other user's recipes");
+            }
+
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            if (dto.File == null || dto.File.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+
+            var imageUrl = await _imageKit.UploadImage(dto.File);
+
+            recipe.ImageUrl = imageUrl.Url;
+            recipe.FileId = imageUrl.FileId;
+
+            _context.Recipes.Update(recipe);
+            await _context.SaveChangesAsync();
+            return Ok(new { imageUrl.Url });
+
+        }
+
         [HttpDelete("{id:int}/delete")]
         public async Task<IActionResult> DeleteRecipe(int id)
         {
@@ -74,7 +113,8 @@ namespace Vizsgaremek.Controllers.Admin
                 return NotFound();
             }
 
-            _context.Recipes.Remove(recipe);
+            await _imageKit.DeleteImage(recipe.FileId);
+            recipe.IsDeleted = true;
             await _context.SaveChangesAsync();
 
             return NoContent();

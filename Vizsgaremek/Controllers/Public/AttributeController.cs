@@ -22,27 +22,7 @@ namespace Vizsgaremek.Controllers.Public
         }
 
 
-        [HttpGet("test")]
-        public async Task<IActionResult> GetAttributes()
-        {
-            var attributes = await _context.UserAttributes.Include(ua => ua.User).Select(ua => new AttributesResponseDto
-            {
-                Id = ua.Id,
-                Weight = ua.Weight,
-                Height = ua.Height,
-                MeasuredAt = ua.MeasuredAt,
-                Bmi = ua.Bmi,
-                User =  new UserDataResponseDto
-                {
-                    FirstName = ua.User.FirstName,
-                    LastName = ua.User.LastName,
-                    Email = ua.User.Email
-                }
-            }).ToListAsync();
-            return Ok(attributes);
-        }
-
-        [HttpGet("")]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetLoggedUserAttributes()
         {

@@ -27,22 +27,6 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.Admin.ActivityAdminController",
-    "Method": "RestoreActivity",
-    "RelativePath": "api/admin/activities/{id}/restore",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.ActivityAdminController",
     "Method": "UpdateActivity",
     "RelativePath": "api/admin/activities/{id}/update",
     "HttpMethod": "PATCH",
@@ -82,22 +66,6 @@
     "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
     "Method": "SoftDeleteIngredient",
     "RelativePath": "api/admin/ingredients/{id}/delete",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Admin.IngredientAdminController",
-    "Method": "RestoreIngredient",
-    "RelativePath": "api/admin/ingredients/{id}/restore",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -175,6 +143,27 @@
         "Name": "dto",
         "Type": "Vizsgaremek.DTOs.Recipes.RecipeCreateDto",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Admin.RecipeAdminController",
+    "Method": "UploadRecipeImage",
+    "RelativePath": "api/admin/recipe/create/{id}/upload-image",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -354,8 +343,24 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.Public.RecipeController",
+    "Method": "DeleteOwnRecipe",
+    "RelativePath": "api/recipe/community/{id}/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Public.RecipeController",
     "Method": "CreateRecipe",
-    "RelativePath": "api/recipe/create/community",
+    "RelativePath": "api/recipe/community/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -370,9 +375,9 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.Public.RecipeController",
-    "Method": "DeleteOwnRecipe",
-    "RelativePath": "api/recipe/delete/community/{id}",
-    "HttpMethod": "DELETE",
+    "Method": "UploadRecipeImage",
+    "RelativePath": "api/recipe/community/create/{id}upload-image",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -380,6 +385,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -447,16 +457,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Vizsgaremek.Controllers.Public.AttributeController",
-    "Method": "GetAttributes",
-    "RelativePath": "api/users/me/attributes/test",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
     "Method": "DeleteAccount",
     "RelativePath": "api/users/me/delete-account",
@@ -500,16 +500,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Vizsgaremek.Controllers.Public.GoalController",
-    "Method": "GetGoals",
-    "RelativePath": "api/users/me/goal/test",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

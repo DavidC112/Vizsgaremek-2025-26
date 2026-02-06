@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
@@ -31,7 +32,7 @@ namespace Vizsgaremek.Controllers.Public
         }
 
 
-        [HttpGet("")]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetLoggedUser()
         {
@@ -122,11 +123,30 @@ namespace Vizsgaremek.Controllers.Public
         [FromForm] UploadImageDto dto)
         {
             if (dto.File == null || dto.File.Length == 0)
+            {
                 return BadRequest("No file selected");
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+
+            if(user == null)
+            {
+                return Unauthorized();
+            }
+
+            if(user.FileId != null)
+            {
+                var deleteResult = await _imageKit.DeleteImage(user.FileId);
+
+                if (!deleteResult)
+                {
+                    return StatusCode(500, "Failed to delete existing image from ImageKit");
+                }
+            }
 
             var imageUrl = await _imageKit.UploadImage(dto.File);
 
-            var user = await _userManager.GetUserAsync(User);
+
             user.ProfilePictureUrl = imageUrl.Url;
             user.FileId = imageUrl.FileId;
             await _userManager.UpdateAsync(user);
@@ -158,8 +178,9 @@ namespace Vizsgaremek.Controllers.Public
                 return StatusCode(500, "Failed to delete image from ImageKit");
             }
 
-            user.ProfilePictureUrl = null;
-            user.FileId = null;
+
+            user.ProfilePictureUrl = default;
+            user.FileId = default;
 
             await _userManager.UpdateAsync(user);
 
