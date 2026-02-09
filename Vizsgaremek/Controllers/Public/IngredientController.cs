@@ -28,6 +28,7 @@ namespace Vizsgaremek.Controllers.Public
                 Carbohydrate = i.Carbohydrate,
                 Fat = i.Fat
             }).ToListAsync();
+
             return Ok(ingredients);
         }
 
@@ -38,7 +39,7 @@ namespace Vizsgaremek.Controllers.Public
             var ingredient = await _context.Ingredients.Where(i => i.Id == id).FirstOrDefaultAsync();
             if (ingredient == null)
             {
-                return NotFound();
+                return NotFound("Ingredient was not found in ingredient/id");
             }
             var response = new IngredientSearchDto
             {

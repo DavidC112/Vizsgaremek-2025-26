@@ -27,7 +27,7 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.GetUserAsync(User);
             if(user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in userActivity/");
             }
             var activities = await _context.UserActivities
                 .Where(ua => ua.UserId == user.Id)
@@ -39,6 +39,7 @@ namespace Vizsgaremek.Controllers.Public
                     Duration = ua.Duration,
                     CaloriesBurned = ua.CaloriesBurned
                 }).ToListAsync();
+
             return Ok(activities);
         }
 
@@ -49,7 +50,7 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.GetUserAsync(User);
             if(user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in userActivity/add");
             }
             var activity = _context.Activities.FirstOrDefault(a => a.Name == dto.ActivityName);
             if(activity == null)

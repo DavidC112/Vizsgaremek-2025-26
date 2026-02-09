@@ -11,6 +11,7 @@ namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/users/me/attributes")]
+    [Authorize]
     public class AttributeController : Controller
     {
         private readonly HealthAppDbContext _context;
@@ -23,16 +24,15 @@ namespace Vizsgaremek.Controllers.Public
 
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetLoggedUserAttributes()
         {
-            var userId = await _userManager.GetUserAsync(User);
-            if(userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in attributes/");
             }
             var attributes = await _context.UserAttributes
-                .Where(ua => ua.UserId == userId.Id)
+                .Where(ua => ua.UserId == user.Id)
                 .Select(ua => new AttributesDto
                 {
                     Weight = ua.Weight,
@@ -40,17 +40,17 @@ namespace Vizsgaremek.Controllers.Public
                     MeasuredAt = ua.MeasuredAt
                 })
                 .FirstOrDefaultAsync();
+
             return Ok(attributes);
         }
 
         [HttpPost("add")]
-        [Authorize]
-        public async Task<IActionResult>CreateAttributes([FromBody] AttributesDto dto)
+        public async Task<IActionResult> CreateAttributes([FromBody] AttributesDto dto)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in attributes/add");
             }
             var existing = await _context.UserAttributes.FirstOrDefaultAsync(ua => ua.UserId == user.Id);
             if (existing != null)
@@ -88,8 +88,7 @@ namespace Vizsgaremek.Controllers.Public
 
 
             await _context.SaveChangesAsync();
-            return Created("/api/users/me/attributes", resultDto);
-
+            return Created("api/users/me/attributes", resultDto);
         }
     }
 }

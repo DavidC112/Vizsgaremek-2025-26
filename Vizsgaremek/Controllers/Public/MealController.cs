@@ -50,6 +50,7 @@ namespace Vizsgaremek.Controllers.Public
                     }).ToList()
 
                 }).ToListAsync();
+
             return Ok(meals);
         }
 

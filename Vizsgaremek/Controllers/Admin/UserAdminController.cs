@@ -127,7 +127,7 @@ namespace Vizsgaremek.Controllers.Admin
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User was not found in userAdmin/delete");
             }
 
             var loggedInUserId = _userManager.GetUserId(User);
@@ -143,7 +143,7 @@ namespace Vizsgaremek.Controllers.Admin
             await _userManager.UpdateAsync(user);
 
 
-            return Ok("User successfully deleted");
+            return NoContent();
         }
 
         [HttpPatch("{id}/restore-user")]
@@ -155,7 +155,7 @@ namespace Vizsgaremek.Controllers.Admin
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Deleted User was not found in userAdmin/restore");
             }
 
             user.UserName = user.Email;
@@ -163,7 +163,7 @@ namespace Vizsgaremek.Controllers.Admin
 
             await _userManager.UpdateAsync(user);
 
-            return Ok("User successfully restored");
+            return Ok(new { Message = "User successfully restored" });
         }
 
     }

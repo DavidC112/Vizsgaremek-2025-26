@@ -14,11 +14,9 @@ namespace Vizsgaremek.Controllers.Admin
     public class IngredientAdminController : Controller
     {
         private readonly HealthAppDbContext _context;
-        private readonly UserManager<User> _userManager;
-        public IngredientAdminController(HealthAppDbContext context, UserManager<User> userManager)
+        public IngredientAdminController(HealthAppDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         [HttpPost("add")]
@@ -51,17 +49,17 @@ namespace Vizsgaremek.Controllers.Admin
             }
             ingredient.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return Ok();
+            return NoContent();
         }
 
 
-        [HttpPatch("{id:int}/update")]
+        [HttpPatch("{id:int}/edit")]
         public async Task<IActionResult> UpdateIngredient(int id, [FromBody] IngredientUpdateDto dto)
         {
             var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
             if (ingredient == null)
             {  
-                return NotFound();
+                return NotFound("Ingredient was not found in ingredientAdmin/edit");
             }
 
             if (dto.Name != null)
@@ -91,7 +89,7 @@ namespace Vizsgaremek.Controllers.Admin
 
             await _context.SaveChangesAsync();
 
-            return Ok($"api/ingredient/{id}");
+            return NoContent();
         }
 
     }

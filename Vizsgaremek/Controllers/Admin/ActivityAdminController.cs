@@ -30,7 +30,7 @@ namespace Vizsgaremek.Controllers.Admin
             };
             _context.Activities.Add(activity);
             await _context.SaveChangesAsync();
-            return Ok(activity);
+            return Created($"api/activity/{activity.Id}",null);
         }
 
         [HttpPatch("{id:int}/delete")]
@@ -39,21 +39,21 @@ namespace Vizsgaremek.Controllers.Admin
             var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == id);
             if (activity == null)
             {
-                return NotFound();
+                return NotFound("Activity is not found in activityAdmin/add");
             }
             activity.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return Ok();
+            return NoContent();
         }
 
 
-        [HttpPatch("{id:int}/update")]
+        [HttpPatch("{id:int}/edit")]
         public async Task<IActionResult> UpdateActivity(int id, [FromBody] ActivityUpdateDto activityDto)
         {
             var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == id);
             if (activity == null)
             {
-                return NotFound();
+                return NotFound("Activity was not found in activityAdmin/edit");
             }
             if (activityDto.Name != null)
             {
@@ -66,7 +66,7 @@ namespace Vizsgaremek.Controllers.Admin
 
             await _context.SaveChangesAsync();
 
-            return Ok(activity);
+            return NoContent();
         }
     }
 }

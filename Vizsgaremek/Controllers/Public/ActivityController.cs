@@ -22,12 +22,32 @@ namespace Vizsgaremek.Controllers.Public
         [HttpGet("all")]
         public async Task<IActionResult> GetActivities()
         {
-            var activities = await _context.Activities.Select(a => new ActivityDto 
+            var activities = await _context.Activities.Select(a => new ActivityDto
             {
                 Name = a.Name,
                 CaloriesBurnedPerHour = a.CaloriesBurnedPerHour
             }).ToListAsync();
+
+            if (activities == null || activities.Count == 0)
+            {
+                return Ok("No activities found.");
+            }
             return Ok(activities);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetActivity(int id)
+        {
+            var activity = await _context.Activities.Where(a => a.Id == id).Select(a => new ActivityDto
+            {
+                Name = a.Name,
+                CaloriesBurnedPerHour = a.CaloriesBurnedPerHour
+            }).FirstOrDefaultAsync();
+            if (activity == null)
+            {
+                return NotFound("Activity was not found in activity/id");
+            }
+            return Ok(activity);
         }
     }
 }

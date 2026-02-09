@@ -72,18 +72,14 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in auth/login");
             }
 
-            if(user.IsDeleted)
-            {
-                return Unauthorized();
-            }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (!result.Succeeded)
             {
-                return Unauthorized();
+                return Unauthorized("Invalid password in auth/login");
             }
 
             var refreshToken = Guid.NewGuid().ToString();
@@ -124,7 +120,7 @@ namespace Vizsgaremek.Controllers.Public
             var refreshToken = Request.Cookies["refreshToken"];
             if (string.IsNullOrEmpty(refreshToken))
             {
-                return Unauthorized();
+                return Unauthorized("Token was not found in auth/refresh");
             }
 
             var refreshTokenHash = HashToken(refreshToken);
@@ -137,7 +133,7 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.FindByIdAsync(storedToken.UserId);
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in auth/refresh");
             }
 
             var newToken = GenerateJwtToken(user);

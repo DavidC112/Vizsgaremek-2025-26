@@ -9,6 +9,10 @@
         public int CookingTime { get; set; }
         public string Description { get; set; }
         public int Portions { get; set; }
+        public decimal Calories { get; set; }
+        public decimal Protein { get; set; }
+        public decimal Carbohydrate { get; set; }
+        public decimal Fat { get; set; }
         public bool IsCommunity { get; set; }
         public string ImageUrl { get; set; }
         public string FileId { get; set; }

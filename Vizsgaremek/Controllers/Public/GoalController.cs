@@ -26,19 +26,20 @@ namespace Vizsgaremek.Controllers.Public
         [Authorize]
         public async Task<IActionResult> GetLoggedUserGoals()
         {
-            var userId = await _userManager.GetUserAsync(User);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in goal/");
             }
             var goals = await _context.UserGoals
-                .Where(g => g.UserId == userId.Id)
+                .Where(g => g.UserId == user.Id)
                 .Select(g => new GoalDto
                 {
                     TargetWeight = g.TargetWeight,
                     DeadLine = g.DeadLine
                 })
                 .FirstOrDefaultAsync();
+
             return Ok(goals);
         }
 
@@ -50,7 +51,7 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in goal/add");
             }
             var existing = await _context.UserGoals.FirstOrDefaultAsync(g => g.UserId == user.Id);
             if (existing != null)
@@ -64,7 +65,7 @@ namespace Vizsgaremek.Controllers.Public
                     TargetWeight = existing.TargetWeight,
                     DeadLine = existing.DeadLine
                 };
-                return Ok(updateResponseDto);
+                return Ok(new { Location = "api/users/me/goal", updateResponseDto});
             }
             var goal = new UserGoal
             {
@@ -82,7 +83,7 @@ namespace Vizsgaremek.Controllers.Public
             };
             await _context.SaveChangesAsync();
 
-            return Created("/api/users/me/goal", result);
+            return Created("api/users/me/goal", result);
         }
 
     }

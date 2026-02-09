@@ -31,10 +31,6 @@ namespace Vizsgaremek.Controllers.Public
                  .Include(r => r.RecipeIngredients)
                      .ThenInclude(ri => ri.Ingredient)
                  .ToListAsync();
-            if (recipes == null || recipes.Count == 0)
-            {
-                return Ok("There are no recipes");
-            }
 
             var response = recipes.Select(recipe => new RecipeResponseDto
             {
@@ -45,6 +41,11 @@ namespace Vizsgaremek.Controllers.Public
                 CookingTime = recipe.CookingTime,
                 Description = recipe.Description,
                 Portions = recipe.Portions,
+                Calories = recipe.Calories,
+                Protein = recipe.Protein,
+                Carbohydrate = recipe.Carbohydrate,
+                Fat = recipe.Fat,
+                ImageUrl = recipe.ImageUrl,
                 IsCommunity = recipe.IsCommunity,
                 Ingredients = recipe.RecipeIngredients
                     .Where(ri => !ri.Ingredient.IsDeleted)
@@ -71,7 +72,7 @@ namespace Vizsgaremek.Controllers.Public
 
             if (recipe == null)
             {
-                return NotFound();
+                return NotFound("Recipe was not found in recipe/get(id)");
             }
 
             var response = new RecipeResponseDto
@@ -82,6 +83,11 @@ namespace Vizsgaremek.Controllers.Public
                 CookingTime = recipe.CookingTime,
                 Description = recipe.Description,
                 Portions = recipe.Portions,
+                Calories = recipe.Calories,
+                Carbohydrate = recipe.Carbohydrate,
+                Protein = recipe.Protein,
+                Fat = recipe.Fat,
+                ImageUrl = recipe.ImageUrl,
                 IsCommunity = recipe.IsCommunity,
                 Ingredients = recipe.RecipeIngredients
                     .Where(ri => !ri.Ingredient.IsDeleted)
@@ -105,7 +111,7 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.GetUserAsync(User);
             if (user == null) 
             {
-                return NotFound(); 
+                return Unauthorized("User was not found in recipe/create"); 
             }
 
             var recipe = new Recipe
@@ -117,6 +123,10 @@ namespace Vizsgaremek.Controllers.Public
                 CookingTime = dto.CookingTime,
                 Description = dto.Description,
                 Portions = dto.Portions,
+                Calories = dto.Calories,
+                Protein = dto.Protein,
+                Carbohydrate = dto.Carbohydrate,
+                Fat = dto.Fat,
                 IsCommunity = true,
                 RecipeIngredients = new List<RecipeIngredient>()
             };
@@ -128,7 +138,7 @@ namespace Vizsgaremek.Controllers.Public
 
                 if (ingredient == null)
                 {
-                    return BadRequest($"Ingredient with ID {item.IngredientId} not found.");
+                    return NotFound($"Ingredient with ID {item.IngredientId} not found.");
                 }
 
                 recipe.RecipeIngredients.Add(new RecipeIngredient
@@ -151,7 +161,7 @@ namespace Vizsgaremek.Controllers.Public
             var recipe = await _context.Recipes.FindAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return Unauthorized("User was not found in recipe/uploadImage");
             }
             if (user.Id != recipe.UserId)
             {
@@ -160,12 +170,21 @@ namespace Vizsgaremek.Controllers.Public
 
             if (recipe == null)
             {
-                return NotFound();
+                return NotFound("Recipe was not found in recipe/uploadImage");
             }
 
             if (dto.File == null || dto.File.Length == 0)
             {
                 return BadRequest("No file uploaded.");
+            }
+
+            if(recipe.FileId != null)
+            {
+                var deleteResult = await _imageKit.DeleteImage(recipe.FileId);
+                if (!deleteResult)
+                {
+                    return StatusCode(500, "Failed to delete existing image from ImageKit");
+                }
             }
 
             var imageUrl = await _imageKit.UploadImage(dto.File);
@@ -179,6 +198,82 @@ namespace Vizsgaremek.Controllers.Public
 
         }
 
+        [HttpPatch("community/{id:int}/edit")]
+        [Authorize]
+        public async Task<IActionResult> UpdateRecipe(int id, [FromBody] RecipeUpdateDto dto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized("User was not found in recipeAdmin/edit");
+            }
+
+            var recipe = await _context.Recipes
+                .Include(r => r.RecipeIngredients)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (recipe == null)
+            {
+                return NotFound("Recipe was not found in recipeAdmin/edit");
+            }
+
+            if(user.Id != recipe.UserId)
+            {
+                return StatusCode(403, "You cannot edit other users' recipe");
+            }
+
+
+            recipe.Name = dto.Name ?? recipe.Name;
+            recipe.Category = dto.Category ?? recipe.Category;
+            recipe.CookingTime = dto.CookingTime ?? recipe.CookingTime;
+            recipe.PreparationTime = dto.PreparationTime ?? recipe.PreparationTime;
+            recipe.Description = dto.Description ?? recipe.Description;
+            recipe.Portions = dto.Portions ?? recipe.Portions;
+            recipe.Calories = dto.Calories ?? recipe.Calories;
+            recipe.Protein = dto.Protein ?? recipe.Protein;
+            recipe.Carbohydrate = dto.Carbohydrate ?? recipe.Carbohydrate;
+            recipe.Fat = dto.Fat ?? recipe.Fat;
+
+
+            if (dto.Ingredients != null)
+            {
+
+                var toRemove = recipe.RecipeIngredients
+                    .Where(ri => !dto.Ingredients.Any(i => i.IngredientId == ri.IngredientId))
+                    .ToList();
+                _context.RecipeIngredients.RemoveRange(toRemove);
+
+
+                foreach (var item in dto.Ingredients)
+                {
+                    var existing = recipe.RecipeIngredients
+                        .FirstOrDefault(ri => ri.IngredientId == item.IngredientId);
+
+                    if (existing != null)
+                    {
+                        existing.Amount = item.Amount ?? existing.Amount;
+                    }
+                    else
+                    {
+                        var ingredient = await _context.Ingredients
+                            .FirstOrDefaultAsync(i => i.Id == item.IngredientId);
+                        if (ingredient == null)
+                            return NotFound($"Ingredient with ID {item.IngredientId} not found.");
+
+                        recipe.RecipeIngredients.Add(new RecipeIngredient
+                        {
+                            IngredientId = ingredient.Id,
+                            Amount = item.Amount ?? 1
+                        });
+                    }
+                }
+            }
+
+            _context.Recipes.Update(recipe);
+            await _context.SaveChangesAsync();
+            return Ok($"api/recipe/{recipe.Id}");
+        }
+
         [HttpDelete("community/{id:int}/delete")]
         [Authorize]
         public async Task<IActionResult> DeleteOwnRecipe(int id)
@@ -186,7 +281,7 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User was not found in recipe/delete");
             }
 
             var recipe = await _context.Recipes.FindAsync(id);
@@ -199,7 +294,7 @@ namespace Vizsgaremek.Controllers.Public
             
             if (recipe == null) 
             {
-                return NotFound();
+                return NotFound("Recipe was not found in recipe/delete");
             }
 
             await _imageKit.DeleteImage(recipe.FileId);

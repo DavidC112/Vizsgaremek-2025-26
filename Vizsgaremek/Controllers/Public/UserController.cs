@@ -39,7 +39,7 @@ namespace Vizsgaremek.Controllers.Public
             var userId = _userManager.GetUserId(User);
             if (userId == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in user/");
             }
 
             var u = await _context.Users
@@ -131,7 +131,7 @@ namespace Vizsgaremek.Controllers.Public
 
             if(user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in user/uploadImage");
             }
 
             if(user.FileId != null)
@@ -194,12 +194,12 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound("User not found in user/delete");
             }
             user.IsDeleted = true;
             await _userManager.UpdateAsync(user);
-            return Ok(new { Message = "Account marked as deleted" });
 
+            return Ok(new { Message = "Account marked as deleted" });
         }
     }
 }
