@@ -36,7 +36,6 @@ namespace Vizsgaremek.Models
         public UserGoal? UserGoals { get; set; } = null;
         public ICollection<Meal>? Meals { get; set; } = null;
         public ICollection<Recipe>? Recipes { get; set; } = null;
-        public DailyTarget? DailyTarget { get; set; } = null;
         public ICollection<RefreshToken>? RefreshTokens { get; set; } = null;
 
     }

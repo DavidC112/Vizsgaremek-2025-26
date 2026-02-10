@@ -28,9 +28,22 @@ namespace Vizsgaremek.Controllers.Admin
                 Name = activityDto.Name,
                 CaloriesBurnedPerHour = activityDto.CaloriesBurnedPerHour
             };
+
+            var result = new ActivityResponseDto
+            {
+                Id = activity.Id,
+                Name = activity.Name,
+                CaloriesBurnedPerHour = activity.CaloriesBurnedPerHour
+            };
+
             _context.Activities.Add(activity);
             await _context.SaveChangesAsync();
-            return Created($"api/activity/{activity.Id}",null);
+            return Created($"api/activity/{activity.Id}",
+                new
+                {
+                    Message = "Activity created successfully",
+                    Data = result
+                });
         }
 
         [HttpPatch("{id:int}/delete")]
@@ -43,7 +56,7 @@ namespace Vizsgaremek.Controllers.Admin
             }
             activity.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(new { Message = "Activity deleted successfully" });
         }
 
 
@@ -64,9 +77,16 @@ namespace Vizsgaremek.Controllers.Admin
                 activity.CaloriesBurnedPerHour = activityDto.CaloriesBurnedPerHour.Value;
             }
 
+            var result = new ActivityResponseDto
+            {
+                Id = activity.Id,
+                Name = activity.Name,
+                CaloriesBurnedPerHour = activity.CaloriesBurnedPerHour
+            };
+
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { Message = "Activity edited successfully", Data = result });
         }
     }
 }

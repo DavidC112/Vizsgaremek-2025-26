@@ -68,6 +68,7 @@ namespace Vizsgaremek.Controllers.Admin
 
                     UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
                     {
+                        Id = ua.Id,
                         ActivityName = ua.Activity.Name,
                         Duration = ua.Duration,
                         CaloriesBurned = ua.CaloriesBurned
@@ -143,7 +144,7 @@ namespace Vizsgaremek.Controllers.Admin
             await _userManager.UpdateAsync(user);
 
 
-            return NoContent();
+            return Ok(new { Message = "User deleted successfully by admin" });
         }
 
         [HttpPatch("{id}/restore-user")]
@@ -163,7 +164,7 @@ namespace Vizsgaremek.Controllers.Admin
 
             await _userManager.UpdateAsync(user);
 
-            return Ok(new { Message = "User successfully restored" });
+            return Ok(new { Message = "User successfully restored by admin" });
         }
 
     }

@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.VisualBasic;
+using System.Security.Claims;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
+using Vizsgaremek.DTOs.DailyIntake;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.DTOs.ImageDto;
 using Vizsgaremek.DTOs.Meal;
@@ -82,6 +85,7 @@ namespace Vizsgaremek.Controllers.Public
 
                 UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
                 {
+                    Id = ua.Id,
                     ActivityName = ua.Activity.Name,
                     Duration = ua.Duration,
                     CaloriesBurned = ua.CaloriesBurned
@@ -157,7 +161,7 @@ namespace Vizsgaremek.Controllers.Public
                 Url = imageUrl.Url,
                 FileId = imageUrl.FileId
             };
-            return Ok(result);
+            return Ok(new { Message = "Picture uploaded successfully.", Data = result });
         }
 
         [HttpDelete("delete-picture")]
@@ -201,5 +205,70 @@ namespace Vizsgaremek.Controllers.Public
 
             return Ok(new { Message = "Account marked as deleted" });
         }
+
+
+        [HttpGet("daily-intake")]
+        [Authorize]
+        public async Task<IActionResult> GetDaily()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if(user == null)
+            {
+                return Unauthorized("User was not found in users/daily");
+            }
+            
+
+            var meals = await _context.Meals
+                .Where(m => m.UserId == user.Id)
+                .Include(m => m.MealItems)
+                    .ThenInclude(mi => mi.Ingredient)
+                .Include(m => m.MealItems)
+                    .ThenInclude(mi => mi.Recipe)
+                .ToListAsync();
+
+            if (meals == null)
+                return NotFound("No meals found in users/daily");
+
+            var result = new List<DailyIntakeDto>();
+
+            foreach (var dayGroup in meals.GroupBy(m => m.Log))
+            {
+                decimal calories = 0, carbs = 0, protein = 0, fat = 0;
+
+                foreach (var meal in dayGroup)
+                {
+                    foreach (var item in meal.MealItems)
+                    {
+                        if (item.Ingredient != null)
+                        {
+                            calories += item.Ingredient.Calories * item.Amount;
+                            carbs += item.Ingredient.Carbohydrate * item.Amount;
+                            protein += item.Ingredient.Protein * item.Amount;
+                            fat += item.Ingredient.Fat * item.Amount;
+                        }
+                        else if (item.Recipe != null)
+                        {
+                            calories += item.Recipe.Calories * item.Amount;
+                            carbs += item.Recipe.Carbohydrate * item.Amount;
+                            protein += item.Recipe.Protein * item.Amount;
+                            fat += item.Recipe.Fat * item.Amount;
+                        }
+                    }
+                }
+
+                result.Add(new DailyIntakeDto
+                {
+                    Calories = calories,
+                    Carbohydrate = carbs,
+                    Protein = protein,
+                    Fat = fat,
+                    Date = dayGroup.Key
+                });
+            }
+
+            return Ok(result);
+        }
+
+
     }
 }

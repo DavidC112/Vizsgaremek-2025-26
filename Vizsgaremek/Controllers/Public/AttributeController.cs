@@ -79,7 +79,7 @@ namespace Vizsgaremek.Controllers.Public
 
             _context.UserAttributes.Add(userAttributes);
 
-            var resultDto = new AttributesDto
+            var result = new AttributesDto
             {
                 Weight = userAttributes.Weight,
                 Height = userAttributes.Height,
@@ -88,7 +88,13 @@ namespace Vizsgaremek.Controllers.Public
 
 
             await _context.SaveChangesAsync();
-            return Created("api/users/me/attributes", resultDto);
+            return Created("api/users/me/attributes", 
+                new 
+                {
+                    Message = "Attributes created successfully",
+                    Data = result
+                }
+            );
         }
     }
 }

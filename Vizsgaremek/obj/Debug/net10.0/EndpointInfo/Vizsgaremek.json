@@ -25,6 +25,30 @@
         }
       }
     },
+    "/api/activity/{id}": {
+      "get": {
+        "tags": [
+          "Activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/users/me/attributes": {
       "get": {
         "tags": [
@@ -520,6 +544,50 @@
         }
       }
     },
+    "/api/users/me/activities/{id}/edit": {
+      "patch": {
+        "tags": [
+          "UserActivity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserActivityUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserActivityUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserActivityUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/users/me": {
       "get": {
         "tags": [
@@ -573,6 +641,18 @@
     },
     "/api/users/me/delete-account": {
       "patch": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/me/daily-intake": {
+      "get": {
         "tags": [
           "User"
         ],
@@ -639,7 +719,7 @@
         }
       }
     },
-    "/api/admin/activities/{id}/update": {
+    "/api/admin/activities/{id}/edit": {
       "patch": {
         "tags": [
           "ActivityAdmin"
@@ -739,7 +819,7 @@
         }
       }
     },
-    "/api/admin/ingredients/{id}/update": {
+    "/api/admin/ingredients/{id}/edit": {
       "patch": {
         "tags": [
           "IngredientAdmin"
@@ -1217,6 +1297,15 @@
       "MealItemCreateDto": {
         "type": "object",
         "properties": {
+          "id": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
           "recipeId": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1519,6 +1608,29 @@
           "duration": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          }
+        }
+      },
+      "UserActivityUpdateDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "duration": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
               "number",
               "string"
             ],

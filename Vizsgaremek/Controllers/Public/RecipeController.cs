@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
+using Vizsgaremek.DTOs.ImageDto;
 using Vizsgaremek.DTOs.Recipes;
 using Vizsgaremek.DTOs.UserDto;
 using Vizsgaremek.Models;
@@ -75,7 +75,7 @@ namespace Vizsgaremek.Controllers.Public
                 return NotFound("Recipe was not found in recipe/get(id)");
             }
 
-            var response = new RecipeResponseDto
+            var result = new RecipeResponseDto
             {
                 Id = recipe.Id,
                 Name = recipe.Name,
@@ -100,7 +100,7 @@ namespace Vizsgaremek.Controllers.Public
                     .ToList()
             };
 
-            return Ok(response);
+            return Ok(result);
         }
 
 
@@ -147,10 +147,41 @@ namespace Vizsgaremek.Controllers.Public
                     Amount = item.Amount
                 });
             }
+
+            var result = new RecipeResponseDto
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                PreparationTime = recipe.PreparationTime,
+                CookingTime = recipe.CookingTime,
+                Description = recipe.Description,
+                Portions = recipe.Portions,
+                Calories = recipe.Calories,
+                Carbohydrate = recipe.Carbohydrate,
+                Protein = recipe.Protein,
+                Fat = recipe.Fat,
+                ImageUrl = recipe.ImageUrl,
+                IsCommunity = recipe.IsCommunity,
+                Ingredients = recipe.RecipeIngredients
+                    .Where(ri => !ri.Ingredient.IsDeleted)
+                    .Select(ri => new RecipeIngredientResponseDto
+                    {
+                        IngredientId = ri.IngredientId,
+                        IngredientName = ri.Ingredient.Name,
+                        Amount = ri.Amount
+                    })
+                    .ToList()
+            };
+
             _context.Recipes.Add(recipe);
             await _context.SaveChangesAsync();
 
-            return Created($"api/recipe/{recipe.Id}", null);
+            return Created($"api/recipe/{recipe.Id}",
+                new
+                {
+                    Message = "Recipe created successfully.",
+                    Data = result
+                });
         }
 
         [HttpPost("community/create/{id:int}upload-image")]
@@ -192,9 +223,15 @@ namespace Vizsgaremek.Controllers.Public
             recipe.ImageUrl = imageUrl.Url;
             recipe.FileId = imageUrl.FileId;
 
+            var result = new ImageResponseDto
+            {
+                Url = imageUrl.Url,
+                FileId = imageUrl.FileId
+            };
+            
             _context.Recipes.Update(recipe);
             await _context.SaveChangesAsync();
-            return Ok(new { imageUrl.Url });
+            return Ok(new { Message = "Picture uploaded successfully.", Data = result });
 
         }
 
@@ -271,7 +308,7 @@ namespace Vizsgaremek.Controllers.Public
 
             _context.Recipes.Update(recipe);
             await _context.SaveChangesAsync();
-            return Ok($"api/recipe/{recipe.Id}");
+            return Ok(new { Message = "Recipe edited successfully" });
         }
 
         [HttpDelete("community/{id:int}/delete")]
@@ -302,7 +339,7 @@ namespace Vizsgaremek.Controllers.Public
             recipe.IsDeleted = true;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { Message = "Recipe deleted successfully" });
         }
     }
 }

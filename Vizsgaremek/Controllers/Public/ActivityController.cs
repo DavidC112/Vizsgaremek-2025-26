@@ -28,10 +28,6 @@ namespace Vizsgaremek.Controllers.Public
                 CaloriesBurnedPerHour = a.CaloriesBurnedPerHour
             }).ToListAsync();
 
-            if (activities == null || activities.Count == 0)
-            {
-                return Ok("No activities found.");
-            }
             return Ok(activities);
         }
 

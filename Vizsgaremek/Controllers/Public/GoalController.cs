@@ -65,7 +65,7 @@ namespace Vizsgaremek.Controllers.Public
                     TargetWeight = existing.TargetWeight,
                     DeadLine = existing.DeadLine
                 };
-                return Ok(new { Location = "api/users/me/goal", updateResponseDto});
+                return Ok(new {Message = "Goals updated successfully", Data = updateResponseDto});
             }
             var goal = new UserGoal
             {
@@ -83,7 +83,13 @@ namespace Vizsgaremek.Controllers.Public
             };
             await _context.SaveChangesAsync();
 
-            return Created("api/users/me/goal", result);
+            return Created("api/users/me/goal", 
+                new
+                {
+                    message = "Goal created successfully",
+                    data = result
+                });
+
         }
 
     }

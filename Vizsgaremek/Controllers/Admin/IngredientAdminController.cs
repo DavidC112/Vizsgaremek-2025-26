@@ -30,9 +30,25 @@ namespace Vizsgaremek.Controllers.Admin
                 Carbohydrate = dto.Carbohydrate,
                 Fat = dto.Fat
             };
+
+            var result = new IngredientResponseDto
+            {
+                Id = ingredient.Id,
+                Name = ingredient.Name,
+                Calories = ingredient.Calories,
+                Protein = ingredient.Protein,
+                Carbohydrate = ingredient.Carbohydrate,
+                Fat = ingredient.Fat
+            };
+
             _context.Ingredients.Add(ingredient);
             await _context.SaveChangesAsync();
-            return Created($"api/ingredient/{ingredient.Id}", null);
+            return Created($"api/ingredient/{ingredient.Id}", 
+                new 
+                {
+                    Message = "Ingredient created successfully",
+                    Data = result
+                });
         }
 
         [HttpPatch("{id:int}/delete")]
@@ -49,7 +65,7 @@ namespace Vizsgaremek.Controllers.Admin
             }
             ingredient.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(new { Message = "Ingredient deleted successfully" });
         }
 
 
@@ -87,9 +103,19 @@ namespace Vizsgaremek.Controllers.Admin
                 ingredient.Fat = dto.Fat.Value;
             }
 
+            var result = new IngredientResponseDto
+            {
+                Id = ingredient.Id,
+                Name = ingredient.Name,
+                Calories = ingredient.Calories,
+                Protein = ingredient.Protein,
+                Carbohydrate = ingredient.Carbohydrate,
+                Fat = ingredient.Fat
+            };
+
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { Message = "Ingredient updated successfully", Data = result });
         }
 
     }

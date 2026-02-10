@@ -61,7 +61,7 @@ namespace Vizsgaremek.Controllers.Public
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in meal/add");
             }
 
             var meal = new Meal
@@ -118,9 +118,27 @@ namespace Vizsgaremek.Controllers.Public
                 });
             }
 
+            var result = new MealResponseDto
+            {
+                Id = meal.Id,
+                MealName = meal.MealName,
+                Items = meal.MealItems.Select(i => new MealItemResponseDto
+                {
+                    Id = i.Id,
+                    RecipeId = i.RecipeId,
+                    IngredientId = i.IngredientId,
+                    Amount = i.Amount
+                }).ToList()
+            };
+
             _context.Meals.Add(meal);
             await _context.SaveChangesAsync();
-            return Created($"api/meals/{meal.Id}", null);
+            return Created($"api/meals/{meal.Id}", 
+                new
+                {
+                    Message = "Meal created successfully",
+                    Data = result
+                });
         }
     }
 }
