@@ -4841,7 +4841,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "ImageKit >= 5.0.0",
+      "Imagekit >= 5.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.1",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 10.0.1",
       "Microsoft.AspNetCore.Cors >= 2.3.9",
@@ -4911,7 +4911,7 @@
       "net10.0": {
         "targetAlias": "net10.0",
         "dependencies": {
-          "ImageKit": {
+          "Imagekit": {
             "target": "Package",
             "version": "[5.0.0, )"
           },
@@ -5007,7 +5007,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

@@ -75,6 +75,7 @@ namespace Vizsgaremek.Controllers.Admin
                     }).ToList(),
                     UserRecipes = u.Recipes.Select(r => new UserRecipeDto
                     {
+                        Id = r.Id,
                         Name = r.Name,
                         PreparationTime = r.PreparationTime,
                         CookingTime = r.CookingTime,

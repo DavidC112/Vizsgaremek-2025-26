@@ -45,6 +45,8 @@ namespace Vizsgaremek.Controllers.Public
                 Protein = recipe.Protein,
                 Carbohydrate = recipe.Carbohydrate,
                 Fat = recipe.Fat,
+                IsVegan = recipe.IsVegan,
+                IsVegetarian = recipe.IsVegetarian,
                 ImageUrl = recipe.ImageUrl,
                 IsCommunity = recipe.IsCommunity,
                 Ingredients = recipe.RecipeIngredients
@@ -87,6 +89,8 @@ namespace Vizsgaremek.Controllers.Public
                 Carbohydrate = recipe.Carbohydrate,
                 Protein = recipe.Protein,
                 Fat = recipe.Fat,
+                IsVegan = recipe.IsVegan,
+                IsVegetarian = recipe.IsVegetarian,
                 ImageUrl = recipe.ImageUrl,
                 IsCommunity = recipe.IsCommunity,
                 Ingredients = recipe.RecipeIngredients
@@ -127,6 +131,8 @@ namespace Vizsgaremek.Controllers.Public
                 Protein = dto.Protein,
                 Carbohydrate = dto.Carbohydrate,
                 Fat = dto.Fat,
+                IsVegan = dto.IsVegan,
+                IsVegetarian = dto.IsVegetarian,
                 IsCommunity = true,
                 RecipeIngredients = new List<RecipeIngredient>()
             };
@@ -148,6 +154,7 @@ namespace Vizsgaremek.Controllers.Public
                 });
             }
 
+
             var result = new RecipeResponseDto
             {
                 Id = recipe.Id,
@@ -160,10 +167,12 @@ namespace Vizsgaremek.Controllers.Public
                 Carbohydrate = recipe.Carbohydrate,
                 Protein = recipe.Protein,
                 Fat = recipe.Fat,
+                IsVegan = recipe.IsVegan,
+                IsVegetarian = recipe.IsVegetarian,
                 ImageUrl = recipe.ImageUrl,
                 IsCommunity = recipe.IsCommunity,
                 Ingredients = recipe.RecipeIngredients
-                    .Where(ri => !ri.Ingredient.IsDeleted)
+                    .Where(ri => ri.Ingredient != null)
                     .Select(ri => new RecipeIngredientResponseDto
                     {
                         IngredientId = ri.IngredientId,
@@ -175,6 +184,7 @@ namespace Vizsgaremek.Controllers.Public
 
             _context.Recipes.Add(recipe);
             await _context.SaveChangesAsync();
+
 
             return Created($"api/recipe/{recipe.Id}",
                 new
@@ -270,6 +280,8 @@ namespace Vizsgaremek.Controllers.Public
             recipe.Protein = dto.Protein ?? recipe.Protein;
             recipe.Carbohydrate = dto.Carbohydrate ?? recipe.Carbohydrate;
             recipe.Fat = dto.Fat ?? recipe.Fat;
+            recipe.IsVegan = dto.IsVegan ?? recipe.IsVegan;
+            recipe.IsVegetarian = dto.IsVegetarian ?? recipe.IsVegetarian;
 
 
             if (dto.Ingredients != null)

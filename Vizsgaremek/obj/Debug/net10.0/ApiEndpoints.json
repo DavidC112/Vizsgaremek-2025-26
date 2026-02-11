@@ -547,6 +547,16 @@
   },
   {
     "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
+    "Method": "GetWeeklyMealPlan",
+    "RelativePath": "api/users/me/daily-meal-plan",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vizsgaremek.Controllers.Public.UserController",
     "Method": "DeleteAccount",
     "RelativePath": "api/users/me/delete-account",
     "HttpMethod": "PATCH",

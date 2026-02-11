@@ -663,6 +663,18 @@
         }
       }
     },
+    "/api/users/me/daily-meal-plan": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/admin/activities/add": {
       "post": {
         "tags": [
@@ -1407,6 +1419,12 @@
             ],
             "format": "double"
           },
+          "isVegan": {
+            "type": "boolean"
+          },
+          "isVegetarian": {
+            "type": "boolean"
+          },
           "ingredients": {
             "type": "array",
             "items": {
@@ -1542,6 +1560,18 @@
               "string"
             ],
             "format": "double"
+          },
+          "isVegan": {
+            "type": [
+              "null",
+              "boolean"
+            ]
+          },
+          "isVegetarian": {
+            "type": [
+              "null",
+              "boolean"
+            ]
           },
           "ingredients": {
             "type": [

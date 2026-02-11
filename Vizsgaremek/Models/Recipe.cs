@@ -20,7 +20,9 @@ namespace Vizsgaremek.Models
         public string? ImageUrl { get; set; }
         public string? FileId { get; set; }
         public bool IsCommunity { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsVegan { get; set; } = false;
+        public bool IsVegetarian { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
         public required ICollection<RecipeIngredient> RecipeIngredients { get; set; }
     }
 }

@@ -13,6 +13,8 @@
         public decimal Protein { get; set; }
         public decimal Carbohydrate { get; set; }
         public decimal Fat { get; set; }
+        public bool IsVegan { get; set; }
+        public bool IsVegetarian { get; set; }
         public bool IsCommunity { get; set; }
         public string ImageUrl { get; set; }
         public string FileId { get; set; }

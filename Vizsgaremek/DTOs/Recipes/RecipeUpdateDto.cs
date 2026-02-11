@@ -12,5 +12,7 @@ public class RecipeUpdateDto
     public decimal? Protein { get; set; } = null;
     public decimal? Carbohydrate { get; set; } = null;
     public decimal? Fat { get; set; } = null;
+    public bool? IsVegan { get; set; } = false;
+    public bool? IsVegetarian { get; set; } = false;
     public List<RecipeIngredientUpdateDto>? Ingredients { get; set; }
 }

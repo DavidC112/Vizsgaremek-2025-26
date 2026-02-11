@@ -1,11 +1,7 @@
-﻿using Imagekit.Sdk;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Microsoft.VisualBasic;
-using System.Security.Claims;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
@@ -16,6 +12,7 @@ using Vizsgaremek.DTOs.Meal;
 using Vizsgaremek.DTOs.Recipes;
 using Vizsgaremek.DTOs.UserDto;
 using Vizsgaremek.Models;
+using Vizsgaremek.Services;
 
 namespace Vizsgaremek.Controllers.Public
 {
@@ -23,15 +20,18 @@ namespace Vizsgaremek.Controllers.Public
     [Route("api/users/me")]
     public class UserController : Controller
     {
-        private HealthAppDbContext _context;
-        private UserManager<User> _userManager;
-        private ImageKitService _imageKit;
+        private readonly HealthAppDbContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly ImageKitService _imageKit;
+        private readonly DailyMealService _dailyMeal;
 
-        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit)
+
+        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit, DailyMealService dailyMeal)
         {
             _context = context;
             _userManager = userManager;
             _imageKit = imageKit;
+            _dailyMeal = dailyMeal;
         }
 
 
@@ -92,6 +92,7 @@ namespace Vizsgaremek.Controllers.Public
                 }).ToList(),
                 UserRecipes = u.Recipes.Select(r => new UserRecipeDto
                 {
+                    Id = r.Id,
                     Name = r.Name,
                     PreparationTime = r.PreparationTime,
                     CookingTime = r.CookingTime,
@@ -269,6 +270,19 @@ namespace Vizsgaremek.Controllers.Public
             return Ok(result);
         }
 
+        [HttpGet("daily-meal-plan")]
+        [Authorize]
+        public async Task<IActionResult> GetWeeklyMealPlan()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized("User was not found in users/weekly-meal-plan");
+            }
+
+            var result = await _dailyMeal.GenerateDailyMeals();
+            return Ok(new { Message = "Daily meal plan has been generated", Data = result});
+        }
 
     }
 }

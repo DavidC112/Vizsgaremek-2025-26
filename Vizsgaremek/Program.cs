@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vizsgaremek.Data;
 using Vizsgaremek.Models;
+using Vizsgaremek.Services;
 
 
 namespace Vizsgaremek
@@ -99,6 +100,8 @@ namespace Vizsgaremek
                 urlEndPoint: builder.Configuration["ImageKit:UrlEndpoint"]
                 ));
             builder.Services.AddScoped<ImageKitService>();
+            builder.Services.AddScoped<DailyMealService>();
+
 
             builder.Services.AddHttpClient();
             builder.Services.AddControllers();

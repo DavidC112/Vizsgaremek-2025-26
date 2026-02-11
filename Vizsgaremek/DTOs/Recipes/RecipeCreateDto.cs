@@ -17,6 +17,8 @@ namespace Vizsgaremek.DTOs.Recipes
         public decimal Protein { get; set; }
         public decimal Carbohydrate { get; set; }
         public decimal Fat { get; set; }
+        public bool IsVegan { get; set; } = false;
+        public bool IsVegetarian { get; set; } = false;
         public List<RecipeIngredientCreateDto> Ingredients { get; set; } = new();
     }
 }
