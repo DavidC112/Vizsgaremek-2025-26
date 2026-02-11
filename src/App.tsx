@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import { DetailsPage } from "./pages/DetailsPage";
+import { DashBoardPage } from "./pages/DashBoardPage";
 import LoginPage from "./pages/LoginPage";
 import { ProtectedRoute, PublicOnlyRoute } from "./utils/RouterGuard";
 import { useAuthContext } from "./context/AuthContextProvider";
@@ -18,7 +18,7 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={accessToken ? <DetailsPage /> : <LandingPage />}
+          element={accessToken ? <DashBoardPage /> : <LandingPage />}
         />
 
         <Route path="/register" element={<SignUpPage />}></Route>
@@ -28,7 +28,7 @@ const App = () => {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/details" element={<DetailsPage />} />
+          <Route path="/details" element={<DashBoardPage />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
