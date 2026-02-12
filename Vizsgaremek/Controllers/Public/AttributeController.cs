@@ -38,8 +38,7 @@ namespace Vizsgaremek.Controllers.Public
                     Weight = ua.Weight,
                     Height = ua.Height,
                     MeasuredAt = ua.MeasuredAt
-                })
-                .FirstOrDefaultAsync();
+                }).ToListAsync();
 
             return Ok(attributes);
         }
@@ -52,25 +51,10 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in attributes/add");
             }
-            var existing = await _context.UserAttributes.FirstOrDefaultAsync(ua => ua.UserId == user.Id);
-            if (existing != null)
-            {
-                existing.Weight = dto.Weight;
-                existing.Height = dto.Height;
-                existing.MeasuredAt = dto.MeasuredAt;
-                _context.UserAttributes.Update(existing);
-                await _context.SaveChangesAsync();
-                var resultDtoUpdate = new AttributesDto
-                {
-                    Weight = existing.Weight,
-                    Height = existing.Height,
-                    MeasuredAt = existing.MeasuredAt
-                };
 
-                return Ok(resultDtoUpdate);
-            }
             var userAttributes = new UserAttributes
             {
+                User = user,
                 UserId = user.Id,
                 Weight = dto.Weight,
                 Height = dto.Height,
@@ -88,13 +72,14 @@ namespace Vizsgaremek.Controllers.Public
 
 
             await _context.SaveChangesAsync();
-            return Created("api/users/me/attributes", 
-                new 
+            return Created("api/users/me/attributes",
+                new
                 {
                     Message = "Attributes created successfully",
                     Data = result
                 }
             );
         }
+
     }
 }

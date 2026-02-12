@@ -1,6 +1,4 @@
-﻿using Vizsgaremek.DTOs.Attributes;
-
-namespace Vizsgaremek.DTOs
+﻿namespace Vizsgaremek.DTOs
 {
     public class AttributesResponseDto
     {
@@ -9,7 +7,5 @@ namespace Vizsgaremek.DTOs
         public decimal Height { get; set; }
         public DateOnly MeasuredAt { get; set; }
         public decimal Bmi { get; set; }
-        public UserDataResponseDto User { get; set; }
-
     }
 }

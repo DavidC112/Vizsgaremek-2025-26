@@ -31,12 +31,12 @@ namespace Vizsgaremek.Models
 
         public string? ProfilePictureUrl { get; set; } = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20pfp.jpeg";
         public string? FileId { get; set; } = "698593d45c7cd75eb822b00b";
-        public UserAttributes? UserAttributes { get; set; } = null;
-        public ICollection<UserActivity>? UserActivities { get; set; } = null;
-        public UserGoal? UserGoals { get; set; } = null;
-        public ICollection<Meal>? Meals { get; set; } = null;
-        public ICollection<Recipe>? Recipes { get; set; } = null;
-        public ICollection<RefreshToken>? RefreshTokens { get; set; } = null;
+        public ICollection<UserAttributes>? UserAttributes { get; set; } = new List<UserAttributes>();
+        public ICollection<UserActivity>? UserActivities { get; set; } = new List<UserActivity>();
+        public UserGoal? UserGoals { get; set; }
+        public ICollection<Meal>? Meals { get; set; } = new List<Meal>();
+        public ICollection<Recipe>? Recipes { get; set; } = new List<Recipe>();
+        public ICollection<RefreshToken>? RefreshTokens { get; set; } = new List<RefreshToken>();
 
     }
 }

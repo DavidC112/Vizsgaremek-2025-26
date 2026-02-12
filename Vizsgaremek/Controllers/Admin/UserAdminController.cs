@@ -53,12 +53,14 @@ namespace Vizsgaremek.Controllers.Admin
                     ProfilePictureUrl = u.ProfilePictureUrl,
                     Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault(),
 
-                    UserAttributes = u.UserAttributes == null ? null : new AttributesDto
+                    UserAttributes = u.UserAttributes.Select(ua => new AttributesResponseDto
                     {
-                        Weight = u.UserAttributes.Weight,
-                        Height = u.UserAttributes.Height,
-                        MeasuredAt = u.UserAttributes.MeasuredAt
-                    },
+                        Id = ua.Id,
+                        Weight = ua.Weight,
+                        Height = ua.Height,
+                        Bmi = ua.Weight / (ua.Height * ua.Height),
+                        MeasuredAt = ua.MeasuredAt
+                    }).ToList(),
 
                     UserGoal = u.UserGoals == null ? null : new GoalDto
                     {
@@ -88,7 +90,7 @@ namespace Vizsgaremek.Controllers.Admin
                             Amount = ri.Amount
                         }).ToList()
                     }).ToList(),
-                    
+
                     Meals = u.Meals.Select(m => new MealResponseDto
                     {
                         Id = m.Id,

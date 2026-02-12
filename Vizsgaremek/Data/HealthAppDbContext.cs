@@ -30,8 +30,8 @@ namespace Vizsgaremek.Data
 
             builder.Entity<UserAttributes>()
                 .HasOne(ua => ua.User)
-                .WithOne(u => u.UserAttributes) 
-                .HasForeignKey<UserAttributes>(ua => ua.UserId);
+                .WithMany(u => u.UserAttributes) 
+                .HasForeignKey(ua => ua.UserId);
 
             foreach(var entityType in builder.Model.GetEntityTypes())
             {
