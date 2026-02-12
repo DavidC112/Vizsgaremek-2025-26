@@ -8,6 +8,5 @@ namespace Vizsgaremek.DTOs.Goal
         public string UserId { get; set; } = null!;
         public decimal TargetWeight { get; set; }
         public DateOnly TargetDate { get; set; }
-        public UserDataResponseDto User { get; set; }
     }
 }

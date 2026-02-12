@@ -7,5 +7,6 @@
         public decimal Height { get; set; }
         public DateOnly MeasuredAt { get; set; }
         public decimal Bmi { get; set; }
+        public decimal Bmr { get; set; }
     }
 }

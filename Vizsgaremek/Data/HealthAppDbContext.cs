@@ -62,7 +62,6 @@ namespace Vizsgaremek.Data
         public DbSet<UserActivity> UserActivities { get; set; }
         public DbSet<UserGoal> UserGoals { get; set; }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<MealItem> MealItems { get; set; }
 
         }
 }

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
@@ -31,7 +30,7 @@ namespace Vizsgaremek.Controllers.Admin
         public async Task<IActionResult> GetUsers()
         {
             var users = await _context.Users
-                .Include(u => u.UserAttributes)
+                 .Include(u => u.UserAttributes)
                 .Include(u => u.UserGoals)
                 .Include(u => u.UserActivities)
                     .ThenInclude(ua => ua.Activity)
@@ -39,7 +38,6 @@ namespace Vizsgaremek.Controllers.Admin
                     .ThenInclude(r => r.RecipeIngredients)
                     .ThenInclude(ri => ri.Ingredient)
                 .Include(u => u.Meals)
-                    .ThenInclude(m => m.MealItems)
                         .ThenInclude(mi => mi.Recipe)
                             .ThenInclude(r => r.RecipeIngredients)
                             .ThenInclude(ri => ri.Ingredient)
@@ -58,14 +56,16 @@ namespace Vizsgaremek.Controllers.Admin
                         Id = ua.Id,
                         Weight = ua.Weight,
                         Height = ua.Height,
-                        Bmi = ua.Weight / (ua.Height * ua.Height),
-                        MeasuredAt = ua.MeasuredAt
+                        Bmi = ua.Bmi,
+                        MeasuredAt = ua.MeasuredAt,
+                        Bmr = ua.Bmr
                     }).ToList(),
 
-                    UserGoal = u.UserGoals == null ? null : new GoalDto
+                    UserGoal = u.UserGoals == null ? null : new GoalResponseDto
                     {
+                        Id = u.UserGoals.Id,
                         TargetWeight = u.UserGoals.TargetWeight,
-                        DeadLine = u.UserGoals.DeadLine
+                        TargetDate = u.UserGoals.DeadLine
                     },
 
                     UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
@@ -93,14 +93,24 @@ namespace Vizsgaremek.Controllers.Admin
 
                     Meals = u.Meals.Select(m => new MealResponseDto
                     {
-                        Id = m.Id,
                         MealName = m.MealName,
-                        Items = m.MealItems.Select(mi => new MealItemResponseDto
-                        {
-                            Id = mi.Id,
-                            RecipeId = mi.RecipeId,
-                            IngredientId = mi.IngredientId,
-                        }).ToList()
+                        Category = m.Category,
+                        Id = m.Id,
+                        RecipeId = m.RecipeId,
+                        IngredientId = m.IngredientId,
+                        Amount = m.Amount,
+                        Calories = m.RecipeId != null
+                        ? (m.Recipe!.Calories / 100) * m.Amount
+                        : (m.Ingredient!.Calories / 100) * m.Amount,
+                        Protein = m.RecipeId != null
+                        ? (m.Recipe!.Protein / 100) * m.Amount
+                        : (m.Ingredient!.Protein / 100) * m.Amount,
+                                Fat = m.RecipeId != null
+                        ? (m.Recipe!.Fat / 100) * m.Amount
+                        : (m.Ingredient!.Fat / 100) * m.Amount,
+                                Carbohydrate = m.RecipeId != null
+                        ? (m.Recipe!.Carbohydrate / 100) * m.Amount
+                        : (m.Ingredient!.Carbohydrate / 100) * m.Amount
                     }).ToList()
                 })
                 .ToListAsync();

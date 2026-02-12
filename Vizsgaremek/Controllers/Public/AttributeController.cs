@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
-using Vizsgaremek.DTOs.Attributes;
 using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Controllers.Public
@@ -33,11 +32,15 @@ namespace Vizsgaremek.Controllers.Public
             }
             var attributes = await _context.UserAttributes
                 .Where(ua => ua.UserId == user.Id)
-                .Select(ua => new AttributesDto
+                .Select(ua => new AttributesResponseDto
                 {
+                    Id = ua.Id,
                     Weight = ua.Weight,
                     Height = ua.Height,
-                    MeasuredAt = ua.MeasuredAt
+                    MeasuredAt = ua.MeasuredAt,
+                    Bmi = ua.Bmi,
+                    Bmr = ua.Bmr,
+                    
                 }).ToListAsync();
 
             return Ok(attributes);
@@ -63,11 +66,13 @@ namespace Vizsgaremek.Controllers.Public
 
             _context.UserAttributes.Add(userAttributes);
 
-            var result = new AttributesDto
+            var result = new AttributesResponseDto
             {
                 Weight = userAttributes.Weight,
                 Height = userAttributes.Height,
-                MeasuredAt = userAttributes.MeasuredAt
+                Bmi = userAttributes.Bmi,
+                MeasuredAt = userAttributes.MeasuredAt,
+                Bmr = userAttributes.Bmr
             };
 
 

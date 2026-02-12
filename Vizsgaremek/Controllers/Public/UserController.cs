@@ -54,7 +54,6 @@ namespace Vizsgaremek.Controllers.Public
                     .ThenInclude(r => r.RecipeIngredients)
                     .ThenInclude(ri => ri.Ingredient)
                 .Include(u => u.Meals)
-                    .ThenInclude(m => m.MealItems)
                         .ThenInclude(mi => mi.Recipe)
                             .ThenInclude(r => r.RecipeIngredients)
                             .ThenInclude(ri => ri.Ingredient)
@@ -75,14 +74,16 @@ namespace Vizsgaremek.Controllers.Public
                     Id = ua.Id,
                     Weight = ua.Weight,
                     Height = ua.Height,
-                    Bmi = ua.Weight / (ua.Height * ua.Height),
-                    MeasuredAt = ua.MeasuredAt
+                    Bmi = ua.Bmi,
+                    MeasuredAt = ua.MeasuredAt,
+                    Bmr = ua.Bmr
                 }).ToList(),
 
-                UserGoal = u.UserGoals == null ? null : new GoalDto
+                UserGoal = u.UserGoals == null ? null : new GoalResponseDto
                 {
+                    Id = u.UserGoals.Id,
                     TargetWeight = u.UserGoals.TargetWeight,
-                    DeadLine = u.UserGoals.DeadLine
+                    TargetDate = u.UserGoals.DeadLine
                 },
 
                 UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
@@ -110,14 +111,24 @@ namespace Vizsgaremek.Controllers.Public
 
                 Meals = u.Meals.Select(m => new MealResponseDto
                 {
-                    Id = m.Id,
                     MealName = m.MealName,
-                    Items = m.MealItems.Select(mi => new MealItemResponseDto
-                    {
-                        Id = mi.Id,
-                        RecipeId = mi.RecipeId,
-                        IngredientId = mi.IngredientId,
-                    }).ToList()
+                    Category = m.Category,
+                    Id = m.Id,
+                    RecipeId = m.RecipeId,
+                    IngredientId = m.IngredientId,
+                    Amount = m.Amount,
+                    Calories = m.Recipe != null
+                        ? (m.Recipe.Calories / 100) * m.Amount
+                        : (m.Ingredient != null ? (m.Ingredient.Calories / 100) * m.Amount : 0m),
+                    Protein = m.Recipe != null
+                        ? (m.Recipe.Protein / 100) * m.Amount
+                        : (m.Ingredient != null ? (m.Ingredient.Protein / 100) * m.Amount : 0m),
+                    Fat = m.Recipe != null
+                        ? (m.Recipe.Fat / 100) * m.Amount
+                        : (m.Ingredient != null ? (m.Ingredient.Fat / 100) * m.Amount : 0m),
+                    Carbohydrate = m.Recipe != null
+                        ? (m.Recipe.Carbohydrate / 100) * m.Amount
+                        : (m.Ingredient != null ? (m.Ingredient.Carbohydrate / 100) * m.Amount : 0m)
                 }).ToList()
             };
 
@@ -222,11 +233,7 @@ namespace Vizsgaremek.Controllers.Public
             
 
             var meals = await _context.Meals
-                .Where(m => m.UserId == user.Id)
-                .Include(m => m.MealItems)
-                    .ThenInclude(mi => mi.Ingredient)
-                .Include(m => m.MealItems)
-                    .ThenInclude(mi => mi.Recipe)
+                .Where(m => m.UserId == user.Id).Include(m => m.Ingredient).Include(m => m.Recipe).IgnoreQueryFilters()
                 .ToListAsync();
 
             if (meals == null)
@@ -240,23 +247,22 @@ namespace Vizsgaremek.Controllers.Public
 
                 foreach (var meal in dayGroup)
                 {
-                    foreach (var item in meal.MealItems)
-                    {
-                        if (item.Ingredient != null)
+                    
+                        if (meal.Ingredient != null)
                         {
-                            calories += item.Ingredient.Calories * item.Amount;
-                            carbs += item.Ingredient.Carbohydrate * item.Amount;
-                            protein += item.Ingredient.Protein * item.Amount;
-                            fat += item.Ingredient.Fat * item.Amount;
+                            calories += meal.Ingredient.Calories / 100 * meal.Amount;
+                            carbs += meal.Ingredient.Carbohydrate / 100 * meal.Amount;
+                            protein += meal.Ingredient.Protein / 100 * meal.Amount;
+                            fat += meal.Ingredient.Fat / 100 * meal.Amount;
                         }
-                        else if (item.Recipe != null)
+                        else if (meal.Recipe != null)
                         {
-                            calories += item.Recipe.Calories * item.Amount;
-                            carbs += item.Recipe.Carbohydrate * item.Amount;
-                            protein += item.Recipe.Protein * item.Amount;
-                            fat += item.Recipe.Fat * item.Amount;
+                            calories += meal.Recipe.Calories / 100 * meal.Amount;
+                            carbs += meal.Recipe.Carbohydrate / 100 * meal.Amount;
+                            protein += meal.Recipe.Protein / 100 * meal.Amount;
+                            fat += meal.Recipe.Fat / 100 * meal.Amount;
                         }
-                    }
+                    
                 }
 
                 result.Add(new DailyIntakeDto

@@ -14,7 +14,7 @@ public record class UserResponseDto
     public string? ProfilePictureId { get; set; }
     public string? Role { get; set; }
     public ICollection<AttributesResponseDto>? UserAttributes { get; set; }
-    public GoalDto? UserGoal { get; set; }
+    public GoalResponseDto? UserGoal { get; set; }
     public ICollection<UserActivityResponseDto>? UserActivities { get; set; }
     public ICollection<UserRecipeDto>? UserRecipes { get; set; }
     public ICollection<MealResponseDto> Meals { get; set; }

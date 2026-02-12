@@ -60,10 +60,11 @@ namespace Vizsgaremek.Controllers.Public
                 existing.DeadLine = dto.DeadLine;
                 _context.UserGoals.Update(existing);
                 await _context.SaveChangesAsync();
-                var updateResponseDto = new GoalDto
+                var updateResponseDto = new GoalResponseDto
                 {
+                    Id = existing.Id,
                     TargetWeight = existing.TargetWeight,
-                    DeadLine = existing.DeadLine
+                    TargetDate = existing.DeadLine
                 };
                 return Ok(new {Message = "Goals updated successfully", Data = updateResponseDto});
             }
@@ -75,13 +76,14 @@ namespace Vizsgaremek.Controllers.Public
             };
 
             _context.UserGoals.Add(goal);
-
-            var result = new GoalDto
-            {
-                TargetWeight = goal.TargetWeight,
-                DeadLine = goal.DeadLine
-            };
             await _context.SaveChangesAsync();
+
+            var result = new GoalResponseDto
+            {
+                Id = goal.Id,
+                TargetWeight = goal.TargetWeight,
+                TargetDate = goal.DeadLine
+            };
 
             return Created("api/users/me/goal", 
                 new

@@ -30,7 +30,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in userActivity/");
             }
-            var activities = await _context.UserActivities
+            var result = await _context.UserActivities
                 .Where(ua => ua.UserId == user.Id)
                 .Include(ua => ua.Activity)
                 .IgnoreQueryFilters()
@@ -42,7 +42,7 @@ namespace Vizsgaremek.Controllers.Public
                     CaloriesBurned = ua.CaloriesBurned
                 }).ToListAsync();
 
-            return Ok(activities);
+            return Ok(new {Message = $"{user.FirstName} {user.LastName}'s activities", Data = result});
         }
 
         [HttpPost("add")]

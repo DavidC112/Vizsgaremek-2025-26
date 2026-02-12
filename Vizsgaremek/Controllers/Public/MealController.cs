@@ -21,124 +21,132 @@ namespace Vizsgaremek.Controllers.Public
             _userManager = userManager;
         }
 
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetMeals()
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null)
+            if(user == null)
             {
-                return Unauthorized();
+                return Unauthorized("User was not found in  meal/");
             }
-            var meals = await _context.Meals
-                .Where(m => m.UserId == user.Id)
-                .Include(m => m.MealItems)
-                    .ThenInclude(mi => mi.Recipe)
-                .Include(m => m.MealItems)
-                    .ThenInclude(mi => mi.Ingredient)
-                .Select(m => new MealResponseDto
+
+            var result = await _context.Meals.Where(r => r.UserId == user.Id).Where(r => r.Log == DateOnly.FromDateTime(DateTime.Now))
+                .Include(r => r.Recipe)
+                .Include(r => r.Ingredient)
+                .IgnoreQueryFilters()
+                .Select(r => new MealResponseDto
                 {
-                    Id = m.Id,
-                    MealName = m.MealName,
-
-                    Items = m.MealItems.Select(i => new MealItemResponseDto
-                    {
-                        Id = i.Id,
-                        RecipeId = i.RecipeId,
-                        IngredientId = i.IngredientId,
-                        Amount = i.Amount
-                    }).ToList()
-
+                    MealName = r.MealName,
+                    Category = r.Category,
+                    Id = r.Id,
+                    RecipeId = r.RecipeId,
+                    IngredientId = r.IngredientId,
+                    Amount = r.Amount,
+                    Calories = r.RecipeId != null
+                ? (r.Recipe!.Calories / 100) * r.Amount
+                : (r.Ingredient!.Calories / 100) * r.Amount,
+                    Protein = r.RecipeId != null
+                ? (r.Recipe!.Protein / 100) * r.Amount
+                : (r.Ingredient!.Protein / 100) * r.Amount,
+                    Fat = r.RecipeId != null
+                ? (r.Recipe!.Fat / 100) * r.Amount
+                : (r.Ingredient!.Fat / 100) * r.Amount,
+                    Carbohydrate = r.RecipeId != null
+                ? (r.Recipe!.Carbohydrate / 100) * r.Amount
+                : (r.Ingredient!.Carbohydrate / 100) * r.Amount
                 }).ToListAsync();
 
-            return Ok(meals);
+            return Ok(new { Message = $"{user.FirstName} {user.LastName}'s meals.", Data = result });
         }
+
 
         [HttpPost("add")]
         [Authorize]
-        public async Task<IActionResult> AddMeal(MealCreateDto dto)
+        public async Task<IActionResult> AddMeal([FromBody] MealCreateDto dto)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized("User was not found in meal/add");
+                return Unauthorized("User was not found in meals/add");
+            }
+
+            if (dto.IngredientId != null && dto.RecipeId != null)
+            {
+                return BadRequest("You cannot specify both IngredientId and RecipeId.");
+            }
+
+            if (dto.IngredientId == null && dto.RecipeId == null)
+            {
+                return BadRequest("You must specify either IngredientId or RecipeId.");
+            }
+
+            Ingredient? existIngredient = null;
+            Recipe? existRecipe = null;
+
+            if (dto.IngredientId != null)
+            {
+                existIngredient = await _context.Ingredients.FindAsync(dto.IngredientId);
+                if (existIngredient == null)
+                {
+                    return NotFound("Ingredient not found in meal/add.");
+                }
+            }
+
+            if (dto.RecipeId != null)
+            {
+                existRecipe = await _context.Recipes.FindAsync(dto.RecipeId);
+                if (existRecipe == null)
+                {
+                    return NotFound("Recipe not found in meal/add");
+                }
             }
 
             var meal = new Meal
             {
-                MealName = dto.MealName,
                 UserId = user.Id,
-                MealItems = new List<MealItem>()
-            };
-
-            foreach(var itemDto in dto.Items)
-            {
-                Recipe recipe = null;
-                Ingredient ingredient = null;
-
-                if (!itemDto.RecipeId.HasValue && !itemDto.IngredientId.HasValue)
-                {
-                    return BadRequest("MealItem must have either RecipeId or IngredientId.");
-                }
-
-                if (itemDto.RecipeId.HasValue && itemDto.IngredientId.HasValue)
-                {
-                    return BadRequest("MealItem cannot have both RecipeId and IngredientId.");
-                }
-
-                if (itemDto.RecipeId.HasValue && itemDto.RecipeId.Value > 0)
-                {
-                    recipe = await _context.Recipes
-                        .Include(r => r.RecipeIngredients)
-                        .FirstOrDefaultAsync(r => r.Id == itemDto.RecipeId.Value);
-                    if (recipe == null)
-                    {
-                        return BadRequest($"Recipe with ID {itemDto.RecipeId.Value} not found.");
-                    }
-                }
-
-                if(itemDto.IngredientId.HasValue && itemDto.IngredientId.Value > 0)
-                {
-                    ingredient = await _context.Ingredients
-                        .FirstOrDefaultAsync(i => i.Id == itemDto.IngredientId.Value && !i.IsDeleted);
-                    if (ingredient == null)
-                    {
-                        return BadRequest($"Ingredient with ID {itemDto.IngredientId.Value} not found.");
-                    }
-                }
-
-                meal.MealItems.Add(new MealItem
-                {
-                    Meal = meal,
-                    RecipeId = recipe?.Id,
-                    IngredientId = ingredient?.Id,
-                    Recipe = recipe,
-                    Ingredient = ingredient,
-                    Amount = itemDto.Amount
-                });
-            }
-
-            var result = new MealResponseDto
-            {
-                Id = meal.Id,
-                MealName = meal.MealName,
-                Items = meal.MealItems.Select(i => new MealItemResponseDto
-                {
-                    Id = i.Id,
-                    RecipeId = i.RecipeId,
-                    IngredientId = i.IngredientId,
-                    Amount = i.Amount
-                }).ToList()
+                User = user,
+                IngredientId = dto.IngredientId,
+                RecipeId = dto.RecipeId,
+                Amount = dto.Amount,
+                MealName = dto.RecipeId != null ? existRecipe!.Name : existIngredient!.Name,
+                Category = dto.Category,
+                Recipe = existRecipe,
+                Ingredient = existIngredient
             };
 
             _context.Meals.Add(meal);
             await _context.SaveChangesAsync();
-            return Created($"api/meals/{meal.Id}", 
-                new
-                {
-                    Message = "Meal created successfully",
-                    Data = result
-                });
+
+            var result = new MealResponseDto
+            {
+                MealName = meal.MealName,
+                Category = meal.Category,
+                Id = meal.Id,
+                RecipeId = meal.RecipeId,
+                IngredientId = meal.IngredientId,
+                Amount = meal.Amount,
+                Calories = meal.RecipeId != null
+                ? (meal.Recipe!.Calories / 100) * meal.Amount
+                : (meal.Ingredient!.Calories / 100) * meal.Amount,
+                Protein = meal.RecipeId != null
+                ? (meal.Recipe!.Protein / 100) * meal.Amount
+                : (meal.Ingredient!.Protein / 100) * meal.Amount,
+                Fat = meal.RecipeId != null
+                ? (meal.Recipe!.Fat / 100) * meal.Amount
+                : (meal.Ingredient!.Fat / 100) * meal.Amount,
+                Carbohydrate = meal.RecipeId != null
+                ? (meal.Recipe!.Carbohydrate / 100) * meal.Amount
+                : (meal.Ingredient!.Carbohydrate / 100) * meal.Amount
+            };
+
+            return Created ($"api/users/me/meals/{meal.Id}", new
+            {
+                Message = "Meal successfully added.",
+                Data = result
+            });
         }
+     
     }
 }

@@ -1291,32 +1291,12 @@
       },
       "MealCreateDto": {
         "required": [
-          "mealName"
+          "category"
         ],
         "type": "object",
         "properties": {
-          "mealName": {
+          "category": {
             "type": "string"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MealItemCreateDto"
-            }
-          }
-        }
-      },
-      "MealItemCreateDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "null",
-              "integer",
-              "string"
-            ],
-            "format": "int32"
           },
           "recipeId": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
