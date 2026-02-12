@@ -4,7 +4,7 @@ import ProgressBar from "../ui/ProgressBar";
 const CalorieGoal = () => {
   return (
     <>
-      <section className="border-primary-green-200 space-y-4 rounded-xl border bg-linear-to-br from-green-50 to-emerald-50 p-6">
+      <section className="bg-blur space-y-4 rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
         <div className="">
           <h2 className="font-light">Daily calorie goal</h2>
           <h1 className="text-3xl">2300 cal</h1>
@@ -17,16 +17,16 @@ const CalorieGoal = () => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <div className="rounded-xl border border-gray-200 bg-white p-2">
+          <div className="rounded-xl border border-gray-200 bg-white p-2 shadow-2xs">
             <p className="text-xs">Consumed</p>
             <p>1100</p>
           </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-2">
-            <p>Burned</p>
+          <div className="rounded-xl border border-gray-200 bg-white p-2 shadow-2xs">
+            <p className="text-xs">Burned</p>
             <p>0</p>
           </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-2">
-            <p>Net</p>
+          <div className="rounded-xl border border-gray-200 bg-white p-2 shadow-2xs">
+            <p className="text-xs">Net</p>
             <p>1100</p>
           </div>
         </div>

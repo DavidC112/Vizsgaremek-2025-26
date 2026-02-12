@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import CalorieGoal from "../components/DashBoardPage/CalorieGoal";
 import TodaysMeal from "../components/DashBoardPage/TodaysMeal";
 import { NotebookTabs, Utensils } from "lucide-react";
+import { useMeals } from "../hooks/useMeals";
 
 export const DashBoardPage = () => {
   // //BarChart
@@ -30,13 +31,17 @@ export const DashBoardPage = () => {
   //   width: 200,
   //   height: 200,
   // };
-
+  const { meals } = useMeals();
   return (
     <>
       <Navbar />
 
       <div className="from-primary-green-50 min-h-screen min-w-full bg-linear-to-b via-white to-blue-50">
         <main className="l mx-auto max-w-7xl space-y-6 p-5">
+          <h1 className="text-4xl md:text-5xl">Welcome back!</h1>
+          <h2 className="text-md font-extralight text-neutral-600 md:text-xl">
+            Here's your nutrition overview for today
+          </h2>
           <CalorieGoal />
 
           {/* <section className="grid-col-1 grid gap-4 lg:grid-cols-3">
@@ -71,7 +76,7 @@ export const DashBoardPage = () => {
             </div>
           </section> */}
 
-          <TodaysMeal />
+          <TodaysMeal todayMeals={meals} />
 
           <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="flex items-center space-x-5 rounded-xl border border-gray-200 bg-white p-4">
