@@ -6,6 +6,7 @@ import { ProtectedRoute, PublicOnlyRoute } from "./utils/RouterGuard";
 import { useAuthContext } from "./context/AuthContextProvider";
 import ScrollToTop from "./utils/ScrollToTop";
 import SignUpPage from "./pages/SignUpPage";
+import PersistentLogin from "./utils/PersistentLogin";
 
 const App = () => {
   const { accessToken } = useAuthContext();
@@ -16,19 +17,19 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route
-          path="/"
-          element={accessToken ? <DashBoardPage /> : <LandingPage />}
-        />
+        <Route element={<PersistentLogin />}>
+          <Route element={<PublicOnlyRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+          </Route>
 
-        <Route path="/register" element={<SignUpPage />}></Route>
-
-        <Route element={<PublicOnlyRoute />}>
-          <Route path="/login" element={<LoginPage />} />
-        </Route>
-
-        <Route element={<ProtectedRoute />}>
-          <Route path="/details" element={<DashBoardPage />}></Route>
+          <Route
+            path="/"
+            element={accessToken ? <DashBoardPage /> : <LandingPage />}
+          />
+          <Route path="/register" element={<SignUpPage />}></Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/details" element={<DashBoardPage />}></Route>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
