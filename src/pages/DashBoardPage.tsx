@@ -9,6 +9,7 @@ import { useCaliorie } from "../hooks/useCalorieGoal";
 import { useAttributes } from "../hooks/useAttributes";
 import { useActivity } from "../hooks/useActivity";
 import { useEffect } from "react";
+import RecommendedMeals from "../components/DashBoardPage/RecommendedMeals";
 
 export const DashBoardPage = () => {
   // //BarChart
@@ -35,7 +36,7 @@ export const DashBoardPage = () => {
   //   width: 200,
   //   height: 200,
   // };
-  const { meals } = useMeals();
+  const { meals, todayRecommendedMeals, reFetchMeals } = useMeals();
   const { consumedCalorie, reFetchDailyIntake, netCalorie } = useCaliorie();
   const { lastAttribute, fetchAttributes } = useAttributes();
   const { activityData, fetchActivities, burnedCalorie } = useActivity();
@@ -44,7 +45,8 @@ export const DashBoardPage = () => {
     reFetchDailyIntake();
     fetchAttributes();
     fetchActivities();
-  }, [reFetchDailyIntake, fetchAttributes, fetchActivities]);
+    reFetchMeals();
+  }, [reFetchDailyIntake, fetchAttributes, fetchActivities, reFetchMeals]);
 
   return (
     <>
@@ -97,6 +99,7 @@ export const DashBoardPage = () => {
             </div>
           </section> */}
 
+          <RecommendedMeals recommendedMeals={todayRecommendedMeals} />
           <TodaysMeal todayMeals={meals} />
 
           <section className="grid grid-cols-1 gap-4 md:grid-cols-2">

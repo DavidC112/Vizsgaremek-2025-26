@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import api from "../api/axios";
 
 export type MealsResponse = {
@@ -19,25 +19,75 @@ export type Meal = {
   fat: number;
 };
 
+//Reccomended daily meals
+export type DailyMeal = {
+  date: string;
+  breakfast: string;
+  breakfastRecipeId: number;
+  soup: string;
+  soupRecipeId: number;
+  lunch: string;
+  lunchRecipeId: number;
+  dinner: string;
+  dinnerRecipeId: number;
+};
+
+export type MealPlanData = {
+  dailyMeals: DailyMeal[];
+  expiryDate: string;
+};
+
+export type MealPlanResponse = {
+  message: string;
+  data: MealPlanData;
+};
+
 export const useMeals = () => {
   const [meals, setMeals] = useState<MealsResponse | undefined>(undefined);
+  const [recommendedMeals, setRecommendedMeals] = useState<
+    MealPlanResponse | undefined
+  >(undefined);
 
   const fetchMeals = useCallback(async () => {
-    const res = await api.get("/users/me/meals", {
-      withCredentials: true,
-    });
-
-    console.log(res.data);
-    setMeals(res.data);
+    try {
+      const res = await api.get("/users/me/meals", {
+        withCredentials: true,
+      });
+      console.log(res.data);
+      setMeals(res.data);
+    } catch (error) {
+      console.error("fetchMeals error:" + error);
+    }
   }, []);
+
+  const fetchRecommendedMeals = useCallback(async () => {
+    try {
+      const res = await api.get("/users/me/daily-meal-plan", {
+        withCredentials: true,
+      });
+      console.log(res.data.dailyMeals);
+      setRecommendedMeals(res.data);
+    } catch (error) {
+      console.error("fetchReccomendedMeals" + error);
+    }
+  }, []);
+
+  const todayRecommendedMeals = useMemo(() => {
+    const todayDate = new Date().toISOString().split("T")[0];
+    return recommendedMeals?.data.dailyMeals.find(
+      (item) => item.date === todayDate,
+    );
+  }, [recommendedMeals]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchMeals();
-  }, [fetchMeals]);
+    fetchRecommendedMeals();
+  }, [fetchRecommendedMeals]);
 
   return {
     meals,
     reFetchMeals: fetchMeals,
+    reFetchRecommendedMeals: fetchRecommendedMeals,
+    todayRecommendedMeals,
   };
 };

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import api from "../api/axios";
 
 export type AttributeType = {
@@ -13,13 +13,13 @@ export type AttributeType = {
 export const useAttributes = () => {
   const [attributesData, setAttributesData] = useState<AttributeType[]>([]);
 
-  const fetchAttributes = async () => {
+  const fetchAttributes = useCallback(async () => {
     const res = await api.get("/users/me/attributes", {
       withCredentials: true,
     });
 
     setAttributesData(res.data);
-  };
+  }, []);
 
   const lastAttribute = useMemo(() => {
     if (!attributesData) return;
