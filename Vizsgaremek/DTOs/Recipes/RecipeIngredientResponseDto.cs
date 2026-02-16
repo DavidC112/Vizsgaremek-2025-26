@@ -3,7 +3,7 @@
     public class RecipeIngredientResponseDto
     {
         public int IngredientId { get; set; }
-        public string IngredientName { get; set; }
+        public required string IngredientName { get; set; }
         public decimal Amount { get; set; }
     }
 }

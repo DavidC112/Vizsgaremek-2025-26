@@ -8,6 +8,7 @@ using Vizsgaremek.DTOs.Activity;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.DTOs.Meal;
 using Vizsgaremek.DTOs.Recipes;
+using Vizsgaremek.DTOs.User;
 using Vizsgaremek.Models;
 using Vizsgaremek.Services;
 

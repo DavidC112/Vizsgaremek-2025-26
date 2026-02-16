@@ -15,7 +15,7 @@ namespace Vizsgaremek.Models
         public decimal Amount { get; set; }
         public Recipe? Recipe { get; set; }
         public Ingredient? Ingredient { get; set; }
-        public required User User { get; set; }
+        public User? User { get; set; }
 
         public DateOnly Log { get; set; } = DateOnly.FromDateTime(DateTime.Now);        public NutritionDto CalculateNutrition()
         {

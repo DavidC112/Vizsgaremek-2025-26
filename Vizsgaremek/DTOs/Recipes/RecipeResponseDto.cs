@@ -3,11 +3,11 @@
     public class RecipeResponseDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
+        public required string Name { get; set; }
+        public required string Category { get; set; }
         public int PreparationTime { get; set; }
         public int CookingTime { get; set; }
-        public string Description { get; set; }
+        public required string Description { get; set; }
         public int Portions { get; set; }
         public decimal Calories { get; set; }
         public decimal Protein { get; set; }
@@ -16,8 +16,8 @@
         public bool IsVegan { get; set; }
         public bool IsVegetarian { get; set; }
         public bool IsCommunity { get; set; }
-        public string ImageUrl { get; set; }
-        public string FileId { get; set; }
-        public List<RecipeIngredientResponseDto> Ingredients { get; set; }
+        public string? ImageUrl { get; set; }
+        public ICollection<RecipeIngredientResponseDto> Ingredients { get; set; } =
+            new List<RecipeIngredientResponseDto>();
     }
 }

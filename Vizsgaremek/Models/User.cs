@@ -24,6 +24,5 @@ namespace Vizsgaremek.Models
         public UserGoal? UserGoals { get; set; }
         public ICollection<Meal> Meals { get; set; } = new List<Meal>();
         public ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
-        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

@@ -2,7 +2,7 @@
 {
     public class WeeklyMealPlanDto
     {
-        public List<DailyMealPlanDto> DailyMeals { get; set; } = new List<DailyMealPlanDto>();
+        public ICollection<DailyMealPlanDto> DailyMeals { get; set; } = new List<DailyMealPlanDto>();
         public DateOnly ExpiryDate { get; set; }
     }
 }

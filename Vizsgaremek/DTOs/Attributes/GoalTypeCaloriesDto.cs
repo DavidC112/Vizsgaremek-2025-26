@@ -3,6 +3,6 @@
     public class GoalTypeCaloriesDto
     {
         public decimal Calories { get; set; }
-        public string GoalType { get; set; }
+        public required string GoalType { get; set; }
     }
 }

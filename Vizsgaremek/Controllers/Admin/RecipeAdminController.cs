@@ -68,6 +68,7 @@ namespace Vizsgaremek.Controllers.Admin
             {
                 Id = recipe.Id,
                 Name = recipe.Name,
+                Category = recipe.Category,
                 PreparationTime = recipe.PreparationTime,
                 CookingTime = recipe.CookingTime,
                 Description = recipe.Description,
