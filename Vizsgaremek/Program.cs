@@ -101,6 +101,8 @@ namespace Vizsgaremek
                 ));
             builder.Services.AddScoped<ImageKitService>();
             builder.Services.AddScoped<DailyMealService>();
+            builder.Services.AddScoped<DailyIntakeService>();
+            builder.Services.AddScoped<CaloriesCalculationService>();
 
 
             builder.Services.AddHttpClient();

@@ -44,18 +44,10 @@ namespace Vizsgaremek.Controllers.Public
                     RecipeId = r.RecipeId,
                     IngredientId = r.IngredientId,
                     Amount = r.Amount,
-                    Calories = r.RecipeId != null
-                ? (r.Recipe!.Calories / 100) * r.Amount
-                : (r.Ingredient!.Calories / 100) * r.Amount,
-                    Protein = r.RecipeId != null
-                ? (r.Recipe!.Protein / 100) * r.Amount
-                : (r.Ingredient!.Protein / 100) * r.Amount,
-                    Fat = r.RecipeId != null
-                ? (r.Recipe!.Fat / 100) * r.Amount
-                : (r.Ingredient!.Fat / 100) * r.Amount,
-                    Carbohydrate = r.RecipeId != null
-                ? (r.Recipe!.Carbohydrate / 100) * r.Amount
-                : (r.Ingredient!.Carbohydrate / 100) * r.Amount
+                    Calories = r.CalculateNutrition().Calories,
+                    Protein = r.CalculateNutrition().Protein,
+                    Fat = r.CalculateNutrition().Fat,
+                    Carbohydrate = r.CalculateNutrition().Carbohydrate
                 }).ToListAsync();
 
             return Ok(new { Message = $"{user.FirstName} {user.LastName}'s meals.", Data = result });
@@ -103,6 +95,8 @@ namespace Vizsgaremek.Controllers.Public
                 }
             }
 
+            
+
             var meal = new Meal
             {
                 UserId = user.Id,
@@ -116,6 +110,8 @@ namespace Vizsgaremek.Controllers.Public
                 Ingredient = existIngredient
             };
 
+            var nutrition = meal.CalculateNutrition();
+
             _context.Meals.Add(meal);
             await _context.SaveChangesAsync();
 
@@ -127,18 +123,10 @@ namespace Vizsgaremek.Controllers.Public
                 RecipeId = meal.RecipeId,
                 IngredientId = meal.IngredientId,
                 Amount = meal.Amount,
-                Calories = meal.RecipeId != null
-                ? (meal.Recipe!.Calories / 100) * meal.Amount
-                : (meal.Ingredient!.Calories / 100) * meal.Amount,
-                Protein = meal.RecipeId != null
-                ? (meal.Recipe!.Protein / 100) * meal.Amount
-                : (meal.Ingredient!.Protein / 100) * meal.Amount,
-                Fat = meal.RecipeId != null
-                ? (meal.Recipe!.Fat / 100) * meal.Amount
-                : (meal.Ingredient!.Fat / 100) * meal.Amount,
-                Carbohydrate = meal.RecipeId != null
-                ? (meal.Recipe!.Carbohydrate / 100) * meal.Amount
-                : (meal.Ingredient!.Carbohydrate / 100) * meal.Amount
+                Calories = nutrition.Calories,
+                Protein = nutrition.Protein,
+                Fat = nutrition.Fat,
+                Carbohydrate = nutrition.Carbohydrate
             };
 
             return Created ($"api/users/me/meals/{meal.Id}", new

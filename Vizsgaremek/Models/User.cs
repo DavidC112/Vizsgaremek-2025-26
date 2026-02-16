@@ -28,6 +28,7 @@ namespace Vizsgaremek.Models
         public string Gender { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsDeleted { get; set; } = false;
+        public WeeklyMealPlan? WeeklyMealPlan { get; set; }
 
         public string? ProfilePictureUrl { get; set; } = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20pfp.jpeg";
         public string? FileId { get; set; } = "698593d45c7cd75eb822b00b";

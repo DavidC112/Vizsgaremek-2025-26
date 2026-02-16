@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
+using Vizsgaremek.DTOs.Attributes;
 using Vizsgaremek.DTOs.DailyIntake;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.DTOs.ImageDto;
@@ -24,14 +25,18 @@ namespace Vizsgaremek.Controllers.Public
         private readonly UserManager<User> _userManager;
         private readonly ImageKitService _imageKit;
         private readonly DailyMealService _dailyMeal;
+        private readonly DailyIntakeService _dailyIntakeService;
+        private readonly CaloriesCalculationService _calculateCal;
 
 
-        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit, DailyMealService dailyMeal)
+        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit, DailyMealService dailyMeal, DailyIntakeService dailyIntakeService, CaloriesCalculationService calculateCal)
         {
             _context = context;
             _userManager = userManager;
             _imageKit = imageKit;
             _dailyMeal = dailyMeal;
+            _dailyIntakeService = dailyIntakeService;
+            _calculateCal = calculateCal;
         }
 
 
@@ -39,11 +44,14 @@ namespace Vizsgaremek.Controllers.Public
         [Authorize]
         public async Task<IActionResult> GetLoggedUser()
         {
-            var userId = _userManager.GetUserId(User);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
                 return Unauthorized("User was not found in user/");
             }
+
+            var goalTypes = await _calculateCal.CalculateCalories(user);
+            var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
 
             var u = await _context.Users
                 .Include(u => u.UserAttributes)
@@ -57,7 +65,10 @@ namespace Vizsgaremek.Controllers.Public
                         .ThenInclude(mi => mi.Recipe)
                             .ThenInclude(r => r.RecipeIngredients)
                             .ThenInclude(ri => ri.Ingredient)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                .Include(u => u.Meals)
+                    .ThenInclude(i => i.Ingredient)
+                .FirstOrDefaultAsync(u => u.Id == user.Id);
+
 
             var response = new UserResponseDto
             {
@@ -67,7 +78,7 @@ namespace Vizsgaremek.Controllers.Public
                 Email = u.Email,
                 ProfilePictureId = u.FileId,
                 ProfilePictureUrl = u.ProfilePictureUrl,
-                Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault(),
+                Role = role,
 
                 UserAttributes = u.UserAttributes.Select(ua => new AttributesResponseDto
                 {
@@ -76,7 +87,8 @@ namespace Vizsgaremek.Controllers.Public
                     Height = ua.Height,
                     Bmi = ua.Bmi,
                     MeasuredAt = ua.MeasuredAt,
-                    Bmr = ua.Bmr
+                    Calories = goalTypes.Calories,
+                    GoalType = goalTypes.GoalType
                 }).ToList(),
 
                 UserGoal = u.UserGoals == null ? null : new GoalResponseDto
@@ -111,24 +123,17 @@ namespace Vizsgaremek.Controllers.Public
 
                 Meals = u.Meals.Select(m => new MealResponseDto
                 {
+
                     MealName = m.MealName,
                     Category = m.Category,
                     Id = m.Id,
                     RecipeId = m.RecipeId,
                     IngredientId = m.IngredientId,
                     Amount = m.Amount,
-                    Calories = m.Recipe != null
-                        ? (m.Recipe.Calories / 100) * m.Amount
-                        : (m.Ingredient != null ? (m.Ingredient.Calories / 100) * m.Amount : 0m),
-                    Protein = m.Recipe != null
-                        ? (m.Recipe.Protein / 100) * m.Amount
-                        : (m.Ingredient != null ? (m.Ingredient.Protein / 100) * m.Amount : 0m),
-                    Fat = m.Recipe != null
-                        ? (m.Recipe.Fat / 100) * m.Amount
-                        : (m.Ingredient != null ? (m.Ingredient.Fat / 100) * m.Amount : 0m),
-                    Carbohydrate = m.Recipe != null
-                        ? (m.Recipe.Carbohydrate / 100) * m.Amount
-                        : (m.Ingredient != null ? (m.Ingredient.Carbohydrate / 100) * m.Amount : 0m)
+                    Calories = m.CalculateNutrition().Calories,
+                    Protein = m.CalculateNutrition().Protein,
+                    Carbohydrate = m.CalculateNutrition().Carbohydrate,
+                    Fat = m.CalculateNutrition().Fat
                 }).ToList()
             };
 
@@ -231,49 +236,7 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("User was not found in users/daily");
             }
             
-
-            var meals = await _context.Meals
-                .Where(m => m.UserId == user.Id).Include(m => m.Ingredient).Include(m => m.Recipe).IgnoreQueryFilters()
-                .ToListAsync();
-
-            if (meals == null)
-                return NotFound("No meals found in users/daily");
-
-            var result = new List<DailyIntakeDto>();
-
-            foreach (var dayGroup in meals.GroupBy(m => m.Log))
-            {
-                decimal calories = 0, carbs = 0, protein = 0, fat = 0;
-
-                foreach (var meal in dayGroup)
-                {
-                    
-                        if (meal.Ingredient != null)
-                        {
-                            calories += meal.Ingredient.Calories / 100 * meal.Amount;
-                            carbs += meal.Ingredient.Carbohydrate / 100 * meal.Amount;
-                            protein += meal.Ingredient.Protein / 100 * meal.Amount;
-                            fat += meal.Ingredient.Fat / 100 * meal.Amount;
-                        }
-                        else if (meal.Recipe != null)
-                        {
-                            calories += meal.Recipe.Calories / 100 * meal.Amount;
-                            carbs += meal.Recipe.Carbohydrate / 100 * meal.Amount;
-                            protein += meal.Recipe.Protein / 100 * meal.Amount;
-                            fat += meal.Recipe.Fat / 100 * meal.Amount;
-                        }
-                    
-                }
-
-                result.Add(new DailyIntakeDto
-                {
-                    Calories = calories,
-                    Carbohydrate = carbs,
-                    Protein = protein,
-                    Fat = fat,
-                    Date = dayGroup.Key
-                });
-            }
+            var  result = await _dailyIntakeService.GetDailyIntake(user.Id);
 
             return Ok(result);
         }
@@ -288,7 +251,7 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("User was not found in users/weekly-meal-plan");
             }
 
-            var result = await _dailyMeal.GenerateDailyMeals();
+            var result = await _dailyMeal.GenerateDailyMeals(user);
             return Ok(new { Message = "Daily meal plan has been generated", Data = result});
         }
 

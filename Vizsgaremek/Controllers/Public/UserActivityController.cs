@@ -31,7 +31,7 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("User was not found in userActivity/");
             }
             var result = await _context.UserActivities
-                .Where(ua => ua.UserId == user.Id)
+                .Where(ua => ua.UserId == user.Id && ua.Log  == DateOnly.FromDateTime(DateTime.Now))
                 .Include(ua => ua.Activity)
                 .IgnoreQueryFilters()
                 .Select(ua => new UserActivityResponseDto

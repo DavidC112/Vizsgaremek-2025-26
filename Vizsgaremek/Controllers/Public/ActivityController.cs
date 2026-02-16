@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
+using Vizsgaremek.DTOs.Activites;
 using Vizsgaremek.DTOs.Activity;
 
 
@@ -22,8 +23,9 @@ namespace Vizsgaremek.Controllers.Public
         [HttpGet("all")]
         public async Task<IActionResult> GetActivities()
         {
-            var activities = await _context.Activities.Select(a => new ActivityDto
+            var activities = await _context.Activities.Select(a => new ActivityResponseDto
             {
+                Id = a.Id,
                 Name = a.Name,
                 CaloriesBurnedPerHour = a.CaloriesBurnedPerHour
             }).ToListAsync();

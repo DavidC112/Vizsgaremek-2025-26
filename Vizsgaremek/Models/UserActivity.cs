@@ -13,5 +13,6 @@ namespace Vizsgaremek.Models
            
         [NotMapped]
         public decimal CaloriesBurned => (Activity.CaloriesBurnedPerHour * Duration) / 60m;
+        public DateOnly Log { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     }
 }

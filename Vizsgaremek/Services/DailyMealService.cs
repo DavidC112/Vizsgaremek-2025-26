@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs.DailyMeal;
+using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Services
 {
@@ -12,12 +13,22 @@ namespace Vizsgaremek.Services
             _context = context;
         }
 
-        public async Task<WeeklyMealPlanDto> GenerateDailyMeals()
+        public async Task<WeeklyMealPlanDto> GenerateDailyMeals(User user)
         {
             var random = new Random();
             var today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             var expiryDate = today.AddDays(6);
-            var result = new List<DailyMealPlanDto>();
+            var result = new List<DailyMealPlan>();
+
+            var existingPlan = await _context.WeeklyMealPlans
+                .Include(w => w.DailyMeals)
+                .Where(w => w.userId == user.Id && w.ExpiryDate >= today)
+                .OrderBy(w => w.ExpiryDate)
+                .FirstOrDefaultAsync();
+            if (existingPlan != null)
+            {
+                return MapToDto(existingPlan);
+            }
 
             var breakfast = (await _context.Recipes
                 .Where(r => r.Category == "Breakfast")
@@ -73,7 +84,7 @@ namespace Vizsgaremek.Services
                     }
             }
 
-            result.Add(new DailyMealPlanDto
+            result.Add(new DailyMealPlan
                 {
                     Date = curretDate,
                     Breakfast = breakfastRecipe.Name,
@@ -87,15 +98,43 @@ namespace Vizsgaremek.Services
                 });
             }
 
-            var response = new WeeklyMealPlanDto
+            var newplan = new WeeklyMealPlan
             {
+                userId = user.Id,
+                user = user,
                 DailyMeals = result,
-                ExpiryDate = expiryDate
+                ExpiryDate = expiryDate,
             };
 
+            _context.WeeklyMealPlans.Add(newplan);
+            await _context.SaveChangesAsync();  
 
+            var response = MapToDto(newplan);
 
             return response;
         }
+
+        private WeeklyMealPlanDto MapToDto(WeeklyMealPlan plan)
+        {
+            return new WeeklyMealPlanDto
+            {
+                DailyMeals = plan.DailyMeals
+                    .Select(d => new DailyMealPlanDto
+                    {
+                        Date = d.Date,
+                        Breakfast = d.Breakfast,
+                        BreakfastRecipeId = d.BreakfastRecipeId,
+                        Soup = d.Soup,
+                        SoupRecipeId = d.SoupRecipeId,
+                        Lunch = d.Lunch,
+                        LunchRecipeId = d.LunchRecipeId,
+                        Dinner = d.Dinner,
+                        DinnerRecipeId = d.DinnerRecipeId
+                    }).ToList(),
+                ExpiryDate = plan.ExpiryDate
+            };
+        }
+
+
     }
 }

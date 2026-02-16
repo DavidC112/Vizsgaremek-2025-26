@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.Models;
+using Vizsgaremek.Services;
 
 namespace Vizsgaremek.Controllers.Public
 {
@@ -15,10 +16,12 @@ namespace Vizsgaremek.Controllers.Public
     {
         private readonly HealthAppDbContext _context;
         private readonly UserManager<User> _userManager;
-        public AttributeController(HealthAppDbContext context, UserManager<User> userManager)
+        private readonly CaloriesCalculationService _caloriesCalculationService;
+        public AttributeController(HealthAppDbContext context, UserManager<User> userManager, CaloriesCalculationService caloriescalc)
         {
             _context = context;
             _userManager = userManager;
+            _caloriesCalculationService = caloriescalc;
         }
 
 
@@ -30,20 +33,25 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in attributes/");
             }
-            var attributes = await _context.UserAttributes
+
+            var goalTypes = await _caloriesCalculationService.CalculateCalories(user);
+
+
+            var result = await _context.UserAttributes
                 .Where(ua => ua.UserId == user.Id)
                 .Select(ua => new AttributesResponseDto
                 {
                     Id = ua.Id,
                     Weight = ua.Weight,
                     Height = ua.Height,
-                    MeasuredAt = ua.MeasuredAt,
                     Bmi = ua.Bmi,
-                    Bmr = ua.Bmr,
-                    
+                    MeasuredAt = ua.MeasuredAt,
+                    Calories = goalTypes.Calories,
+                    GoalType = goalTypes.GoalType
+
                 }).ToListAsync();
 
-            return Ok(attributes);
+            return Ok(result);
         }
 
         [HttpPost("add")]
@@ -71,8 +79,7 @@ namespace Vizsgaremek.Controllers.Public
                 Weight = userAttributes.Weight,
                 Height = userAttributes.Height,
                 Bmi = userAttributes.Bmi,
-                MeasuredAt = userAttributes.MeasuredAt,
-                Bmr = userAttributes.Bmr
+                MeasuredAt = userAttributes.MeasuredAt
             };
 
 

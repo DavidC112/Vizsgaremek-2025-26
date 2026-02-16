@@ -9,6 +9,7 @@ using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.DTOs.Meal;
 using Vizsgaremek.DTOs.Recipes;
 using Vizsgaremek.Models;
+using Vizsgaremek.Services;
 
 
 namespace Vizsgaremek.Controllers.Admin
@@ -20,7 +21,7 @@ namespace Vizsgaremek.Controllers.Admin
     {
         private readonly UserManager<User> _userManager;
         private readonly HealthAppDbContext _context;
-        public UserAdminController(UserManager<User> userManager, HealthAppDbContext contex)
+        public UserAdminController(UserManager<User> userManager, HealthAppDbContext contex, CaloriesCalculationService caloriesCalc)
         {
             _userManager = userManager;
             _context = contex;
@@ -30,7 +31,7 @@ namespace Vizsgaremek.Controllers.Admin
         public async Task<IActionResult> GetUsers()
         {
             var users = await _context.Users
-                 .Include(u => u.UserAttributes)
+                .Include(u => u.UserAttributes)
                 .Include(u => u.UserGoals)
                 .Include(u => u.UserActivities)
                     .ThenInclude(ua => ua.Activity)
@@ -38,84 +39,89 @@ namespace Vizsgaremek.Controllers.Admin
                     .ThenInclude(r => r.RecipeIngredients)
                     .ThenInclude(ri => ri.Ingredient)
                 .Include(u => u.Meals)
-                        .ThenInclude(mi => mi.Recipe)
-                            .ThenInclude(r => r.RecipeIngredients)
-                            .ThenInclude(ri => ri.Ingredient)
-                .Select(u => new UserResponseDto
-                {
-                    Id = u.Id,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    Email = u.Email,
-                    ProfilePictureId = u.FileId,
-                    ProfilePictureUrl = u.ProfilePictureUrl,
-                    Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault(),
-
-                    UserAttributes = u.UserAttributes.Select(ua => new AttributesResponseDto
-                    {
-                        Id = ua.Id,
-                        Weight = ua.Weight,
-                        Height = ua.Height,
-                        Bmi = ua.Bmi,
-                        MeasuredAt = ua.MeasuredAt,
-                        Bmr = ua.Bmr
-                    }).ToList(),
-
-                    UserGoal = u.UserGoals == null ? null : new GoalResponseDto
-                    {
-                        Id = u.UserGoals.Id,
-                        TargetWeight = u.UserGoals.TargetWeight,
-                        TargetDate = u.UserGoals.DeadLine
-                    },
-
-                    UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
-                    {
-                        Id = ua.Id,
-                        ActivityName = ua.Activity.Name,
-                        Duration = ua.Duration,
-                        CaloriesBurned = ua.CaloriesBurned
-                    }).ToList(),
-                    UserRecipes = u.Recipes.Select(r => new UserRecipeDto
-                    {
-                        Id = r.Id,
-                        Name = r.Name,
-                        PreparationTime = r.PreparationTime,
-                        CookingTime = r.CookingTime,
-                        Description = r.Description,
-                        Portions = r.Portions,
-                        Ingredients = r.RecipeIngredients.Select(ri => new RecipeIngredientResponseDto
-                        {
-                            IngredientId = ri.IngredientId,
-                            IngredientName = ri.Ingredient.Name,
-                            Amount = ri.Amount
-                        }).ToList()
-                    }).ToList(),
-
-                    Meals = u.Meals.Select(m => new MealResponseDto
-                    {
-                        MealName = m.MealName,
-                        Category = m.Category,
-                        Id = m.Id,
-                        RecipeId = m.RecipeId,
-                        IngredientId = m.IngredientId,
-                        Amount = m.Amount,
-                        Calories = m.RecipeId != null
-                        ? (m.Recipe!.Calories / 100) * m.Amount
-                        : (m.Ingredient!.Calories / 100) * m.Amount,
-                        Protein = m.RecipeId != null
-                        ? (m.Recipe!.Protein / 100) * m.Amount
-                        : (m.Ingredient!.Protein / 100) * m.Amount,
-                                Fat = m.RecipeId != null
-                        ? (m.Recipe!.Fat / 100) * m.Amount
-                        : (m.Ingredient!.Fat / 100) * m.Amount,
-                                Carbohydrate = m.RecipeId != null
-                        ? (m.Recipe!.Carbohydrate / 100) * m.Amount
-                        : (m.Ingredient!.Carbohydrate / 100) * m.Amount
-                    }).ToList()
-                })
+                    .ThenInclude(mi => mi.Recipe)
+                        .ThenInclude(r => r.RecipeIngredients)
+                        .ThenInclude(ri => ri.Ingredient)
+                .Include(u => u.Meals)
+                    .ThenInclude(i => i.Ingredient)
                 .ToListAsync();
 
-            return Ok(users);
+            var rolesDictionary = new Dictionary<string, string>();
+
+            foreach (var u in users)
+            {
+                var roles = await _userManager.GetRolesAsync(u); 
+                rolesDictionary[u.Id] = roles.FirstOrDefault(); 
+            }
+
+            var result = users.Select(u => new UserResponseDto
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Email = u.Email,
+                ProfilePictureId = u.FileId,
+                ProfilePictureUrl = u.ProfilePictureUrl,
+                Role = rolesDictionary.ContainsKey(u.Id) ? rolesDictionary[u.Id] : null,
+
+                UserAttributes = u.UserAttributes.Select(ua => new AttributesResponseDto
+                {
+                    Id = ua.Id,
+                    Weight = ua.Weight,
+                    Height = ua.Height,
+                    Bmi = ua.Bmi,
+                    MeasuredAt = ua.MeasuredAt
+                }).ToList(),
+
+                UserGoal = u.UserGoals == null ? null : new GoalResponseDto
+                {
+                    Id = u.UserGoals.Id,
+                    TargetWeight = u.UserGoals.TargetWeight,
+                    TargetDate = u.UserGoals.DeadLine
+                },
+
+                UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
+                {
+                    Id = ua.Id,
+                    ActivityName = ua.Activity.Name,
+                    Duration = ua.Duration,
+                    CaloriesBurned = ua.CaloriesBurned
+                }).ToList(),
+
+                UserRecipes = u.Recipes.Select(r => new UserRecipeDto
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    PreparationTime = r.PreparationTime,
+                    CookingTime = r.CookingTime,
+                    Description = r.Description,
+                    Portions = r.Portions,
+                    Ingredients = r.RecipeIngredients.Select(ri => new RecipeIngredientResponseDto
+                    {
+                        IngredientId = ri.IngredientId,
+                        IngredientName = ri.Ingredient.Name,
+                        Amount = ri.Amount
+                    }).ToList()
+                }).ToList(),
+
+                Meals = u.Meals.Select(m => new MealResponseDto
+                {
+                    MealName = m.MealName,
+                    Category = m.Category,
+                    Id = m.Id,
+                    RecipeId = m.RecipeId,
+                    IngredientId = m.IngredientId,
+                    Amount = m.Amount,
+                    Calories = m.CalculateNutrition().Calories,
+                    Protein = m.CalculateNutrition().Protein,
+                    Fat = m.CalculateNutrition().Fat,
+                    Carbohydrate = m.CalculateNutrition().Carbohydrate
+                }).ToList()
+            }).ToList();
+
+
+
+            return Ok(new {Message = "All users.", Data = result});
         }
 
         [HttpGet]
@@ -129,8 +135,8 @@ namespace Vizsgaremek.Controllers.Admin
             if (!string.IsNullOrEmpty(email))
                 query = query.Where(u => u.Email.Contains(email));
 
-            var users = await query.ToListAsync();
-            return Ok(users);
+            var result = await query.ToListAsync();
+            return Ok(new {Message = "Search users", Data = result});
         }
 
 

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
-using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.Models;
 
@@ -36,11 +35,11 @@ namespace Vizsgaremek.Controllers.Public
                 .Select(g => new GoalDto
                 {
                     TargetWeight = g.TargetWeight,
-                    DeadLine = g.DeadLine
+                    DeadLine = g.DeadLine,
                 })
                 .FirstOrDefaultAsync();
 
-            return Ok(goals);
+            return Ok(new {Message = $"{user.FirstName} {user.LastName}'s goals.", Data = goals});
         }
 
 
@@ -63,6 +62,7 @@ namespace Vizsgaremek.Controllers.Public
                 var updateResponseDto = new GoalResponseDto
                 {
                     Id = existing.Id,
+                    UserId = user.Id,
                     TargetWeight = existing.TargetWeight,
                     TargetDate = existing.DeadLine
                 };
@@ -81,6 +81,7 @@ namespace Vizsgaremek.Controllers.Public
             var result = new GoalResponseDto
             {
                 Id = goal.Id,
+                UserId = goal.UserId,
                 TargetWeight = goal.TargetWeight,
                 TargetDate = goal.DeadLine
             };
