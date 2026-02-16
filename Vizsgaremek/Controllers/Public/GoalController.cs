@@ -70,6 +70,7 @@ namespace Vizsgaremek.Controllers.Public
             }
             var goal = new UserGoal
             {
+                User = user,
                 UserId = user.Id,
                 TargetWeight = dto.TargetWeight,
                 DeadLine = dto.DeadLine

@@ -4,8 +4,7 @@ namespace Vizsgaremek.DTOs.Activity
 {
     public class UserActivityDto
     {
-        [Required]
-        public string ActivityName { get; set; }
+        public required string ActivityName { get; set; }
         public decimal Duration { get; set; }
     }
 }

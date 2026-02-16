@@ -4,8 +4,8 @@ namespace Vizsgaremek.Models
     public class UserAttributes
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
-        public User User { get; set; }
+        public required string UserId { get; set; }
+        public User? User { get; set; }
         public decimal Weight { get; set; }
         public decimal Height { get; set; }
         public DateOnly MeasuredAt { get; set; }

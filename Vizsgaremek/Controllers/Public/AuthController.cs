@@ -10,6 +10,7 @@ using System.Text;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.Models;
+using Vizsgaremek.Services;
 
 
 
@@ -83,7 +84,7 @@ namespace Vizsgaremek.Controllers.Public
             }
 
             var refreshToken = Guid.NewGuid().ToString();
-            var refreshTokenHash = HashToken(refreshToken);
+            var refreshTokenHash = TokenService.HashToken(refreshToken);
 
 
             var refreshTokenEntity = new RefreshToken
@@ -123,7 +124,7 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("Token was not found in auth/refresh");
             }
 
-            var refreshTokenHash = HashToken(refreshToken);
+            var refreshTokenHash = TokenService.HashToken(refreshToken);
 
             var storedToken = await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.TokenHash == refreshTokenHash);
             if (storedToken == null || storedToken.Expiry <= DateTime.UtcNow)
@@ -150,7 +151,7 @@ namespace Vizsgaremek.Controllers.Public
 
             if (!string.IsNullOrEmpty(refreshToken))
             {
-                var hash = HashToken(refreshToken);
+                var hash = TokenService.HashToken(refreshToken);
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var tokenEntity = await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.TokenHash == hash && rt.UserId == userId);
 
@@ -190,12 +191,5 @@ namespace Vizsgaremek.Controllers.Public
                 signingCredentials: creds
             );
         }
-        private static string HashToken(string token)
-        {
-            using var sha256 = SHA256.Create();
-            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(token));
-            return Convert.ToBase64String(bytes);
-        }
-        
     }
 }

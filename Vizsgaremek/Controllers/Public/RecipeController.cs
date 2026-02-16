@@ -121,6 +121,7 @@ namespace Vizsgaremek.Controllers.Public
             var recipe = new Recipe
             {
                 UserId = user.Id,
+                User   = user,
                 Name = dto.Name,
                 Category = dto.Category,
                 PreparationTime = dto.PreparationTime,

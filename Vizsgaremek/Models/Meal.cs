@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Vizsgaremek.DTOs.Meal;
 
 namespace Vizsgaremek.Models
@@ -6,25 +7,22 @@ namespace Vizsgaremek.Models
     public class Meal
     {
         public int Id { get; set; }
-        public string Category { get; set; }
-        public string MealName { get; set; }
-        public string UserId { get; set; }
+        public required string Category { get; set; }
+        public required string MealName { get; set; }
+        public required string UserId { get; set; }
         public int? RecipeId { get; set; }
         public int? IngredientId { get; set; }
         public decimal Amount { get; set; }
         public Recipe? Recipe { get; set; }
-        public Ingredient? Ingredient { get; set; }  
-        public User User { get; set; }
-        public DateOnly Log { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public Ingredient? Ingredient { get; set; }
+        public required User User { get; set; }
 
-
-
-        public NutritionDto CalculateNutrition()
+        public DateOnly Log { get; set; } = DateOnly.FromDateTime(DateTime.Now);        public NutritionDto CalculateNutrition()
         {
             var source = (object?)Recipe ?? Ingredient;
 
             if (source == null)
-                return new NutritionDto(); 
+                return new NutritionDto();
 
             return source switch
             {
@@ -44,11 +42,8 @@ namespace Vizsgaremek.Models
                     Carbohydrate = ingredient.Carbohydrate * Amount / 100m
                 },
 
-                _ => new NutritionDto() 
+                _ => new NutritionDto()
             };
         }
-
-
     }
-
 }

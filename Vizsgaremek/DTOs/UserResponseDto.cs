@@ -6,10 +6,10 @@ using Vizsgaremek.DTOs.Recipes;
 
 public record class UserResponseDto
 {
-    public string Id { get; set; } = null!;
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string Email { get; set; } = null!;
+    public required string Id { get; set; }
+    public required string FirstName { get; set; }
+    public required string LastName { get; set; }
+    public required string Email { get; set; }
     public string? ProfilePictureUrl { get; set; }
     public string? ProfilePictureId { get; set; }
     public string? Role { get; set; }

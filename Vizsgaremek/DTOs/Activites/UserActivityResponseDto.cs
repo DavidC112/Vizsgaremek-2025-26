@@ -4,8 +4,8 @@ namespace Vizsgaremek.DTOs.Activity
     {
         public class UserActivityResponseDto
         {
-           public int Id { get; set; }
-            public string ActivityName { get; set; }
+            public int Id { get; set; }
+            public required string ActivityName { get; set; }
             public decimal Duration { get; set; }
             public decimal CaloriesBurned { get; set; }
         }

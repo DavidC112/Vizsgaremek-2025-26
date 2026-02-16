@@ -1,4 +1,5 @@
 ﻿using Vizsgaremek.Interface;
+using System.ComponentModel.DataAnnotations;
 
 namespace Vizsgaremek.Models
 {
@@ -23,6 +24,7 @@ namespace Vizsgaremek.Models
         public bool IsVegan { get; set; } = false;
         public bool IsVegetarian { get; set; } = false;
         public bool IsDeleted { get; set; } = false;
-        public required ICollection<RecipeIngredient> RecipeIngredients { get; set; }
+
+        public required ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
     }
 }

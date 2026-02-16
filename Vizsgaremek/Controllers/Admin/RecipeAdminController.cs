@@ -32,6 +32,7 @@ namespace Vizsgaremek.Controllers.Admin
             var recipe = new Recipe
             {
                 UserId = null,
+                User = null,
                 Name = dto.Name,
                 Category = dto.Category,
                 PreparationTime = dto.PreparationTime,
