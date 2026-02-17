@@ -6,8 +6,9 @@ export type AttributeType = {
   weight: number;
   height: number;
   measuredAt: string;
+  goalType: string;
   bmi: number;
-  bmr: number;
+  calories: number;
 };
 
 export const useAttributes = () => {

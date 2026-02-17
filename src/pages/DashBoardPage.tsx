@@ -64,7 +64,8 @@ export const DashBoardPage = () => {
             netCalorie={netCalorie}
             weight={lastAttribute?.weight}
             workoutToday={activityData?.data.length ?? 0}
-            bmr={lastAttribute?.bmr ?? 0}
+            bmr={lastAttribute?.calories ?? 0} //calorie goal
+            goalType={lastAttribute?.goalType ?? "N/A"}
           />
 
           {/* <section className="grid-col-1 grid gap-4 lg:grid-cols-3">

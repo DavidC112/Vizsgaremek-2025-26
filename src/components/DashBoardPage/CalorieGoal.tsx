@@ -8,6 +8,7 @@ const CalorieGoal = ({
   weight,
   workoutToday,
   bmr,
+  goalType,
 }: {
   consumedCalorie: number;
   burnedCalorie: number;
@@ -15,6 +16,7 @@ const CalorieGoal = ({
   weight: number | undefined;
   workoutToday: number;
   bmr: number;
+  goalType: string;
 }) => {
   return (
     <>
@@ -52,8 +54,7 @@ const CalorieGoal = ({
           </div>
           <div>
             <h2 className="font-extralight">Current Goal</h2>
-            {/*TODO: check current goal*/}
-            <h1 className="text-xl">N/A</h1>
+            <h1 className="text-xl">{goalType}</h1>
           </div>
         </div>
         <div className="flex items-center space-x-5 rounded-xl border border-gray-200 bg-white p-4">
