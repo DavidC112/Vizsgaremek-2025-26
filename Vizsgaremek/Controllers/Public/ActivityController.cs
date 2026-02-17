@@ -34,7 +34,7 @@ namespace Vizsgaremek.Controllers.Public
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetActivity(int id)
+        public async Task<IActionResult> GetActivity([FromRoute] int id)
         {
             var activity = await _context.Activities.Where(a => a.Id == id).Select(a => new ActivityDto
             {
@@ -45,7 +45,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return NotFound("Activity was not found in activity/id");
             }
-            return Ok(activity);
+            return Ok(new {Message = $"{id} activity", Data = activity});
         }
     }
 }

@@ -220,7 +220,6 @@ C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgar
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\Vizsgaremek.genruntimeconfig.cache
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\ref\Vizsgaremek.dll
 C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\Imagekit.dll
-C:\David\Code\Projects\Vizsgaremek_Backend\Vizsgaremek\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\appsettings.Development.json
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\appsettings.json
 E:\IT\Új mappa\Vizsgaremek_Backend\Vizsgaremek\bin\Debug\net10.0\dotnet-tools.json

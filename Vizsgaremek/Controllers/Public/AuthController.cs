@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
@@ -116,7 +115,7 @@ namespace Vizsgaremek.Controllers.Public
 
             
         [HttpPost("refresh")]
-        public async Task<IActionResult> RefreshToken([FromBody] RefreshDto refreshDto)
+        public async Task<IActionResult> RefreshToken()
         {
             var refreshToken = Request.Cookies["refreshToken"];
             if (string.IsNullOrEmpty(refreshToken))

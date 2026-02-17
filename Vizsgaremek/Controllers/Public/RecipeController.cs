@@ -151,12 +151,15 @@ namespace Vizsgaremek.Controllers.Public
 
                 recipe.RecipeIngredients.Add(new RecipeIngredient
                 {
+                    Ingredient = ingredient,
                     IngredientId = ingredient.Id,
                     Amount = item.Amount
                 });
             }
 
-
+            _context.Recipes.Add(recipe);
+            await _context.SaveChangesAsync();
+            
             var result = new RecipeResponseDto
             {
                 Id = recipe.Id,
@@ -185,8 +188,6 @@ namespace Vizsgaremek.Controllers.Public
                     .ToList()
             };
 
-            _context.Recipes.Add(recipe);
-            await _context.SaveChangesAsync();
 
 
             return Created($"api/recipe/{recipe.Id}",

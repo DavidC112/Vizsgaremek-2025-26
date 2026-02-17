@@ -51,7 +51,7 @@ namespace Vizsgaremek.Controllers.Public
 
                 }).ToListAsync();
 
-            return Ok(result);
+            return Ok(new {Message = $"{user.FirstName} {user.LastName}'s attributes.", Data = result});
         }
 
         [HttpPost("add")]
@@ -73,17 +73,17 @@ namespace Vizsgaremek.Controllers.Public
             };
 
             _context.UserAttributes.Add(userAttributes);
+            await _context.SaveChangesAsync();
 
             var result = new AttributesResponseDto
             {
+                Id = userAttributes.Id,
                 Weight = userAttributes.Weight,
                 Height = userAttributes.Height,
                 Bmi = userAttributes.Bmi,
                 MeasuredAt = userAttributes.MeasuredAt
             };
-
-
-            await _context.SaveChangesAsync();
+            
             return Created("api/users/me/attributes",
                 new
                 {

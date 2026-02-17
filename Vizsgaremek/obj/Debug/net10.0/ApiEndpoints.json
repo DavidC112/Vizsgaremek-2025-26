@@ -162,7 +162,7 @@
       },
       {
         "Name": "dto",
-        "Type": "RecipeUpdateDto",
+        "Type": "Vizsgaremek.DTOs.Recipes.RecipeUpdateDto",
         "IsRequired": true
       }
     ],
@@ -409,7 +409,7 @@
       },
       {
         "Name": "dto",
-        "Type": "RecipeUpdateDto",
+        "Type": "Vizsgaremek.DTOs.Recipes.RecipeUpdateDto",
         "IsRequired": true
       }
     ],

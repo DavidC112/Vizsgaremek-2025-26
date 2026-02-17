@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs;
 using Vizsgaremek.DTOs.Activity;
-using Vizsgaremek.DTOs.Attributes;
-using Vizsgaremek.DTOs.DailyIntake;
 using Vizsgaremek.DTOs.Goal;
 using Vizsgaremek.DTOs.ImageDto;
 using Vizsgaremek.DTOs.Meal;

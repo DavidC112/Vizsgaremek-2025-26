@@ -1188,6 +1188,9 @@
         "format": "binary"
       },
       "IngredientDto": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {

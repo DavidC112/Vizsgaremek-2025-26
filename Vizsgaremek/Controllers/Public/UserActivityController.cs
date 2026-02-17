@@ -54,7 +54,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in userActivity/add");
             }
-            var activity = _context.Activities.FirstOrDefault(a => a.Name == dto.ActivityName);
+            var activity = _context.Activities.FirstOrDefault(a => a.Id == dto.ActivityId);
             if (activity == null)
             {
                 return BadRequest("Activity not found");
@@ -90,7 +90,7 @@ namespace Vizsgaremek.Controllers.Public
 
         [HttpPatch("{id:int}/edit")]
         [Authorize]
-        public async Task<IActionResult> EditActivity(int id, [FromBody] UserActivityUpdateDto dto)
+        public async Task<IActionResult> EditActivity([FromRoute] int id, [FromBody] UserActivityUpdateDto dto)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -103,12 +103,12 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return NotFound("User activity not found in userActivity/edit");
             }
-            var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == dto.ActivityId);
+            var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == userActivity.ActivityId);
             if (activity == null)
             {
                 return BadRequest("Activity not found");
             }
-            userActivity.ActivityId = dto.ActivityId ?? userActivity.ActivityId;
+            
             userActivity.Duration = dto.Duration ?? userActivity.Duration;
 
             _context.UserActivities.Update(userActivity);
