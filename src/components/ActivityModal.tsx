@@ -3,6 +3,7 @@ import Modal from "./ui/Modal";
 import { Field, Fieldset, Input, Label, Select } from "@headlessui/react";
 import type { ActivityType } from "../hooks/useActivity";
 import { useMemo, useState } from "react";
+import { useNotification } from "../context/NotificationProvider";
 
 export type ExerciseModalPropType = {
   addUserActivity: (activityId: number, duration: number) => Promise<void>;
@@ -25,6 +26,8 @@ const AddExerciseModal = ({
     console.log("calories burned / h" + activity?.caloriesBurnedPerHour);
     return (activity.caloriesBurnedPerHour / 60) * duration;
   }, [selectedActivity, duration, activityData]);
+
+  const { addNotification } = useNotification();
 
   return (
     <>
@@ -50,8 +53,13 @@ const AddExerciseModal = ({
               Cancel
             </button>
             <button
-              onClick={() => {
-                addUserActivity(selectedActivity, duration);
+              onClick={async () => {
+                try {
+                  await addUserActivity(selectedActivity, duration);
+                  addNotification("Exercise added successfully!", "success");
+                } catch {
+                  addNotification("Something went wrong", "error");
+                }
                 setSelectedActivity(1);
                 setDuration(1);
                 close();
