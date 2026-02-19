@@ -98,7 +98,7 @@ export const registerUser = async (
   details: UserDetailsType,
 ): Promise<{ succes: boolean; error?: string }> => {
   try {
-    await api.post("/api/auth/register", details);
+    await api.post("/auth/register", details);
   } catch (error) {
     return {
       succes: false,
@@ -111,7 +111,7 @@ export const registerUser = async (
 
 export const addUserAttribute = async (attributes: UserAttributesType) => {
   try {
-    await api.post("/api/users/me/attributes/add", attributes, {
+    await api.post("/users/me/attributes/add", attributes, {
       withCredentials: true,
     });
   } catch (error) {
@@ -122,7 +122,7 @@ export const addUserAttribute = async (attributes: UserAttributesType) => {
 
 export const addUserGoal = async (goals: UserGoalsType) => {
   try {
-    await api.post("/api/users/me/goal/add", goals, { withCredentials: true });
+    await api.post("/users/me/goal/add", goals, { withCredentials: true });
   } catch (error) {
     console.error(error);
   }
