@@ -1,6 +1,3 @@
-// import { BarChart, PieChart } from "@mui/x-charts";
-import Navbar from "../components/Navbar/Navbar";
-// import Box from "@mui/material/Box";
 import CalorieGoal from "../components/DashBoardPage/CalorieGoal";
 import TodaysMeal from "../components/DashBoardPage/TodaysMeal";
 import { Utensils } from "lucide-react";
@@ -42,8 +39,6 @@ export const DashBoardPage = () => {
 
   return (
     <>
-      <Navbar />
-
       <div className="from-primary-green-50 min-h-screen min-w-full bg-linear-to-b via-white to-blue-50">
         <main className="l mx-auto max-w-7xl space-y-6 p-5">
           <h1 className="text-4xl md:text-5xl">Welcome back!</h1>
