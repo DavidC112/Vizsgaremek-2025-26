@@ -102,7 +102,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.None,
                 Expires = refreshTokenEntity.Expiry
             });
 
