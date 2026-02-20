@@ -54,6 +54,13 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   const refresh = async (): Promise<string> => {
+    const storedToken = localStorage.getItem("accessToken");
+    if (storedToken) {
+      setAccessToken(storedToken);
+      setAxiosToken(storedToken);
+
+      return storedToken;
+    }
     try {
       const res = await api.post(
         "/auth/refresh",
@@ -71,14 +78,20 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       return token;
     } catch (error) {
       console.log(error);
-      setAccessToken(null);
-      setAxiosToken(null);
       throw error; // reject so caller knows it failed
     }
   };
 
   useEffect(() => {
     console.log("AuthContextProvider accessToken changed:", accessToken);
+  }, [accessToken]);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("accessToken");
+    if (storedToken) {
+      setAccessToken(storedToken);
+      setAxiosToken(storedToken);
+    }
   }, [accessToken]);
 
   return (
