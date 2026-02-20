@@ -48,6 +48,8 @@ export const useActivity = () => {
     }));
   };
 
+
+
   const burnedCalorie = useMemo(() => {
     if (!userActivityData) return 0;
     return userActivityData?.data.reduce(
@@ -55,6 +57,18 @@ export const useActivity = () => {
       0,
     );
   }, [userActivityData]);
+
+   //admin
+  const deleteActivity = async(activityId: number) => {
+    try {
+      await api.patch(`/admin/activities/${activityId}/delete`);
+      setActivityData(prev => prev.filter(a => a.id !== activityId)); //valalmi nemjo
+    } catch (err) {
+    console.error("Delete activity failed", err);
+    };
+  };
+
+
   return {
     userActivityData,
     fetchUserActivities,
@@ -62,5 +76,7 @@ export const useActivity = () => {
     activityData,
     burnedCalorie,
     addUserActivity,
+    deleteActivity,
   };
+
 };
