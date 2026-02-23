@@ -57,8 +57,8 @@ namespace Vizsgaremek.Controllers.Admin
 
 
 
-        [HttpPatch("{id}/delete-user")]
-        public async Task<IActionResult> DeleteUser(string id)
+        [HttpPatch("{id}/delete")]
+        public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
@@ -80,8 +80,8 @@ namespace Vizsgaremek.Controllers.Admin
             return Ok(new { Message = "User deleted successfully by admin" });
         }
 
-        [HttpPatch("{id}/restore-user")]
-        public async Task<IActionResult> RestoreUser(string id)
+        [HttpPatch("{id}/restore")]
+        public async Task<IActionResult> RestoreUser([FromRoute] string id)
         {
             var user = await _context.Users
                 .IgnoreQueryFilters()
@@ -101,7 +101,7 @@ namespace Vizsgaremek.Controllers.Admin
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id)
+        public async Task<IActionResult> GetUserById([FromRoute] string id)
         {
             var user = await _context.Users
                 .IgnoreQueryFilters()

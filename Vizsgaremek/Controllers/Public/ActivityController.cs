@@ -30,7 +30,7 @@ namespace Vizsgaremek.Controllers.Public
                 CaloriesBurnedPerHour = a.CaloriesBurnedPerHour
             }).ToListAsync();
 
-            return Ok(activities);
+            return Ok(new {Message = "All activities", Data = activities});
         }
 
         [HttpGet("{id:int}")]

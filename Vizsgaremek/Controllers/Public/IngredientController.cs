@@ -17,9 +17,9 @@ namespace Vizsgaremek.Controllers.Public
 
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllIngredients()
+        public async Task<IActionResult> GetIngredients()
         {
-            var ingredients = await _context.Ingredients.Select(i => new IngredientSearchDto
+            var ingredients = await _context.Ingredients.Select(i => new IngredientResponseDto
             {
                 Id = i.Id,
                 Name = i.Name,
@@ -41,7 +41,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return NotFound("Ingredient was not found in ingredient/id");
             }
-            var response = new IngredientSearchDto
+            var response = new IngredientResponseDto
             {
                 Id  = ingredient.Id,
                 Name = ingredient.Name,

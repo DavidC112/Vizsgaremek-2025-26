@@ -8,5 +8,6 @@
         public decimal Protein { get; set; }
         public decimal Carbohydrate { get; set; }
         public decimal Fat { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

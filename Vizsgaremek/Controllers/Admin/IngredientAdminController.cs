@@ -18,9 +18,28 @@ namespace Vizsgaremek.Controllers.Admin
         {
             _context = context;
         }
+        
+        
+        [HttpGet("all")]
+        public async Task<IActionResult> GetIngredients()
+        {
+            var ingredients = await _context.Ingredients.IgnoreQueryFilters().Select(i => new IngredientResponseDto
+            {
+                Id = i.Id,
+                Name = i.Name,
+                Calories = i.Calories,
+                Protein = i.Protein,
+                Carbohydrate = i.Carbohydrate,
+                Fat = i.Fat,
+                IsDeleted  = i.IsDeleted
+            }).ToListAsync();
+
+            return Ok(ingredients);
+        }
+        
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddIngredient([FromBody] IngredientDto dto)
+        public async Task<IActionResult> AddIngredient([FromBody] IngredienCreatetDto dto)
         {
             var ingredient = new Ingredient
             {
@@ -52,12 +71,12 @@ namespace Vizsgaremek.Controllers.Admin
         }
 
         [HttpPatch("{id:int}/delete")]
-        public async Task<IActionResult> SoftDeleteIngredient(int id)
+        public async Task<IActionResult> DeleteIngredient(int id)
         {
             var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
             if (ingredient == null)
             {
-                return NotFound();
+                return NotFound("Ingredient was not found in  ingredientAdmin/delete");
             }
             if (ingredient.IsDeleted)
             {
@@ -66,6 +85,23 @@ namespace Vizsgaremek.Controllers.Admin
             ingredient.IsDeleted = true;
             await _context.SaveChangesAsync();
             return Ok(new { Message = "Ingredient deleted successfully" });
+        }
+        
+        [HttpPatch("{id:int}/restore")]
+        public async Task<IActionResult> RestoreIngredient(int id)
+        {
+            var ingredient = await _context.Ingredients.IgnoreQueryFilters().FirstOrDefaultAsync(i => i.Id == id);
+            if (ingredient == null)
+            {
+                return NotFound("Ingredient wass not found in  ingredientAdmin/restore");
+            }
+            if (!ingredient.IsDeleted)
+            {
+                return BadRequest("Ingredient is not deleted.");
+            }
+            ingredient.IsDeleted = false;
+            await _context.SaveChangesAsync();
+            return Ok(new { Message = "Ingredient restored successfully" });
         }
 
 

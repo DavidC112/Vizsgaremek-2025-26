@@ -20,6 +20,21 @@ namespace Vizsgaremek.Controllers.Admin
             _context = context;
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetActivities()
+        {
+            var activities = await _context.Activities.IgnoreQueryFilters().Select(a => new ActivityResponseDto
+            {
+                Id = a.Id,
+                Name = a.Name,
+                CaloriesBurnedPerHour = a.CaloriesBurnedPerHour,
+                IsDeleted = a.IsDeleted
+            }).ToListAsync();
+
+            return Ok(new {Message = "All activities", Data = activities});
+        }
+        
+        
         [HttpPost("add")]
         public async Task<IActionResult> AddActivity([FromBody] ActivityDto activityDto)
         {
@@ -87,6 +102,19 @@ namespace Vizsgaremek.Controllers.Admin
             await _context.SaveChangesAsync();
 
             return Ok(new { Message = "Activity edited successfully", Data = result });
+        }
+        
+        [HttpPatch("{id:int}/restore")]
+        public async Task<IActionResult> RestoreActivity(int id)
+        {
+            var activity = await _context.Activities.IgnoreQueryFilters().FirstOrDefaultAsync(a => a.Id == id);
+            if (activity == null)
+            {
+                return NotFound("Activity is not found in activityAdmin/add");
+            }
+            activity.IsDeleted = false;
+            await _context.SaveChangesAsync();
+            return Ok(new { Message = "Activity restored successfully" });
         }
     }
 }

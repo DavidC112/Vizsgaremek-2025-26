@@ -1,6 +1,6 @@
 ﻿namespace Vizsgaremek.DTOs.Ingredients
 {
-    public class IngredientDto
+    public class IngredienCreatetDto
     {
         public required string Name { get; set; }
         public decimal Calories { get; set; }
