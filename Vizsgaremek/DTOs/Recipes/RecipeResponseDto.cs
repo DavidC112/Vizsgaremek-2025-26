@@ -8,6 +8,7 @@
         public int PreparationTime { get; set; }
         public int CookingTime { get; set; }
         public required string Description { get; set; }
+        public string Instructions { get; set; }
         public int Portions { get; set; }
         public decimal Calories { get; set; }
         public decimal Protein { get; set; }

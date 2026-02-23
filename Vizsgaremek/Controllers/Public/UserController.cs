@@ -48,94 +48,22 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in user/");
             }
-
-            var goalTypes = await _calculateCal.CalculateCalories(user);
+            
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
 
-            var u = await _context.Users
-                .Include(u => u.UserAttributes)
-                .Include(u => u.UserGoals)
-                .Include(u => u.UserActivities)
-                    .ThenInclude(ua => ua.Activity)
-                .Include(u => u.Recipes)
-                    .ThenInclude(r => r.RecipeIngredients)
-                    .ThenInclude(ri => ri.Ingredient)
-                .Include(u => u.Meals)
-                        .ThenInclude(mi => mi.Recipe)
-                            .ThenInclude(r => r.RecipeIngredients)
-                            .ThenInclude(ri => ri.Ingredient)
-                .Include(u => u.Meals)
-                    .ThenInclude(i => i.Ingredient)
-                .FirstOrDefaultAsync(u => u.Id == user.Id);
+            var u = await _context.Users.FirstOrDefaultAsync();
 
 
-            var response = new UserResponseDto
+            var response = new UsersResponseDto
             {
                 Id = u.Id,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                ProfilePictureId = u.FileId,
                 ProfilePictureUrl = u.ProfilePictureUrl,
                 Role = role,
-
-                UserAttributes = u.UserAttributes.Select(ua => new AttributesResponseDto
-                {
-                    Id = ua.Id,
-                    Weight = ua.Weight,
-                    Height = ua.Height,
-                    Bmi = ua.Bmi,
-                    MeasuredAt = ua.MeasuredAt,
-                    Calories = goalTypes.Calories,
-                    GoalType = goalTypes.GoalType
-                }).ToList(),
-
-                UserGoal = u.UserGoals == null ? null : new GoalResponseDto
-                {
-                    Id = u.UserGoals.Id,
-                    TargetWeight = u.UserGoals.TargetWeight,
-                    TargetDate = u.UserGoals.DeadLine
-                },
-
-                UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
-                {
-                    Id = ua.Id,
-                    ActivityName = ua.Activity.Name,
-                    Duration = ua.Duration,
-                    CaloriesBurned = ua.CaloriesBurned
-                }).ToList(),
-                UserRecipes = u.Recipes.Select(r => new UserRecipeDto
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    PreparationTime = r.PreparationTime,
-                    CookingTime = r.CookingTime,
-                    Description = r.Description,
-                    Portions = r.Portions,
-                    Ingredients = r.RecipeIngredients.Select(ri => new RecipeIngredientResponseDto
-                    {
-                        IngredientId = ri.IngredientId,
-                        IngredientName = ri.Ingredient.Name,
-                        Amount = ri.Amount
-                    }).ToList()
-                }).ToList(),
-
-                Meals = u.Meals.Select(m => new MealResponseDto
-                {
-
-                    MealName = m.MealName,
-                    Category = m.Category,
-                    Id = m.Id,
-                    RecipeId = m.RecipeId,
-                    IngredientId = m.IngredientId,
-                    Amount = m.Amount,
-                    Calories = m.CalculateNutrition().Calories,
-                    Protein = m.CalculateNutrition().Protein,
-                    Carbohydrate = m.CalculateNutrition().Carbohydrate,
-                    Fat = m.CalculateNutrition().Fat
-                }).ToList()
+                IsDeleted = u.IsDeleted
             };
-
             return Ok(response);
         }
 

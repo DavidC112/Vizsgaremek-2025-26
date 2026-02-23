@@ -40,6 +40,7 @@ namespace Vizsgaremek.Controllers.Public
                 PreparationTime = recipe.PreparationTime,
                 CookingTime = recipe.CookingTime,
                 Description = recipe.Description,
+                Instructions = recipe.Instructions,
                 Portions = recipe.Portions,
                 Calories = recipe.Calories,
                 Protein = recipe.Protein,
@@ -85,6 +86,7 @@ namespace Vizsgaremek.Controllers.Public
                 PreparationTime = recipe.PreparationTime,
                 CookingTime = recipe.CookingTime,
                 Description = recipe.Description,
+                Instructions = recipe.Instructions,
                 Portions = recipe.Portions,
                 Calories = recipe.Calories,
                 Carbohydrate = recipe.Carbohydrate,
@@ -128,6 +130,7 @@ namespace Vizsgaremek.Controllers.Public
                 PreparationTime = dto.PreparationTime,
                 CookingTime = dto.CookingTime,
                 Description = dto.Description,
+                Instructions = dto.Instructions,
                 Portions = dto.Portions,
                 Calories = dto.Calories,
                 Protein = dto.Protein,
@@ -168,6 +171,7 @@ namespace Vizsgaremek.Controllers.Public
                 PreparationTime = recipe.PreparationTime,
                 CookingTime = recipe.CookingTime,
                 Description = recipe.Description,
+                Instructions = recipe.Instructions,
                 Portions = recipe.Portions,
                 Calories = recipe.Calories,
                 Carbohydrate = recipe.Carbohydrate,
@@ -279,6 +283,7 @@ namespace Vizsgaremek.Controllers.Public
             recipe.CookingTime = dto.CookingTime ?? recipe.CookingTime;
             recipe.PreparationTime = dto.PreparationTime ?? recipe.PreparationTime;
             recipe.Description = dto.Description ?? recipe.Description;
+            recipe.Instructions = dto.Instructions ?? recipe.Instructions;
             recipe.Portions = dto.Portions ?? recipe.Portions;
             recipe.Calories = dto.Calories ?? recipe.Calories;
             recipe.Protein = dto.Protein ?? recipe.Protein;

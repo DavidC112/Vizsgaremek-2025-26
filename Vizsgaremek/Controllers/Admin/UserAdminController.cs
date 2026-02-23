@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
-using Vizsgaremek.DTOs;
-using Vizsgaremek.DTOs.Activity;
-using Vizsgaremek.DTOs.Goal;
-using Vizsgaremek.DTOs.Meal;
 using Vizsgaremek.DTOs.Recipes;
 using Vizsgaremek.DTOs.User;
 using Vizsgaremek.Models;
@@ -22,7 +18,9 @@ namespace Vizsgaremek.Controllers.Admin
     {
         private readonly UserManager<User> _userManager;
         private readonly HealthAppDbContext _context;
-        public UserAdminController(UserManager<User> userManager, HealthAppDbContext contex, CaloriesCalculationService caloriesCalc)
+
+        public UserAdminController(UserManager<User> userManager, HealthAppDbContext contex,
+            CaloriesCalculationService caloriesCalc)
         {
             _userManager = userManager;
             _context = contex;
@@ -31,113 +29,30 @@ namespace Vizsgaremek.Controllers.Admin
         [HttpGet("all")]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _context.Users
-                .Include(u => u.UserAttributes)
-                .Include(u => u.UserGoals)
-                .Include(u => u.UserActivities)
-                    .ThenInclude(ua => ua.Activity)
-                .Include(u => u.Recipes)
-                    .ThenInclude(r => r.RecipeIngredients)
-                    .ThenInclude(ri => ri.Ingredient)
-                .Include(u => u.Meals)
-                    .ThenInclude(mi => mi.Recipe)
-                        .ThenInclude(r => r.RecipeIngredients)
-                        .ThenInclude(ri => ri.Ingredient)
-                .Include(u => u.Meals)
-                    .ThenInclude(i => i.Ingredient)
-                .ToListAsync();
+            var users = await _context.Users.IgnoreQueryFilters().ToListAsync();
 
             var rolesDictionary = new Dictionary<string, string>();
 
             foreach (var u in users)
             {
-                var roles = await _userManager.GetRolesAsync(u); 
-                rolesDictionary[u.Id] = roles.FirstOrDefault(); 
+                var roles = await _userManager.GetRolesAsync(u);
+                rolesDictionary[u.Id] = roles.FirstOrDefault();
             }
 
-            var result = users.Select(u => new UserResponseDto
+            var result = users.Select(u => new UsersResponseDto
             {
                 Id = u.Id,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                ProfilePictureId = u.FileId,
                 ProfilePictureUrl = u.ProfilePictureUrl,
                 Role = rolesDictionary.ContainsKey(u.Id) ? rolesDictionary[u.Id] : null,
-
-                UserAttributes = u.UserAttributes.Select(ua => new AttributesResponseDto
-                {
-                    Id = ua.Id,
-                    Weight = ua.Weight,
-                    Height = ua.Height,
-                    Bmi = ua.Bmi,
-                    MeasuredAt = ua.MeasuredAt
-                }).ToList(),
-
-                UserGoal = u.UserGoals == null ? null : new GoalResponseDto
-                {
-                    Id = u.UserGoals.Id,
-                    TargetWeight = u.UserGoals.TargetWeight,
-                    TargetDate = u.UserGoals.DeadLine
-                },
-
-                UserActivities = u.UserActivities.Select(ua => new UserActivityResponseDto
-                {
-                    Id = ua.Id,
-                    ActivityName = ua.Activity.Name,
-                    Duration = ua.Duration,
-                    CaloriesBurned = ua.CaloriesBurned
-                }).ToList(),
-
-                UserRecipes = u.Recipes.Select(r => new UserRecipeDto
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    PreparationTime = r.PreparationTime,
-                    CookingTime = r.CookingTime,
-                    Description = r.Description,
-                    Portions = r.Portions,
-                    Ingredients = r.RecipeIngredients.Select(ri => new RecipeIngredientResponseDto
-                    {
-                        IngredientId = ri.IngredientId,
-                        IngredientName = ri.Ingredient.Name,
-                        Amount = ri.Amount
-                    }).ToList()
-                }).ToList(),
-
-                Meals = u.Meals.Select(m => new MealResponseDto
-                {
-                    MealName = m.MealName,
-                    Category = m.Category,
-                    Id = m.Id,
-                    RecipeId = m.RecipeId,
-                    IngredientId = m.IngredientId,
-                    Amount = m.Amount,
-                    Calories = m.CalculateNutrition().Calories,
-                    Protein = m.CalculateNutrition().Protein,
-                    Fat = m.CalculateNutrition().Fat,
-                    Carbohydrate = m.CalculateNutrition().Carbohydrate
-                }).ToList()
+                IsDeleted = u.IsDeleted
             }).ToList();
 
 
 
-            return Ok(new {Message = "All users.", Data = result});
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetUsers([FromQuery] string? email, [FromQuery] bool showDeleted = false)
-        {
-            var query = _context.Users.AsQueryable();
-
-            if (showDeleted)
-                query = query.IgnoreQueryFilters();
-
-            if (!string.IsNullOrEmpty(email))
-                query = query.Where(u => u.Email.Contains(email));
-
-            var result = await query.ToListAsync();
-            return Ok(new {Message = "Search users", Data = result});
+            return Ok(new { Message = "All users.", Data = result });
         }
 
 
@@ -156,13 +71,11 @@ namespace Vizsgaremek.Controllers.Admin
             {
                 return StatusCode(418, "I'm a teapot!");
             }
-            
 
-            user.UserName = "deleted_user";
+
             user.IsDeleted = true;
 
             await _userManager.UpdateAsync(user);
-
 
             return Ok(new { Message = "User deleted successfully by admin" });
         }
@@ -187,5 +100,45 @@ namespace Vizsgaremek.Controllers.Admin
             return Ok(new { Message = "User successfully restored by admin" });
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var user = await _context.Users
+                .IgnoreQueryFilters()
+                .Include(r => r.Recipes)
+                .FirstOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound("User was not found in userAdmin/get");
+            }
+
+            var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+
+            var result = new UserResponseDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                IsDeleted = user.IsDeleted,
+                ProfilePictureUrl = user.ProfilePictureUrl,
+                Role = role,
+                Recipes = user.Recipes.Select(r => new UserRecipeDto
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Category = r.Category,
+                    Calories = r.Calories,
+                    Protein = r.Protein,
+                    Carbohydrate = r.Carbohydrate,
+                    Fat = r.Fat,
+                    ImageUrl = r.ImageUrl,
+                    IsVegan = r.IsVegan,
+                    IsVegetarian = r.IsVegetarian
+                }).ToList(),
+            };
+            
+            return Ok(new {Message = "Single User data", data = result});
+        }
     }
 }

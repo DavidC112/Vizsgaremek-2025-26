@@ -9,6 +9,7 @@ namespace Vizsgaremek.DTOs.Recipes
         public int? PreparationTime { get; set; } = null;
         public int? CookingTime { get; set; } = null;
         public string? Description { get; set; } = null;
+        public string? Instructions { get; set; } = null;
         public int? Portions { get; set; } = null;
         public decimal? Calories { get; set; } = null;
         public decimal? Protein { get; set; } = null;
