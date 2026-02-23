@@ -50,7 +50,7 @@ function SingleNotification({
   useEffect(() => {
     const timer = setTimeout(onRemove, duration);
     return () => clearTimeout(timer);
-  }, []);
+  }, [duration, onRemove]);
 
   return (
     <motion.div
