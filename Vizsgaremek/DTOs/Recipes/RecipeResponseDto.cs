@@ -20,5 +20,6 @@
         public string? ImageUrl { get; set; }
         public ICollection<RecipeIngredientResponseDto> Ingredients { get; set; } =
             new List<RecipeIngredientResponseDto>();
+        public bool IsDeleted { get; set; }
     }
 }

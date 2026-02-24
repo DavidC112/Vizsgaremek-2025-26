@@ -9,7 +9,7 @@ using Vizsgaremek.Models;
 namespace Vizsgaremek.Controllers.Admin
 {
     [ApiController]
-    [Route("api/admin/ingredients")]
+    [Route("api/admin/ingredient")]
     [Authorize(Roles = "Admin")]
     public class IngredientAdminController : Controller
     {

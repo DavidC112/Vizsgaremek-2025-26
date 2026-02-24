@@ -25,6 +25,51 @@ namespace Vizsgaremek.Controllers.Admin
             _userManager = userManager;
             _imageKit = imageKit;
         }
+        
+        
+        
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllRecipes()
+        {
+            var recipes = await _context.Recipes.IgnoreQueryFilters()
+                .Include(r => r.RecipeIngredients)
+                .ThenInclude(ri => ri.Ingredient)
+                .ToListAsync();
+
+            var response = recipes.Select(recipe => new RecipeResponseDto
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                Category = recipe.Category,
+                PreparationTime = recipe.PreparationTime,
+                CookingTime = recipe.CookingTime,
+                Description = recipe.Description,
+                Instructions = recipe.Instructions,
+                Portions = recipe.Portions,
+                Calories = recipe.Calories,
+                Protein = recipe.Protein,
+                Carbohydrate = recipe.Carbohydrate,
+                Fat = recipe.Fat,
+                IsVegan = recipe.IsVegan,
+                IsVegetarian = recipe.IsVegetarian,
+                ImageUrl = recipe.ImageUrl,
+                IsCommunity = recipe.IsCommunity,
+                IsDeleted = recipe.IsDeleted,
+                Ingredients = recipe.RecipeIngredients
+                    .Where(ri => !ri.Ingredient.IsDeleted)
+                    .Select(ri => new RecipeIngredientResponseDto
+                    {
+                        IngredientId = ri.IngredientId,
+                        IngredientName = ri.Ingredient.Name,
+                        Amount = ri.Amount
+                    })
+                    .ToList()
+            }).ToList();
+
+            return Ok(response);
+        }
+
+        
 
         [HttpPost("create")]
         public async Task<IActionResult> CreateRecipe([FromBody] RecipeCreateDto dto)

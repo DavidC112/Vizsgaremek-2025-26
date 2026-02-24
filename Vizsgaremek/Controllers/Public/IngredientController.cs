@@ -26,7 +26,8 @@ namespace Vizsgaremek.Controllers.Public
                 Calories = i.Calories,
                 Protein = i.Protein,
                 Carbohydrate = i.Carbohydrate,
-                Fat = i.Fat
+                Fat = i.Fat,
+                IsDeleted = i.IsDeleted
             }).ToListAsync();
 
             return Ok(ingredients);
