@@ -45,14 +45,14 @@ const UserAdmin = () => {
               <button
                 onClick={() => deleteUser(user.id)}
                 disabled={user.isDeleted}
-                className="w-20 rounded border px-3 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
+                className="w-20 rounded border px-2 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
               >
                 Delete
               </button>
 
               <button
                 disabled={user.isDeleted}
-                className="w-20 rounded border px-3 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
+                className="w-20 rounded border px-2 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
               >
                 Details
               </button>
@@ -60,7 +60,7 @@ const UserAdmin = () => {
               <button
                 onClick={() => restoreUser(user.id)}
                 disabled={!user.isDeleted}
-                className="w-20 rounded border px-3 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
+                className="w-20 rounded border px-2 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
               >
                 Restore
               </button>
