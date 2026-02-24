@@ -257,7 +257,7 @@ namespace Vizsgaremek.Controllers.Admin
             return Ok(new {Message = "Recipe edited successfully"});
         }
 
-        [HttpDelete("{id:int}/delete")]
+        [HttpPatch("{id:int}/delete")]
         public async Task<IActionResult> DeleteRecipe(int id)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -277,6 +277,34 @@ namespace Vizsgaremek.Controllers.Admin
             await _context.SaveChangesAsync();
 
            return Ok(new {Message = "Recipe deleted successfully" });
+        }
+        
+        [HttpPatch("{id:int}/restore")]
+        public async Task<IActionResult> RestoreRecipe(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound("User was not found in recipeAdmin/delete");
+            }
+
+            var recipe = await _context.Recipes.IgnoreQueryFilters().FirstOrDefaultAsync(r => r.Id == id);
+            if (recipe == null)
+            {
+                return NotFound("Recipe was not found in recipeAdmin/delete");
+            }
+
+            if (!recipe.IsDeleted)
+            {
+                return BadRequest("Recipe is not deleted");
+            }
+
+            recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/def_Recipe.png?updatedAt=1771956292901";
+            recipe.FileId = "699de8445c7cd75eb8c1a51a";
+            recipe.IsDeleted = false;
+            await _context.SaveChangesAsync();
+
+            return Ok(new {Message = "Recipe deleted successfully" });
         }
     }
 }

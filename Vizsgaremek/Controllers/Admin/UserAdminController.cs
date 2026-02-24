@@ -72,7 +72,10 @@ namespace Vizsgaremek.Controllers.Admin
                 return StatusCode(418, "I'm a teapot!");
             }
 
-
+            if (user.IsDeleted)
+            {
+                return BadRequest("User is already deleted");
+            }
             user.IsDeleted = true;
 
             await _userManager.UpdateAsync(user);
@@ -92,7 +95,11 @@ namespace Vizsgaremek.Controllers.Admin
                 return NotFound("Deleted User was not found in userAdmin/restore");
             }
 
-            user.UserName = user.Email;
+            if (!user.IsDeleted)
+            {
+                return BadRequest("User is not deleted");
+            }
+            
             user.IsDeleted = false;
 
             await _userManager.UpdateAsync(user);

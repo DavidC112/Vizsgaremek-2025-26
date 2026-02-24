@@ -129,8 +129,8 @@ namespace Vizsgaremek.Controllers.Public
             }
 
 
-            user.ProfilePictureUrl = default;
-            user.FileId = default;
+            user.ProfilePictureUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20pfp.jpeg";
+            user.FileId = "698593d45c7cd75eb822b00b";
 
             await _userManager.UpdateAsync(user);
 

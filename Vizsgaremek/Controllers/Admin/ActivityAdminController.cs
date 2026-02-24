@@ -69,6 +69,12 @@ namespace Vizsgaremek.Controllers.Admin
             {
                 return NotFound("Activity is not found in activityAdmin/add");
             }
+
+            if (activity.IsDeleted)
+            {
+                return BadRequest("Activity is already deleted");
+            }
+            
             activity.IsDeleted = true;
             await _context.SaveChangesAsync();
             return Ok(new { Message = "Activity deleted successfully" });
@@ -112,6 +118,12 @@ namespace Vizsgaremek.Controllers.Admin
             {
                 return NotFound("Activity is not found in activityAdmin/add");
             }
+
+            if (!activity.IsDeleted)
+            {
+                return BadRequest("Activity is not deleted");
+            }
+            
             activity.IsDeleted = false;
             await _context.SaveChangesAsync();
             return Ok(new { Message = "Activity restored successfully" });
