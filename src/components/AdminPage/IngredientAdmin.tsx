@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import useIngredients from "../../hooks/useIngredients";
 import { Flame } from "lucide-react";
+import Modal from "../ui/Modal";
+import { useNotification } from "../../context/NotificationProvider";
 
 const IngredientAdmin = () => {
   const {
@@ -13,6 +15,7 @@ const IngredientAdmin = () => {
   useEffect(() => {
     fetchIngredients();
   }, [fetchIngredients]);
+  const { addNotification } = useNotification();
 
   return (
     <div className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-4 px-2 sm:grid-cols-2 lg:grid-cols-3 lg:px-0">
@@ -50,13 +53,43 @@ const IngredientAdmin = () => {
             </div>
 
             <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => deleteIngredient(ingredient.id)}
-                disabled={ingredient.isDeleted}
-                className="w-20 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm font-medium text-red-600/90 transition hover:border-red-300 hover:bg-red-200 active:bg-red-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
-              >
-                Delete
-              </button>
+              <Modal
+                onClose={() => {}}
+                trigger={
+                  <button
+                    disabled={ingredient.isDeleted}
+                    className="w-20 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm font-medium text-red-600/90 transition hover:border-red-300 hover:bg-red-200 active:bg-red-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                  >
+                    Delete
+                  </button>
+                }
+                title="Delete ingredient"
+                description={`Are you sure you want to delete ${ingredient.name}`}
+                actions={(close) => (
+                  <>
+                    <button
+                      onClick={() => {
+                        close();
+                      }}
+                      className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={async () => {
+                        await deleteIngredient(ingredient.id);
+                        close();
+                        addNotification(
+                          `${ingredient.name} deleted succesfully`,
+                        );
+                      }}
+                      className="w-20 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm font-medium text-red-600/90 transition hover:border-red-300 hover:bg-red-200 active:bg-red-100"
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              ></Modal>
 
               <button
                 disabled={ingredient.isDeleted}
@@ -66,7 +99,10 @@ const IngredientAdmin = () => {
               </button>
 
               <button
-                onClick={() => restoreIngredient(ingredient.id)}
+                onClick={async () => {
+                  await restoreIngredient(ingredient.id);
+                  addNotification(`${ingredient.name} restored successfully`);
+                }}
                 disabled={!ingredient.isDeleted}
                 className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
               >

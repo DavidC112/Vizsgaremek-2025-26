@@ -56,7 +56,7 @@ export const useRecipes = () => {
 
   const fetchAdminRecipes = useCallback(async () => {
     try {
-      const res = await api.get("/admin/recipe/all", { withCredentials: true });
+      const res = await api.get("/admin/recipe/all");
       setRecipeArray(res.data);
     } catch (error) {
       console.log("fetchAdminRecipes error" + error);
@@ -70,7 +70,14 @@ export const useRecipes = () => {
       });
       setRecipeArray((prev) =>
         prev.map((recipe) =>
-          recipe.id === recipeId ? { ...recipe, isDeleted: true } : recipe,
+          recipe.id === recipeId
+            ? {
+                ...recipe,
+                isDeleted: true,
+                imageUrl:
+                  "https://ik.imagekit.io/nrt5lwugy/pictures/def_Recipe.png?updatedAt=1771956292901",
+              }
+            : recipe,
         ),
       );
     } catch (error) {
@@ -85,7 +92,14 @@ export const useRecipes = () => {
       });
       setRecipeArray((prev) =>
         prev.map((recipe) =>
-          recipe.id === recipeId ? { ...recipe, isDeleted: false } : recipe,
+          recipe.id === recipeId
+            ? {
+                ...recipe,
+                isDeleted: false,
+                imageUrl:
+                  "https://ik.imagekit.io/nrt5lwugy/pictures/def_Recipe.png?updatedAt=1771956292901",
+              }
+            : recipe,
         ),
       );
     } catch (error) {
