@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vizsgaremek.Data;
 
@@ -10,9 +11,11 @@ using Vizsgaremek.Data;
 namespace Vizsgaremek.Migrations
 {
     [DbContext(typeof(HealthAppDbContext))]
-    partial class HealthAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260225093036_RecipeCalChanges")]
+    partial class RecipeCalChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
@@ -335,9 +338,6 @@ namespace Vizsgaremek.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Portions")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PreparationTime")
                         .HasColumnType("INTEGER");

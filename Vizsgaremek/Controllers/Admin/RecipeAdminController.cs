@@ -90,7 +90,9 @@ namespace Vizsgaremek.Controllers.Admin
                 Carbohydrate = dto.Carbohydrate,
                 Fat = dto.Fat,
                 IsCommunity = false,
-                RecipeIngredients = new List<RecipeIngredient>()
+                RecipeIngredients = new List<RecipeIngredient>(),
+                ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/def_Recipe.png?updatedAt=1771956292901",
+                FileId = "699de8445c7cd75eb8c1a51a"
             };
 
             foreach (var item in dto.Ingredients)
@@ -304,7 +306,7 @@ namespace Vizsgaremek.Controllers.Admin
             recipe.IsDeleted = false;
             await _context.SaveChangesAsync();
 
-            return Ok(new {Message = "Recipe deleted successfully" });
+            return Ok(new {Message = "Recipe restored successfully" });
         }
     }
 }
