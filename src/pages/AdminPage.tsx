@@ -1,13 +1,13 @@
-import AdminNavBar from '../components/AdminPage/AdminNavBar'
-import { Outlet } from 'react-router-dom'
+import AdminNavBar from "../components/AdminPage/AdminNavBar";
+import { Outlet } from "react-router-dom";
 
 const AdminPage = () => {
   return (
-    <div>
-        <AdminNavBar/>
-        <Outlet/>
+    <div className="from-primary-green-50 min-h-screen min-w-full bg-linear-to-b via-white to-blue-50">
+      <AdminNavBar />
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default AdminPage
+export default AdminPage;

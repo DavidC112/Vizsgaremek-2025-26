@@ -13,7 +13,7 @@ const UserAdmin = () => {
   const { addNotification } = useNotification();
 
   return (
-    <div className="col-span-9 mx-auto grid max-w-5xl gap-4 px-2">
+    <div className="col-span-9 mx-auto grid max-w-5xl gap-4 p-5">
       {userData.map((user) => (
         <li
           key={user.id}
@@ -32,7 +32,7 @@ const UserAdmin = () => {
           <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p
-                className={`font-medium ${user.isDeleted ? "line-through" : ""}`}
+                className={`text-lg font-medium ${user.isDeleted ? "line-through" : ""}`}
               >
                 {user.firstName} {user.lastName}
               </p>
@@ -50,8 +50,8 @@ const UserAdmin = () => {
                 onClose={() => {}}
                 trigger={
                   <button
-                    disabled={user.isDeleted}
-                    className="w-20 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm font-medium text-red-600/90 transition hover:border-red-300 hover:bg-red-200 active:bg-red-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                    disabled={user.isDeleted || user.role === "Admin"}
+                    className="brder-red-500 w-20 rounded border bg-red-100 px-2 py-1 text-sm font-medium text-red-600 transition hover:bg-red-200 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
                   >
                     Delete
                   </button>
@@ -76,7 +76,7 @@ const UserAdmin = () => {
                           `${user.firstName} ${user.lastName} deleted succesfully`,
                         );
                       }}
-                      className="w-20 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm font-medium text-red-600/90 transition hover:border-red-300 hover:bg-red-200 active:bg-red-100"
+                      className="w-20 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm font-medium text-red-600/90 transition hover:bg-red-200 active:bg-red-100"
                     >
                       Delete
                     </button>
@@ -86,7 +86,7 @@ const UserAdmin = () => {
 
               <button
                 disabled={user.isDeleted}
-                className="w-20 rounded border px-2 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
+                className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:border-red-500 disabled:bg-red-200 disabled:text-red-600 disabled:opacity-50"
               >
                 Details
               </button>
@@ -99,7 +99,7 @@ const UserAdmin = () => {
                   );
                 }}
                 disabled={!user.isDeleted}
-                className="w-20 rounded border px-2 py-1 text-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
+                className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
               >
                 Restore
               </button>

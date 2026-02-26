@@ -18,7 +18,7 @@ const ActivityAdmin = () => {
   const { addNotification } = useNotification();
 
   return (
-    <div className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-4 px-2 sm:grid-cols-2 lg:grid-cols-3 lg:px-2">
+    <div className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3 lg:px-0">
       {activityData.map((activity) => (
         <li
           key={activity.id}
@@ -29,17 +29,14 @@ const ActivityAdmin = () => {
           }`}
         >
           <div className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-col gap-1">
               <p
-                className={`font-semibold ${
-                  activity.isDeleted ? "line-through" : ""
-                }`}
+                className={`text-lg font-semibold ${activity.isDeleted ? "line-through" : ""}`}
               >
                 {activity.name}
               </p>
-
               <p
-                className={`text-sm whitespace-nowrap ${activity.isDeleted ? "text-red-600" : "emerald-600"}`}
+                className={`text-sm ${activity.isDeleted ? "text-red-600" : "text-emerald-600"}`}
               >
                 🔥{" "}
                 <span className="font-semibold">
@@ -55,7 +52,7 @@ const ActivityAdmin = () => {
                 trigger={
                   <button
                     disabled={activity.isDeleted}
-                    className="w-20 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm font-medium text-red-600/90 transition hover:border-red-300 hover:bg-red-200 active:bg-red-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                    className="brder-red-500 w-20 rounded border bg-red-100 px-2 py-1 text-sm font-medium text-red-600 transition hover:bg-red-200 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
                   >
                     Delete
                   </button>
@@ -88,7 +85,7 @@ const ActivityAdmin = () => {
 
               <button
                 disabled={activity.isDeleted}
-                className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:border-red-500 disabled:bg-red-200 disabled:text-red-600 disabled:opacity-50"
               >
                 Edit
               </button>
@@ -99,7 +96,7 @@ const ActivityAdmin = () => {
                   addNotification(`${activity.name} restored successfully`);
                 }}
                 disabled={!activity.isDeleted}
-                className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
               >
                 Restore
               </button>

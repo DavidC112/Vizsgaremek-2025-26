@@ -32,13 +32,12 @@ const App = () => {
             element={accessToken ? <DashBoardPage /> : <LandingPage />}
           />
 
-          <Route path="/admin" element={<AdminPage/>}>
-            
+          <Route path="/admin" element={<AdminPage />}>
             <Route index element={<Navigate to="activities" replace />} />
-            <Route path="users" element={<UserAdmin/>}/>
-            <Route path="activities" element={<ActivityAdmin/>}/>
-            <Route path="ingredients" element={<IngredientAdmin/>}/>
-            <Route path="recipes" element={<RecipeAdmin/>}/>
+            <Route path="users" element={<UserAdmin />} />
+            <Route path="activities" element={<ActivityAdmin />} />
+            <Route path="ingredients" element={<IngredientAdmin />} />
+            <Route path="recipes" element={<RecipeAdmin />} />
           </Route>
 
           <Route path="/register" element={<SignUpPage />} />
