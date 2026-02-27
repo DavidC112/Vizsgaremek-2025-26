@@ -23,17 +23,17 @@ namespace Vizsgaremek.Controllers.Public
         private readonly HealthAppDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly ImageKitService _imageKit;
-        private readonly DailyMealService _dailyMeal;
+        private readonly WeeklyMealService _weeklyMeal;
         private readonly DailyIntakeService _dailyIntakeService;
         private readonly CaloriesCalculationService _calculateCal;
 
 
-        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit, DailyMealService dailyMeal, DailyIntakeService dailyIntakeService, CaloriesCalculationService calculateCal)
+        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit, WeeklyMealService weeklyMeal, DailyIntakeService dailyIntakeService, CaloriesCalculationService calculateCal)
         {
             _context = context;
             _userManager = userManager;
             _imageKit = imageKit;
-            _dailyMeal = dailyMeal;
+            _weeklyMeal = weeklyMeal;
             _dailyIntakeService = dailyIntakeService;
             _calculateCal = calculateCal;
         }
@@ -168,7 +168,7 @@ namespace Vizsgaremek.Controllers.Public
             return Ok(result);
         }
 
-        [HttpGet("daily-meal-plan")]
+        [HttpGet("week-meal-plan")]
         [Authorize]
         public async Task<IActionResult> GetWeeklyMealPlan()
         {
@@ -178,8 +178,8 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("User was not found in users/weekly-meal-plan");
             }
 
-            var result = await _dailyMeal.GenerateDailyMeals(user);
-            return Ok(new { Message = "Daily meal plan has been generated", Data = result});
+            var result = await _weeklyMeal.GenerateDailyMeals(user);
+            return Ok(new { Message = "Weekly meal plan has been generated", Data = result});
         }
 
     }

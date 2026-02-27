@@ -5,10 +5,10 @@ using Vizsgaremek.Models;
 
 namespace Vizsgaremek.Services
 {
-    public class DailyMealService
+    public class WeeklyMealService
     {
         private readonly HealthAppDbContext _context;
-        public DailyMealService(HealthAppDbContext context)
+        public WeeklyMealService(HealthAppDbContext context)
         {
             _context = context;
         }
@@ -22,12 +22,17 @@ namespace Vizsgaremek.Services
 
             var existingPlan = await _context.WeeklyMealPlans
                 .Include(w => w.DailyMeals)
-                .Where(w => w.userId == user.Id && w.ExpiryDate >= today)
-                .OrderBy(w => w.ExpiryDate)
-                .FirstOrDefaultAsync();
+                .Where(w => w.userId == user.Id).FirstOrDefaultAsync();
+
+
             if (existingPlan != null)
             {
-                return MapToDto(existingPlan);
+                if (existingPlan.ExpiryDate >= today)
+                {
+                    return MapToDto(existingPlan);
+                }
+                _context.WeeklyMealPlans.Remove(existingPlan);
+                await _context.SaveChangesAsync();
             }
 
             var breakfast = (await _context.Recipes

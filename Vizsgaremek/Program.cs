@@ -101,7 +101,7 @@ namespace Vizsgaremek
                 urlEndPoint: builder.Configuration["ImageKit:UrlEndpoint"]
                 ));
             builder.Services.AddScoped<ImageKitService>();
-            builder.Services.AddScoped<DailyMealService>();
+            builder.Services.AddScoped<WeeklyMealService>();
             builder.Services.AddScoped<DailyIntakeService>();
             builder.Services.AddScoped<CaloriesCalculationService>();
             builder.Services.AddScoped<TokenService>();  
@@ -173,13 +173,13 @@ namespace Vizsgaremek
             app.UseHttpsRedirection();
             app.UseCors("Local");
             app.UseAuthentication();
-            app.UseAuthorization();
+                app.UseAuthorization();
 
 
-            app.MapControllers();
+                app.MapControllers();
 
-            app.Run();
-        }
+                app.Run();
+            }
     }
 }
 
