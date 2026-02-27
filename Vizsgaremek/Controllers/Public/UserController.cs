@@ -168,7 +168,7 @@ namespace Vizsgaremek.Controllers.Public
             return Ok(result);
         }
 
-        [HttpGet("week-meal-plan")]
+        [HttpGet("weekly-meal-plan")]
         [Authorize]
         public async Task<IActionResult> GetWeeklyMealPlan()
         {
