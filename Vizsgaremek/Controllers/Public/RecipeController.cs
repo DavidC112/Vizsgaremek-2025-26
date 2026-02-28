@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
 using Vizsgaremek.DTOs.ImageDto;
 using Vizsgaremek.DTOs.Recipes;
+using Vizsgaremek.DTOs.User;
 using Vizsgaremek.DTOs.UserDto;
 using Vizsgaremek.Models;
 
@@ -116,9 +117,9 @@ namespace Vizsgaremek.Controllers.Public
         public async Task<IActionResult> CreateRecipe([FromBody] RecipeCreateDto dto)
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) 
+            if (user == null)
             {
-                return Unauthorized("User was not found in recipe/create"); 
+                return Unauthorized("User was not found in recipe/create");
             }
 
             var recipe = new Recipe
@@ -140,7 +141,7 @@ namespace Vizsgaremek.Controllers.Public
                 IsVegetarian = dto.IsVegetarian,
                 IsCommunity = true,
                 RecipeIngredients = new List<RecipeIngredient>(),
-                ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/def_Recipe.png?updatedAt=1771956292901",
+                ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649",
                 FileId = "699de8445c7cd75eb8c1a51a"
             };
 
@@ -194,6 +195,7 @@ namespace Vizsgaremek.Controllers.Public
                     .ToList()
             };
 
+            var userreturn = new UserResponseDto
 
 
             return Created($"api/recipe/{recipe.Id}",
@@ -357,7 +359,13 @@ namespace Vizsgaremek.Controllers.Public
                 return NotFound("Recipe was not found in recipe/delete");
             }
 
-            await _imageKit.DeleteImage(recipe.FileId);
+            if (recipe.FileId != "69a169e95c7cd75eb8bbd118")
+            {
+                await _imageKit.DeleteImage(recipe.FileId);
+            }
+            
+            recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649";
+            recipe.FileId = "69a169e95c7cd75eb8bbd118";
 
             recipe.IsDeleted = true;
             await _context.SaveChangesAsync();

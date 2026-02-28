@@ -91,8 +91,8 @@ namespace Vizsgaremek.Controllers.Admin
                 Fat = dto.Fat,
                 IsCommunity = false,
                 RecipeIngredients = new List<RecipeIngredient>(),
-                ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/def_Recipe.png?updatedAt=1771956292901",
-                FileId = "699de8445c7cd75eb8c1a51a"
+                ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649",
+                FileId = "69a169e95c7cd75eb8bbd118"
             };
 
             foreach (var item in dto.Ingredients)
@@ -274,7 +274,12 @@ namespace Vizsgaremek.Controllers.Admin
                 return NotFound("Recipe was not found in recipeAdmin/delete");
             }
 
-            await _imageKit.DeleteImage(recipe.FileId);
+            if (recipe.FileId != "69a169e95c7cd75eb8bbd118")
+            {
+                await _imageKit.DeleteImage(recipe.FileId);
+            }
+            recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649";
+            recipe.FileId = "69a169e95c7cd75eb8bbd118";
             recipe.IsDeleted = true;
             await _context.SaveChangesAsync();
 
@@ -301,8 +306,8 @@ namespace Vizsgaremek.Controllers.Admin
                 return BadRequest("Recipe is not deleted");
             }
 
-            recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/def_Recipe.png?updatedAt=1771956292901";
-            recipe.FileId = "699de8445c7cd75eb8c1a51a";
+            recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649";
+            recipe.FileId = "69a169e95c7cd75eb8bbd118";
             recipe.IsDeleted = false;
             await _context.SaveChangesAsync();
 
