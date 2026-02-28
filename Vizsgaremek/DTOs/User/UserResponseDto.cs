@@ -11,5 +11,5 @@ public class UserResponseDto
     public string? ProfilePictureUrl { get; set; }
     public string? Role { get; set; }
     public bool IsDeleted { get; set; }
-    public ICollection<UserRecipeDto> Recipes { get; set; } = new List<UserRecipeDto>();
+    public DateOnly BirthDate { get; set; }
 }

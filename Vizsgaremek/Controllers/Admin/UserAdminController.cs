@@ -130,19 +130,7 @@ namespace Vizsgaremek.Controllers.Admin
                 IsDeleted = user.IsDeleted,
                 ProfilePictureUrl = user.ProfilePictureUrl,
                 Role = role,
-                Recipes = user.Recipes.Select(r => new UserRecipeDto
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    Category = r.Category,
-                    Calories = r.Calories,
-                    Protein = r.Protein,
-                    Carbohydrate = r.Carbohydrate,
-                    Fat = r.Fat,
-                    ImageUrl = r.ImageUrl,
-                    IsVegan = r.IsVegan,
-                    IsVegetarian = r.IsVegetarian
-                }).ToList(),
+                BirthDate = user.BirthDate,
             };
             
             return Ok(new {Message = "Single User data", data = result});

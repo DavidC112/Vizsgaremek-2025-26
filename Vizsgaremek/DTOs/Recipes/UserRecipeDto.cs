@@ -1,6 +1,6 @@
 namespace Vizsgaremek.DTOs.Recipes;
 
-public class UserRecipeDto
+public class UserRecipeDto //can be redundant
 {
     public int Id { get; set; }
     public required string Name { get; set; }

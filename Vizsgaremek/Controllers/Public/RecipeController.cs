@@ -194,8 +194,7 @@ namespace Vizsgaremek.Controllers.Public
                     })
                     .ToList()
             };
-
-            var userreturn = new UserResponseDto
+            
 
 
             return Created($"api/recipe/{recipe.Id}",
