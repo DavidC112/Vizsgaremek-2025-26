@@ -11,6 +11,7 @@ import RecipesListPage from "./pages/RecipesListPage";
 import RecipePage from "./pages/RecipePage";
 import Layout from "./utils/Layout";
 import MealPlanPage from "./pages/MealPlanPage";
+import AddRecipePage from "./pages/AddRecipePage";
 
 const App = () => {
   const { accessToken } = useAuthContext();
@@ -34,6 +35,7 @@ const App = () => {
             <Route element={<ProtectedRoute />}>
               <Route path="/recipes" element={<RecipesListPage />} />
               <Route path="/recipe/:id" element={<RecipePage />} />
+              <Route path="/recipe/add" element={<AddRecipePage />} />
               <Route path="/meal-plan" element={<MealPlanPage />} />
             </Route>
           </Route>
