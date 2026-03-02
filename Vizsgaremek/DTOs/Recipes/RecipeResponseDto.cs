@@ -3,12 +3,14 @@
     public class RecipeResponseDto
     {
         public int Id { get; set; }
+        public required string UserName { get; set; }
+        public required string UserProfilePicture { get; set; }
         public required string Name { get; set; }
         public required string Category { get; set; }
         public int PreparationTime { get; set; }
         public int CookingTime { get; set; }
         public required string Description { get; set; }
-        public string Instructions { get; set; }
+        public required string Instructions { get; set; }
         public int Portions { get; set; }
         public decimal Calories { get; set; }
         public decimal Protein { get; set; }

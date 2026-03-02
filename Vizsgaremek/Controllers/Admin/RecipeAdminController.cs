@@ -28,46 +28,66 @@ namespace Vizsgaremek.Controllers.Admin
         
         
         
-        [HttpGet("all")]
+  [HttpGet("all")]
         public async Task<IActionResult> GetAllRecipes()
         {
-            var recipes = await _context.Recipes.IgnoreQueryFilters()
-                .Include(r => r.RecipeIngredients)
-                .ThenInclude(ri => ri.Ingredient)
-                .ToListAsync();
+                var recipes = await _context.Recipes.IgnoreQueryFilters()
+                    .Include(r => r.RecipeIngredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                    .ToListAsync();
+            
+                var admin = (await _userManager.GetUsersInRoleAsync("Admin")).First();
 
-            var response = recipes.Select(recipe => new RecipeResponseDto
-            {
-                Id = recipe.Id,
-                Name = recipe.Name,
-                Category = recipe.Category,
-                PreparationTime = recipe.PreparationTime,
-                CookingTime = recipe.CookingTime,
-                Description = recipe.Description,
-                Instructions = recipe.Instructions,
-                Portions = recipe.Portions,
-                Calories = recipe.Calories,
-                Protein = recipe.Protein,
-                Carbohydrate = recipe.Carbohydrate,
-                Fat = recipe.Fat,
-                IsVegan = recipe.IsVegan,
-                IsVegetarian = recipe.IsVegetarian,
-                ImageUrl = recipe.ImageUrl,
-                IsCommunity = recipe.IsCommunity,
-                IsDeleted = recipe.IsDeleted,
-                Ingredients = recipe.RecipeIngredients
-                    .Where(ri => !ri.Ingredient.IsDeleted)
-                    .Select(ri => new RecipeIngredientResponseDto
+                var response = new List<RecipeResponseDto>();
+
+                foreach (var recipe in recipes)
+                {
+                    User user;
+                    if (!string.IsNullOrEmpty(recipe.UserId))
                     {
-                        IngredientId = ri.IngredientId,
-                        IngredientName = ri.Ingredient.Name,
-                        Amount = ri.Amount
-                    })
-                    .ToList()
-            }).ToList();
+                        user = await _userManager.FindByIdAsync(recipe.UserId);
+                    }
+                    else
+                    {
+                        user = admin;
+                    }
+                    
+                    response.Add(new RecipeResponseDto
+                    {
+                        Id = recipe.Id,
+                        UserName = $"{user.FirstName} {user.LastName}",
+                        UserProfilePicture = user.ProfilePictureUrl,
+                        Name = recipe.Name,
+                        Category = recipe.Category,
+                        PreparationTime = recipe.PreparationTime,
+                        CookingTime = recipe.CookingTime,
+                        Description = recipe.Description,
+                        Instructions = recipe.Instructions,
+                        Portions = recipe.Portions,
+                        Calories = recipe.Calories,
+                        Protein = recipe.Protein,
+                        Carbohydrate = recipe.Carbohydrate,
+                        Fat = recipe.Fat,
+                        IsVegan = recipe.IsVegan,
+                        IsVegetarian = recipe.IsVegetarian,
+                        ImageUrl = recipe.ImageUrl,
+                        IsCommunity = recipe.IsCommunity,
+                        Ingredients = recipe.RecipeIngredients
+                            .Where(ri => !ri.Ingredient.IsDeleted)
+                            .Select(ri => new RecipeIngredientResponseDto
+                            {
+                                IngredientId = ri.IngredientId,
+                                IngredientName = ri.Ingredient.Name,
+                                Amount = ri.Amount
+                            })
+                            .ToList()
+                    });
+                }
 
-            return Ok(response);
+                return Ok(response);
         }
+
+
 
         
 
@@ -111,10 +131,14 @@ namespace Vizsgaremek.Controllers.Admin
                     Amount = item.Amount
                 });
             }
+            
+            var admin = (await _userManager.GetUsersInRoleAsync("Admin")).First();
 
             var result = new RecipeResponseDto
             {
                 Id = recipe.Id,
+                UserName = $"{admin.FirstName} ${admin.LastName}",
+                UserProfilePicture = admin.ProfilePictureUrl,
                 Name = recipe.Name,
                 Category = recipe.Category,
                 PreparationTime = recipe.PreparationTime,

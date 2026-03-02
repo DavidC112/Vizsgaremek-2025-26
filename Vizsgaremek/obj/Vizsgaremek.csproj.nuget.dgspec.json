@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj": {}
+    "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj": {}
   },
   "projects": {
-    "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj": {
+    "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+        "projectUniqueName": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
         "projectName": "Vizsgaremek",
-        "projectPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
+        "projectPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Vizsgaremek.csproj",
         "packagesPath": "C:\\Users\\cornu\\.nuget\\packages\\",
-        "outputPath": "E:\\IT\\Új mappa\\Vizsgaremek_Backend\\Vizsgaremek\\obj\\",
+        "outputPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
