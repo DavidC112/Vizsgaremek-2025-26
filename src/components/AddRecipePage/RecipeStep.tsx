@@ -15,6 +15,7 @@ const RecipeStep = ({ index, step, isOnly, onUpdate, onRemove }: Props) => (
       {index + 1}.
     </span>
     <TextField
+      autoComplete="off"
       fullWidth
       placeholder="Describe the step..."
       variant="standard"

@@ -1,4 +1,6 @@
 import Autocomplete from "@mui/material/Autocomplete";
+import InputAdornment from "@mui/material/InputAdornment";
+import { inputBaseClasses } from "@mui/material/InputBase";
 import TextField from "@mui/material/TextField";
 import { Trash2 } from "lucide-react";
 
@@ -43,21 +45,36 @@ const RecipeIngredient = ({
       freeSolo
       fullWidth
       renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Ingredient"
-          label="Ingredient"
-          variant="standard"
-        />
+        <TextField {...params} label="Ingredient" variant="standard" />
       )}
     />
+
     <TextField
-      placeholder="Amount"
+      type="number"
       label="Amount"
       variant="standard"
       value={ingredient.amount}
       onChange={(e) => onUpdate(ingredient.id, "amount", e.target.value)}
       sx={{ width: "80px", flexShrink: 0 }}
+      slotProps={{
+        htmlInput: { min: 1 },
+        input: {
+          endAdornment: (
+            <InputAdornment
+              position="end"
+              sx={{
+                opacity: 0,
+                pointerEvents: "none",
+                [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
+                  opacity: 1,
+                },
+              }}
+            >
+              g
+            </InputAdornment>
+          ),
+        },
+      }}
     />
     <button
       type="button"
