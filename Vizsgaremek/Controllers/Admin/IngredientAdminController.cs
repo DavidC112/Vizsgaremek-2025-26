@@ -41,6 +41,12 @@ namespace Vizsgaremek.Controllers.Admin
         [HttpPost("add")]
         public async Task<IActionResult> AddIngredient([FromBody] IngredienCreatetDto dto)
         {
+            var ingredients = await _context.Ingredients.IgnoreQueryFilters().ToListAsync();
+            if (ingredients.Any(i => i.Name == dto.Name))
+            {
+                return BadRequest("Ingredient with that name already exist");
+            }
+             
             var ingredient = new Ingredient
             {
                 Name = dto.Name,
@@ -50,6 +56,7 @@ namespace Vizsgaremek.Controllers.Admin
                 Fat = dto.Fat
             };
 
+            
             var result = new IngredientResponseDto
             {
                 Id = ingredient.Id,

@@ -174,7 +174,6 @@ namespace Vizsgaremek.Controllers.Public
                 IsCommunity = true,
                 RecipeIngredients = new List<RecipeIngredient>(),
                 ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649",
-                FileId = "699de8445c7cd75eb8c1a51a"
             };
 
             foreach (var item in dto.Ingredients)
@@ -239,7 +238,7 @@ namespace Vizsgaremek.Controllers.Public
                 });
         }
 
-        [HttpPost("community/create/{id:int}upload-image")]
+        [HttpPost("community/create/{id:int}/upload-image")]
         [Authorize]
         public async Task<IActionResult> UploadRecipeImage([FromRoute] int id, [FromForm] UploadImageDto dto)
         {
@@ -398,7 +397,6 @@ namespace Vizsgaremek.Controllers.Public
             }
             
             recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649";
-            recipe.FileId = "69a169e95c7cd75eb8bbd118";
 
             recipe.IsDeleted = true;
             await _context.SaveChangesAsync();

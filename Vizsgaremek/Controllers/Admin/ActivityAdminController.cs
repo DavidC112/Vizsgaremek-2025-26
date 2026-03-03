@@ -38,6 +38,13 @@ namespace Vizsgaremek.Controllers.Admin
         [HttpPost("add")]
         public async Task<IActionResult> AddActivity([FromBody] ActivityDto activityDto)
         {
+            var activities = await _context.Activities.IgnoreQueryFilters().ToListAsync();
+            if (activities.Any(a => a.Name == activityDto.Name))
+            {
+                return BadRequest("Activity with that name already exist"); 
+                    
+            }
+            
             var activity = new Activity
             {
                 Name = activityDto.Name,
@@ -62,7 +69,7 @@ namespace Vizsgaremek.Controllers.Admin
         }
 
         [HttpPatch("{id:int}/delete")]
-        public async Task<IActionResult> SoftDeleteActivity(int id)
+        public async Task<IActionResult> DeleteActivity(int id)
         {
             var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == id);
             if (activity == null)
