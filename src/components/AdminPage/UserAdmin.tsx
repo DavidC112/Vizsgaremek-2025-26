@@ -113,7 +113,7 @@ const UserAdmin = () => {
                   </button>
                 )}
               >
-                <div className="space-y-4 text-sm text-emerald-900">
+                <div className="space-y-4 text-sm">
                   <div className="flex justify-between border-b pb-2">
                     <span className="block text-sm font-medium">Name</span>
                     <span>

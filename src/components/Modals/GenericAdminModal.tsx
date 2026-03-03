@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "./ui/Modal";
+import Modal from "../ui/Modal";
 
 type FieldConfig<T> = {
   name: keyof T;
@@ -65,7 +65,7 @@ function GenericAdminModal<T extends Record<string, any>>({
             <label className="block text-sm font-medium">{field.label}</label>
             <input
               type={field.type}
-              value={tempData[field.name]}
+              placeholder={tempData[field.name]}
               onChange={(e) =>
                 setTempData((prev) => ({
                   ...prev,

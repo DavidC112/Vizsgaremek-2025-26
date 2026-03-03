@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import type { Ingredient } from "../hooks/useIngredients";
-import Modal from "./ui/Modal";
+import type { Ingredient } from "../../hooks/useIngredients";
+import Modal from "../ui/Modal";
 
 type Props = {
   ingredient: Ingredient;

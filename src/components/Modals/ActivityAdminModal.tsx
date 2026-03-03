@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Modal from "./ui/Modal";
-import type { ActivityType } from "../hooks/useActivity";
+import Modal from "../ui/Modal";
+import type { ActivityType } from "../../hooks/useActivity";
 
 type Props = {
   activity: ActivityType;

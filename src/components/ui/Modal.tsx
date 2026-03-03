@@ -48,7 +48,7 @@ const Modal = ({
 
         {/* Centered panel */}
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-          <DialogPanel className="w-full max-w-lg space-y-4 rounded-2xl border border-gray-200 bg-white p-8 shadow-xl">
+          <DialogPanel className="flex max-h-[90dvh] w-full max-w-lg flex-col space-y-4 rounded-2xl border border-gray-200 bg-white p-8 shadow-xl">
             {title && (
               <DialogTitle className="text-lg font-bold">{title}</DialogTitle>
             )}
@@ -59,7 +59,11 @@ const Modal = ({
               </Description>
             )}
 
-            {children && <div className="text-gray-700">{children}</div>}
+            {children && (
+              <div className="min-h-0 flex-1 overflow-y-auto text-gray-700">
+                {children}
+              </div>
+            )}
 
             {actions && (
               <div className="flex justify-end gap-3 pt-2">

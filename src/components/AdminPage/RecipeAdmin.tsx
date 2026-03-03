@@ -3,7 +3,8 @@ import { useRecipes } from "../../hooks/useRecipe";
 import { Flame } from "lucide-react";
 import Modal from "../ui/Modal";
 import { useNotification } from "../../context/NotificationProvider";
-import RecipeAdminModal from "../RecipeAdminModal";
+import RecipeAdminModal from "../Modals/RecipeAdminModal";
+import useIngredient from "../../hooks/useIngredients";
 
 const RecipeAdmin = () => {
   const {
@@ -13,6 +14,8 @@ const RecipeAdmin = () => {
     restoreRecipe,
     editRecipe,
   } = useRecipes();
+
+  const { fetchIngredients, ingredientData } = useIngredient();
 
   useEffect(() => {
     fetchAdminRecipes();
@@ -45,7 +48,7 @@ const RecipeAdmin = () => {
                   className="h-10 w-10 rounded-full border object-cover"
                   src={recipe.userProfilePicture}
                   alt="profile picture"
-                />
+                />{" "}
                 <p className="text-lg font-medium">{recipe.userName}</p>
               </div>
               <p
@@ -98,6 +101,8 @@ const RecipeAdmin = () => {
                 )}
               ></Modal>
               <RecipeAdminModal
+                fetchIngredients={fetchIngredients}
+                ingredientData={ingredientData}
                 recipe={recipe}
                 editrecipe={editRecipe}
                 addNotification={addNotification}

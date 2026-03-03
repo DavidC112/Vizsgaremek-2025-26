@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useActivity } from "../../hooks/useActivity";
 import Modal from "../ui/Modal";
 import { useNotification } from "../../context/NotificationProvider";
-import ActivityAdmintModal from "../ActivityAdminModal";
-import GenericAdminModal from "../GenericAdminModal";
+import ActivityAdmintModal from "../Modals/ActivityAdminModal";
+import GenericAdminModal from "../Modals/GenericAdminModal";
 
 const ActivityAdmin = () => {
   const {

@@ -3,8 +3,8 @@ import useIngredients from "../../hooks/useIngredients";
 import { Flame } from "lucide-react";
 import Modal from "../ui/Modal";
 import { useNotification } from "../../context/NotificationProvider";
-import IngredientModal from "../IngredientModal";
-import GenericAdminModal from "../GenericAdminModal";
+import IngredientModal from "../Modals/IngredientModal";
+import GenericAdminModal from "../Modals/GenericAdminModal";
 
 const IngredientAdmin = () => {
   const {

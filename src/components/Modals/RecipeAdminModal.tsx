@@ -1,16 +1,24 @@
 import { useState, useEffect } from "react";
-import Modal from "./ui/Modal";
-import type { Recipe } from "../hooks/useRecipe";
-import ImageUpload from "./ImageUpload";
-import type { Ingredient } from "../hooks/useIngredients";
+import Modal from "../ui/Modal";
+import type { Recipe } from "../../hooks/useRecipe";
+import ImageUpload from "../ImageUpload";
+import type { Ingredient } from "../../hooks/useIngredients";
 
 type Props = {
   recipe: Recipe;
   editrecipe: (id: number, data: Partial<Recipe>) => Promise<void>;
   addNotification: (msg: string) => void;
+  ingredientData: Ingredient[];
+  fetchIngredients: () => Promise<void>;
 };
 
-const RecipeAdminModal = ({ recipe, editrecipe, addNotification }: Props) => {
+const RecipeAdminModal = ({
+  recipe,
+  editrecipe,
+  addNotification,
+  ingredientData,
+  fetchIngredients,
+}: Props) => {
   const [tempData, setTempData] = useState(recipe);
   const [openSections, setOpenSections] = useState({
     basic: true,
@@ -21,6 +29,10 @@ const RecipeAdminModal = ({ recipe, editrecipe, addNotification }: Props) => {
   });
 
   const [preview, setPreview] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [selectedIngredient, setSelectedIngredient] =
+    useState<Ingredient | null>(null);
+  const [amount, setAmount] = useState<number>(0);
 
   const Image = (file: File) => {
     setPreview(URL.createObjectURL(file));
@@ -108,7 +120,7 @@ const RecipeAdminModal = ({ recipe, editrecipe, addNotification }: Props) => {
         </div>
       )}
     >
-      <div className="max-h-[80vh] space-y-4 overflow-y-auto px-2 py-2">
+      <div className="max-h-[80vh] space-y-4 px-2 py-2">
         <div className="flex justify-between">
           <ImageUpload onImageChange={Image} />
 
@@ -120,7 +132,6 @@ const RecipeAdminModal = ({ recipe, editrecipe, addNotification }: Props) => {
             />
           )}
         </div>
-
         <div className="rounded border">
           <button
             type="button"
@@ -271,16 +282,126 @@ const RecipeAdminModal = ({ recipe, editrecipe, addNotification }: Props) => {
           <button
             type="button"
             className="flex w-full items-center justify-between bg-gray-100 px-3 py-2 text-left font-medium hover:bg-gray-200"
-            onClick={() => toggleSection("ingredient")}
+            onClick={() => {
+              toggleSection("ingredient");
+              if (ingredientData.length === 0) fetchIngredients();
+            }}
           >
-            <span>Ingredient</span>
+            <span>Ingredients</span>
             <span>{openSections.ingredient ? "▲" : "▼"}</span>
           </button>
+
           {openSections.ingredient && (
-            <div className="flex flex-col space-y-3 p-3">
-              <button className="h-7 w-10 justify-center rounded border">
-                Add
-              </button>
+            <div className="space-y-3 p-3">
+              {tempData.ingredients.length === 0 ? (
+                <p className="text-sm text-gray-400">No ingredients yet.</p>
+              ) : (
+                <ul className="space-y-1">
+                  {tempData.ingredients.map((ing) => (
+                    <li
+                      key={ing.ingredientId}
+                      className="flex items-center justify-between rounded border px-2 py-1 text-sm"
+                    >
+                      <span>{ing.ingredientName}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-gray-500">{ing.amount}g</span>
+                        <button
+                          onClick={() =>
+                            setTempData((prev) => ({
+                              ...prev,
+                              ingredients: prev.ingredients.filter(
+                                (i) => i.ingredientId !== ing.ingredientId,
+                              ),
+                            }))
+                          }
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <hr />
+              <input
+                type="text"
+                placeholder="Search ingredient..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setSelectedIngredient(null);
+                }}
+                className="block w-full rounded border px-2 py-1 text-sm"
+              />
+
+              <ul className="max-h-40 overflow-y-auto rounded border text-sm">
+                {ingredientData
+                  .filter(
+                    (i) =>
+                      !i.isDeleted &&
+                      i.name.toLowerCase().includes(search.toLowerCase()),
+                  )
+                  .map((i) => (
+                    <li
+                      key={i.id}
+                      onClick={() => {
+                        setSelectedIngredient(i);
+                        setSearch(i.name);
+                      }}
+                      className={`cursor-pointer px-2 py-1 hover:bg-emerald-50 ${
+                        selectedIngredient?.id === i.id ? "bg-emerald-100" : ""
+                      }`}
+                    >
+                      {i.name}
+                    </li>
+                  ))}
+              </ul>
+
+              {selectedIngredient && (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min={1}
+                    onChange={(e) => setAmount(Number(e.target.value))}
+                    className="w-24 rounded border px-2 py-1 text-sm"
+                    placeholder="Amount"
+                  />
+                  <button
+                    disabled={amount <= 0}
+                    onClick={() => {
+                      setTempData((prev) => {
+                        const exists = prev.ingredients.find(
+                          (i) => i.ingredientId === selectedIngredient.id,
+                        );
+                        return {
+                          ...prev,
+                          ingredients: exists
+                            ? prev.ingredients.map((i) =>
+                                i.ingredientId === selectedIngredient.id
+                                  ? { ...i, amount: i.amount + amount }
+                                  : i,
+                              )
+                            : [
+                                ...prev.ingredients,
+                                {
+                                  ingredientId: selectedIngredient.id,
+                                  ingredientName: selectedIngredient.name,
+                                  amount,
+                                },
+                              ],
+                        };
+                      });
+                      setSelectedIngredient(null);
+                      setSearch("");
+                      setAmount(0);
+                    }}
+                    className="rounded border border-emerald-200 bg-white px-3 py-1 text-sm font-medium text-emerald-600 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    Add
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
