@@ -16,7 +16,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
       {
         <div className="h-48 overflow-hidden">
           <img
-            src={"2641886.jpg"}
+            src={recipe.imageUrl ?? ""}
             alt={recipe.name}
             className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
           />

@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
@@ -14,29 +14,7 @@ import ImageUpload from "../components/ImageUpload";
 import { useAddRecipeForm } from "../hooks/useAddRecipeForm";
 import { useRecipeSubmit } from "../hooks/useRecipeSubmit";
 import type { NumericField, RecipeCategory } from "../utils/AddRecipe.type";
-
-const theme = createTheme({
-  palette: { primary: { main: "#6b9080" } },
-  components: {
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          "&:hover:not(.Mui-disabled):before": { borderBottomColor: "#6b9080" },
-          "&:before": { borderBottomColor: "#d1d5db" },
-          "&:after": { borderBottomColor: "#6b9080" },
-        },
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          color: "#6b7280",
-          "&.Mui-focused": { color: "#6b9080" },
-        },
-      },
-    },
-  },
-});
+import { theme } from "../utils/MaterialUITheme";
 
 const AddRecipePage = () => {
   const form = useAddRecipeForm();
