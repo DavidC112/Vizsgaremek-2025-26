@@ -30,7 +30,7 @@ namespace Vizsgaremek.Services
                 if (existingPlan.ExpiryDate >= today)
                 {
                     return MapToDto(existingPlan);
-                }
+                }    
                 _context.WeeklyMealPlans.Remove(existingPlan);
                 await _context.SaveChangesAsync();
             }

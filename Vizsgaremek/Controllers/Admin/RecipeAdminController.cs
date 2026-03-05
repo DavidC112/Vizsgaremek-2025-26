@@ -134,6 +134,9 @@
                 }
                 
                 var admin = (await _userManager.GetUsersInRoleAsync("Admin")).First();
+                
+                _context.Recipes.Add(recipe);
+                await _context.SaveChangesAsync();
 
                 var result = new RecipeResponseDto
                 {
@@ -164,8 +167,8 @@
                         .ToList()
                 };
 
-                _context.Recipes.Add(recipe);
-                await _context.SaveChangesAsync();
+
+
 
                 return Created($"api/recipe/{recipe.Id}",
                     new 
