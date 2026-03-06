@@ -32,7 +32,7 @@ const MealPlanPage = () => {
 
   return (
     <>
-      <main className="mx-auto max-w-7xl space-y-10">
+      <main className="mx-auto w-full max-w-7xl space-y-10">
         <section className="flex flex-wrap justify-center gap-2 pt-10">
           {recommendedMeals?.data.dailyMeals.map((plan, index) => (
             <button
@@ -48,7 +48,7 @@ const MealPlanPage = () => {
             </button>
           ))}
         </section>
-        <section className="p-4">
+        <section className="px-4 pb-4">
           {dailyMeals && <SelectedMealPlan dailyPlan={dailyMeals} />}
         </section>
       </main>

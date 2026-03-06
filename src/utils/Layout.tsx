@@ -8,10 +8,10 @@ const Layout = () => {
     location.pathname.startsWith("/admin");
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       {!hideNavbar && <Navbar />}
       <Outlet />
-    </>
+    </div>
   );
 };
 

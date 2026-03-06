@@ -5,27 +5,30 @@ import { useNavigate } from "react-router-dom";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   const navigate = useNavigate();
-
   return (
     <div
-      onClick={() => {
-        navigate(`/recipe/${recipe.id}`);
-      }}
-      className="flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-shadow hover:shadow-lg"
+      onClick={() => navigate(`/recipe/${recipe.id}`)}
+      className="flex w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-shadow hover:shadow-lg"
     >
-      {
-        <div className="h-48 overflow-hidden">
-          <img
-            src={recipe.imageUrl ?? ""}
-            alt={recipe.name}
-            className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-      }
+      <div className="h-48 overflow-hidden">
+        <img
+          src={recipe.imageUrl ?? ""}
+          alt={recipe.name}
+          className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
       <div className="flex flex-1 flex-col space-y-5 p-4">
         <h3 className="text-lg">{recipe.name}</h3>
-
         <div className="flex space-x-2">
+          <div
+            className={`rounded-full px-2 py-1 text-center text-xs ${
+              recipe.isCommunity
+                ? "bg-violet-100 text-violet-800"
+                : "bg-blue-100 text-blue-800"
+            }`}
+          >
+            {recipe.isCommunity ? "Community" : "Official"}
+          </div>
           {recipe.isVegan && (
             <div className="rounded-full bg-green-100 px-2 py-1 text-center text-xs text-green-800">
               Vegan
@@ -36,16 +39,10 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
               Vegetarian
             </div>
           )}
-          {recipe.isVegan && (
-            <div className="rounded-full bg-violet-100 px-2 py-1 text-center text-xs text-violet-800">
-              Community
-            </div>
-          )}
         </div>
         <p className="mb-3 line-clamp-2 flex-1 text-sm font-light">
           {recipe.description}
         </p>
-
         <div className="mb-3 flex items-center justify-between text-sm text-slate-600">
           <Tooltip title="Portions">
             <div className="flex items-center gap-1 text-purple-600">
@@ -57,7 +54,6 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
             <Clock className="h-4 w-4" />
             {recipe.preparationTime + recipe.cookingTime} min
           </div>
-
           <div className="flex items-center gap-1 whitespace-nowrap text-orange-600">
             <Flame className="h-4 w-4" />
             {recipe.calories} cal
@@ -80,4 +76,5 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
     </div>
   );
 };
+
 export default RecipeCard;

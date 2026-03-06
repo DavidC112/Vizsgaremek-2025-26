@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
 import RecipeCard from "../components/RecipeListPage/RecipeCard";
 import RecipeFilterBar from "../components/RecipeListPage/filters/RecipeFilterBar";
 import ActiveFilterPills from "../components/RecipeListPage/filters/ActiveFilterPills";
@@ -32,28 +30,22 @@ const RecipeListPageContent = ({
   }, [fetchAllRecipes]);
 
   return (
-    <main className="from-primary-green-50 flex flex-col bg-linear-to-br to-blue-50">
+    <main className="from-primary-green-50 flex flex-1 flex-col bg-linear-to-br to-blue-50">
       <ThemeProvider theme={theme}>
         <RecipeFilterBar />
       </ThemeProvider>
       <ActiveFilterPills />
 
-      <section className="mx-auto flex w-full max-w-7xl justify-end px-4 pt-4">
-        <Link to={"/recipe/add"}>
-          <section className="rounded-xl border border-neutral-200 bg-white px-4 py-2 text-sm hover:bg-neutral-50">
-            Upload recipe
-          </section>
-        </Link>
-      </section>
-
-      <section className="mx-auto grid max-w-7xl grid-cols-1 gap-4 p-4 md:grid-cols-2 xl:grid-cols-3">
-        {isLoading
-          ? Array.from({ length: 6 }).map((_, index) => (
-              <SkeletonLoading key={index} index={index} />
-            ))
-          : filteredRecipes.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
-            ))}
+      <section className="mx-auto w-full max-w-7xl p-4">
+        <div className="grid grid-cols-1 gap-4 *:min-w-0 md:grid-cols-2 xl:grid-cols-3">
+          {isLoading
+            ? Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonLoading key={index} index={index} />
+              ))
+            : filteredRecipes.map((recipe) => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
+              ))}
+        </div>
       </section>
     </main>
   );
@@ -61,7 +53,6 @@ const RecipeListPageContent = ({
 
 const RecipeListPage = () => {
   const { recipeArray, fetchAllRecipes } = useRecipes();
-
   return (
     <FilterProvider recipes={recipeArray}>
       <RecipeListPageContent fetchAllRecipes={fetchAllRecipes} />
@@ -71,40 +62,36 @@ const RecipeListPage = () => {
 
 const SkeletonLoading = ({ index }: { index: number }) => {
   return (
-    <div key={index} className="animate-pulse">
-      <div className="flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-shadow hover:shadow-lg">
-        <div className="rounded-base flex h-48 w-full items-center justify-center bg-neutral-200">
-          <svg
-            className="text-fg-disabled h-11 w-11 text-neutral-300"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
-            />
-          </svg>
+    <div
+      key={index}
+      className="flex cursor-pointer flex-col overflow-hidden rounded-xl border border-slate-200 bg-white"
+    >
+      <div className="h-48 w-full animate-pulse bg-neutral-200" />
+
+      <div className="flex flex-1 flex-col space-y-5 p-4">
+        <div className="h-6 w-3/4 animate-pulse rounded-full bg-neutral-200" />
+
+        <div className="flex gap-2">
+          <div className="h-6 w-14 animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-6 w-20 animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-6 w-16 animate-pulse rounded-full bg-neutral-200" />
         </div>
-        <div className="flex flex-1 flex-col space-y-5 p-4">
-          <h3 className="mb-3 h-3 w-48 rounded-full bg-neutral-200"></h3>
-          <div className="flex flex-col space-x-2">
-            <div className="flex gap-2">
-              <div className="mb-4 h-2.5 w-72 rounded-full bg-neutral-200"></div>
-            </div>
-          </div>
-          <div className="mb-3 line-clamp-2 flex-1 text-sm font-light">
-            <div className="mb-4 h-2.5 w-full rounded-full bg-neutral-200"></div>
-          </div>
-          <div className="mb-3 flex items-center justify-between text-sm text-slate-600">
-            <div className="mb-4 h-2.5 w-full rounded-full bg-neutral-200"></div>
-          </div>
+
+        <div className="flex flex-1 flex-col gap-2">
+          <div className="h-3 w-full animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-3 w-5/6 animate-pulse rounded-full bg-neutral-200" />
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="h-4 w-8 animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-4 w-14 animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-4 w-16 animate-pulse rounded-full bg-neutral-200" />
+        </div>
+
+        <div className="flex gap-4 border-t pt-3">
+          <div className="h-3 w-12 animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-3 w-12 animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-3 w-12 animate-pulse rounded-full bg-neutral-200" />
         </div>
       </div>
     </div>

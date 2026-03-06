@@ -5,6 +5,9 @@ import TuneIcon from "@mui/icons-material/Tune";
 
 import RecipeFilterDrawer from "./RecipeFilterDrawer";
 import { useFilterContext } from "../../../context/FilterContext";
+import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
+import Fab from "@mui/material/Fab";
 
 const RecipeFilterBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -54,9 +57,25 @@ const RecipeFilterBar = () => {
             <TuneIcon fontSize="small" />
             <span className="hidden sm:inline">Filters</span>
           </button>
+
+          <Link to={"/recipe/add"} className="hidden md:block">
+            <section className="flex cursor-pointer items-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-sm text-neutral-600 transition-colors hover:bg-neutral-50">
+              <Plus fontSize="small"></Plus>
+              Upload recipe
+            </section>
+          </Link>
         </div>
       </div>
 
+      <Link to={"/recipe/add"} className="md:hidden">
+        <Fab
+          color="primary"
+          aria-label="add"
+          className="fixed right-6 bottom-6"
+        >
+          <Plus />
+        </Fab>
+      </Link>
       <RecipeFilterDrawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}

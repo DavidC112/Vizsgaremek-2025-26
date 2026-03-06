@@ -28,9 +28,9 @@ const SelectedMealPlan = ({ dailyPlan }: { dailyPlan: DailyMeal }) => {
   }, [dailyPlan, fetchRecipeById]);
 
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
       {recipes.map((recipe, index) => (
-        <div key={index} className="relative">
+        <div key={index} className="relative w-full">
           <span
             className="absolute top-3 left-3 z-10 rounded-full px-3 py-0.5 text-xs font-semibold"
             style={{
