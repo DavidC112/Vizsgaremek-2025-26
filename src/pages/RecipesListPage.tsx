@@ -7,6 +7,8 @@ import { useFilterContext } from "../context/FilterContext";
 import { useRecipes } from "../hooks/useRecipes";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../utils/MaterialUITheme";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const RecipeListPageContent = ({
   fetchAllRecipes,
@@ -42,12 +44,44 @@ const RecipeListPageContent = ({
             ? Array.from({ length: 6 }).map((_, index) => (
                 <SkeletonLoading key={index} index={index} />
               ))
-            : filteredRecipes.map((recipe) => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
+            : filteredRecipes.map((recipe, i) => (
+                <AnimatedRecipeCard key={recipe.id} recipe={recipe} index={i} />
               ))}
         </div>
       </section>
     </main>
+  );
+};
+
+const AnimatedRecipeCard = ({
+  recipe,
+  index,
+}: {
+  recipe: Parameters<typeof RecipeCard>[0]["recipe"];
+  index: number;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+
+  if (index < 6) {
+    return <RecipeCard recipe={recipe} />;
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -80 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -80 }}
+      transition={{
+        duration: 0.5,
+        ease: "easeOut",
+        delay: (index % 3) * 0.12,
+      }}
+      whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.10)" }}
+      style={{ borderRadius: "0.75rem" }}
+    >
+      <RecipeCard recipe={recipe} />
+    </motion.div>
   );
 };
 
@@ -62,9 +96,12 @@ const RecipeListPage = () => {
 
 const SkeletonLoading = ({ index }: { index: number }) => {
   return (
-    <div
+    <motion.div
       key={index}
       className="flex cursor-pointer flex-col overflow-hidden rounded-xl border border-slate-200 bg-white"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.07, duration: 0.4, ease: "easeOut" }}
     >
       <div className="h-48 w-full animate-pulse bg-neutral-200" />
 
@@ -94,7 +131,7 @@ const SkeletonLoading = ({ index }: { index: number }) => {
           <div className="h-3 w-12 animate-pulse rounded-full bg-neutral-200" />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
