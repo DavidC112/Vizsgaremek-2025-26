@@ -6,6 +6,8 @@ import { useNotification } from "../../context/NotificationProvider";
 import useIngredient from "../../hooks/useIngredients";
 import RecipeAdminModal from "../Modals/RecipeAdminModal";
 import RecipeAdminCreateModal from "../Modals/RecipeAdminCreateModal";
+import useAdminFilter from "../../hooks/useAdminFilter";
+import AdminSearchBar from "../ui/Admin/AdminSearchBar";
 
 const RecipeAdmin = () => {
   const {
@@ -20,6 +22,20 @@ const RecipeAdmin = () => {
 
   const { fetchIngredients, ingredientData } = useIngredient();
 
+  const { search, setSearch, filters, setFilters, filtered } = useAdminFilter(
+    recipeArray,
+    (recipe, search) =>
+      recipe.name.toLowerCase().includes(search.toLowerCase()),
+    (recipe, filters) => {
+      if (filters.deleted !== recipe.isDeleted) return false;
+      if (filters.community && !recipe.isCommunity) return false;
+      if (filters.vegetarian && !recipe.isVegetarian) return false;
+      if (filters.vegan && !recipe.isVegan) return false;
+      return true;
+    },
+    { community: false, vegetarian: false, vegan: false, deleted: false },
+  );
+
   useEffect(() => {
     fetchAdminRecipes();
   }, [fetchAdminRecipes]);
@@ -28,7 +44,7 @@ const RecipeAdmin = () => {
 
   return (
     <div className="mx-auto max-w-5xl p-5">
-      <div className="flex justify-start px-5 lg:px-0">
+      <div className="flex flex-col items-start gap-3 px-5 md:flex-row md:items-start md:justify-between lg:px-0">
         <RecipeAdminCreateModal
           adminUploadRecipeImage={adminUploadRecipeImage}
           addAdminRecipe={addAdminRecipe}
@@ -36,9 +52,34 @@ const RecipeAdmin = () => {
           ingredientData={ingredientData}
           fetchIngredients={fetchIngredients}
         />
+        <div className="self-end md:self-auto">
+          <AdminSearchBar
+            type="Recipe"
+            value={search}
+            onChange={setSearch}
+            placeholder="Search recipes..."
+            isCommunity={filters.community}
+            onCommunityChange={(val: boolean) =>
+              setFilters((f) => ({ ...f, community: val }))
+            }
+            isVegetarian={filters.vegetarian}
+            onVegetarianChange={(value: boolean) =>
+              setFilters((f) => ({ ...f, vegetarian: value }))
+            }
+            isVegan={filters.vegan}
+            onVeganChange={(value: boolean) =>
+              setFilters((f) => ({ ...f, vegan: value }))
+            }
+            isDeleted={filters.deleted}
+            onDeletedChange={(value: boolean) =>
+              setFilters((f) => ({ ...f, deleted: value }))
+            }
+          />
+        </div>
       </div>
+
       <div className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3 lg:px-0">
-        {recipeArray.map((recipe) => (
+        {filtered.map((recipe) => (
           <li
             key={recipe.id}
             className={`overflow-hidden rounded-lg ${

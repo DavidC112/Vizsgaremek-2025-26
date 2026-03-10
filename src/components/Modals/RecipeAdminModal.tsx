@@ -168,8 +168,7 @@ const RecipeAdminModal = ({
               </div>
               <div>
                 <label className="block text-sm font-medium">Category</label>
-                <input
-                  type="text"
+                <select
                   value={tempData.category}
                   onChange={(e) =>
                     setTempData((prev) => ({
@@ -178,7 +177,11 @@ const RecipeAdminModal = ({
                     }))
                   }
                   className="mt-1 block w-full rounded border px-2 py-1"
-                />
+                >
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Main">Main</option>
+                  <option value="Soup">Soup</option>
+                </select>
               </div>
             </div>
           )}
@@ -272,19 +275,6 @@ const RecipeAdminModal = ({
                     }
                   />
                   Vegetarian
-                </label>
-                <label className="flex items-center gap-1">
-                  <input
-                    type="checkbox"
-                    checked={tempData.isCommunity}
-                    onChange={(e) =>
-                      setTempData((prev) => ({
-                        ...prev,
-                        isCommunity: e.target.checked,
-                      }))
-                    }
-                  />
-                  Community Recipe
                 </label>
               </div>
             </div>

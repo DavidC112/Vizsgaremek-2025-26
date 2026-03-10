@@ -5,6 +5,8 @@ import Modal from "../ui/Modal";
 import { useNotification } from "../../context/NotificationProvider";
 import IngredientModal from "../Modals/IngredientModal";
 import GenericAdminModal from "../Modals/GenericAdminModal";
+import useAdminFilter from "../../hooks/useAdminFilter";
+import AdminSearchBar from "../ui/Admin/AdminSearchBar";
 
 const IngredientAdmin = () => {
   const {
@@ -16,6 +18,17 @@ const IngredientAdmin = () => {
     addIngredient,
   } = useIngredients();
 
+  const { search, setSearch, filters, setFilters, filtered } = useAdminFilter(
+    ingredientData,
+    (ingredient, search) =>
+      ingredient.name.toLowerCase().includes(search.toLowerCase()),
+    (ingredient, filters) => {
+      if (filters.deleted !== ingredient.isDeleted) return false;
+      return true;
+    },
+    { deleted: false },
+  );
+
   useEffect(() => {
     fetchIngredients();
   }, [fetchIngredients]);
@@ -23,12 +36,12 @@ const IngredientAdmin = () => {
 
   return (
     <div className="mx-auto max-w-5xl p-5">
-      <div className="flex justify-start px-5 lg:px-0">
+      <div className="flex flex-col items-start gap-3 px-5 md:flex-row md:items-start md:justify-between lg:px-0">
         <GenericAdminModal
           data={{ name: "", calories: 0, protein: 0, carbohydrate: 0, fat: 0 }}
           onSave={addIngredient}
           addNotification={addNotification}
-          triggerLabel="+ Add Ingredient"
+          triggerLabel="+ Add"
           fields={[
             { name: "name", label: "Name", type: "text" },
             { name: "calories", label: "Calories", type: "number" },
@@ -37,9 +50,17 @@ const IngredientAdmin = () => {
             { name: "fat", label: "Fat", type: "number" },
           ]}
         />
+        <AdminSearchBar
+          type="Ingredient"
+          value={search}
+          onChange={setSearch}
+          placeholder="Search ingredient..."
+          isDeleted={filters.deleted}
+          onDeletedChange={(val) => setFilters((f) => ({ ...f, deleted: val }))}
+        />
       </div>
       <div className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3 lg:px-0">
-        {ingredientData.map((ingredient) => (
+        {filtered.map((ingredient) => (
           <li
             key={ingredient.id}
             className={`rounded-lg p-4 ${

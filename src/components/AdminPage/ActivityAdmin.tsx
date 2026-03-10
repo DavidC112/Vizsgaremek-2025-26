@@ -4,6 +4,8 @@ import Modal from "../ui/Modal";
 import { useNotification } from "../../context/NotificationProvider";
 import ActivityAdmintModal from "../Modals/ActivityAdminModal";
 import GenericAdminModal from "../Modals/GenericAdminModal";
+import useAdminFilter from "../../hooks/useAdminFilter";
+import AdminSearchBar from "../ui/Admin/AdminSearchBar";
 
 const ActivityAdmin = () => {
   const {
@@ -15,6 +17,17 @@ const ActivityAdmin = () => {
     addActivity,
   } = useActivity();
 
+  const { search, setSearch, filters, setFilters, filtered } = useAdminFilter(
+    activityData,
+    (activity, search) =>
+      activity.name.toLowerCase().includes(search.toLowerCase()),
+    (activity, filters) => {
+      if (filters.deleted !== activity.isDeleted) return false;
+      return true;
+    },
+    { deleted: false },
+  );
+
   useEffect(() => {
     fetchAdminActivities();
   }, [fetchAdminActivities]);
@@ -23,12 +36,12 @@ const ActivityAdmin = () => {
 
   return (
     <div className="mx-auto max-w-5xl p-5">
-      <div className="flex justify-start px-5 lg:px-0">
+      <div className="flex flex-col items-start gap-3 px-5 md:flex-row md:items-start md:justify-between lg:px-0">
         <GenericAdminModal
           data={{ name: "", caloriesBurnedPerHour: 0 }}
           onSave={addActivity}
           addNotification={addNotification}
-          triggerLabel="+ Add Activity"
+          triggerLabel="+ Add"
           fields={[
             { name: "name", label: "Name", type: "text" },
             {
@@ -38,9 +51,18 @@ const ActivityAdmin = () => {
             },
           ]}
         />
+
+        <AdminSearchBar
+          type="Activity"
+          value={search}
+          onChange={setSearch}
+          placeholder="Search activity..."
+          isDeleted={filters.deleted}
+          onDeletedChange={(val) => setFilters((f) => ({ ...f, deleted: val }))}
+        />
       </div>
       <div className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3 lg:px-0">
-        {activityData.map((activity) => (
+        {filtered.map((activity) => (
           <li
             key={activity.id}
             className={`rounded-lg p-4 ${

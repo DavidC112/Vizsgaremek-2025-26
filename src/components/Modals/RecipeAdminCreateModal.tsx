@@ -106,8 +106,8 @@ const RecipeAdminCreateModal = ({
     <Modal
       onClose={() => {}}
       trigger={
-        <button className="h-8 w-40 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 hover:border-emerald-300 hover:bg-emerald-50">
-          + Add Recipe
+        <button className="flex h-6 w-25 items-center justify-center rounded border border-emerald-200 bg-white px-2 text-sm font-medium text-emerald-600 hover:border-emerald-300 hover:bg-emerald-50 md:h-7 md:w-30">
+          + Add
         </button>
       }
       title="Add New Recipe"
@@ -117,7 +117,7 @@ const RecipeAdminCreateModal = ({
             onClick={() => {
               close();
             }}
-            className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
+            className="w-20 rounded border bg-red-100 px-2 py-1 text-sm font-medium text-red-600 hover:bg-red-200 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
           >
             Cancel
           </button>
@@ -176,8 +176,7 @@ const RecipeAdminCreateModal = ({
               </div>
               <div>
                 <label className="block text-sm font-medium">Category</label>
-                <input
-                  type="text"
+                <select
                   value={tempData.category}
                   onChange={(e) =>
                     setTempData((prev) => ({
@@ -186,7 +185,11 @@ const RecipeAdminCreateModal = ({
                     }))
                   }
                   className="mt-1 block w-full rounded border px-2 py-1"
-                />
+                >
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Main">Main</option>
+                  <option value="Soup">Soup</option>
+                </select>
               </div>
             </div>
           )}
@@ -280,19 +283,6 @@ const RecipeAdminCreateModal = ({
                     }
                   />
                   Vegetarian
-                </label>
-                <label className="flex items-center gap-1">
-                  <input
-                    type="checkbox"
-                    checked={tempData.isCommunity}
-                    onChange={(e) =>
-                      setTempData((prev) => ({
-                        ...prev,
-                        isCommunity: e.target.checked,
-                      }))
-                    }
-                  />
-                  Community Recipe
                 </label>
               </div>
             </div>
