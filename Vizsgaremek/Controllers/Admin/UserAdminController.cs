@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
-using Vizsgaremek.DTOs.Recipes;
 using Vizsgaremek.DTOs.User;
 using Vizsgaremek.Models;
-using Vizsgaremek.Services;
+
 
 
 namespace Vizsgaremek.Controllers.Admin
@@ -19,11 +18,10 @@ namespace Vizsgaremek.Controllers.Admin
         private readonly UserManager<User> _userManager;
         private readonly HealthAppDbContext _context;
 
-        public UserAdminController(UserManager<User> userManager, HealthAppDbContext contex,
-            CaloriesCalculationService caloriesCalc)
+        public UserAdminController(UserManager<User> userManager, HealthAppDbContext context)
         {
             _userManager = userManager;
-            _context = contex;
+            _context = context;
         }
 
         [HttpGet("all")]
@@ -65,9 +63,9 @@ namespace Vizsgaremek.Controllers.Admin
             {
                 return NotFound("User was not found in userAdmin/delete");
             }
-
-            var loggedInUserId = _userManager.GetUserId(User);
-            if (user.Id == loggedInUserId)
+            
+            
+            if (await _userManager.IsInRoleAsync(user, "Admin"))
             {
                 return StatusCode(418, "I'm a teapot!");
             }

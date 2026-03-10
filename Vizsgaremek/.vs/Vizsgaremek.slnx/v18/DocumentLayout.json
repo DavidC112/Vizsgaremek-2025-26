@@ -1,12 +1,121 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\weeklymealplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\weeklymealplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\dailymealplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\dailymealplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\meal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\meal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\recipe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\recipe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\models\\ingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:models\\ingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|c:\\david\\code\\projects\\vizsgaremek_backend\\vizsgaremek\\controllers\\public\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4989B430-3646-FE25-9797-CCDEF2E62771}|Vizsgaremek.csproj|solutionrelative:controllers\\public\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WeeklyMealPlan.cs",
+              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\WeeklyMealPlan.cs",
+              "RelativeDocumentMoniker": "Models\\WeeklyMealPlan.cs",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\WeeklyMealPlan.cs",
+              "RelativeToolTip": "Models\\WeeklyMealPlan.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T12:00:21.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DailyMealPlan.cs",
+              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\DailyMealPlan.cs",
+              "RelativeDocumentMoniker": "Models\\DailyMealPlan.cs",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\DailyMealPlan.cs",
+              "RelativeToolTip": "Models\\DailyMealPlan.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAkAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T12:00:03.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Meal.cs",
+              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Meal.cs",
+              "RelativeDocumentMoniker": "Models\\Meal.cs",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Meal.cs",
+              "RelativeToolTip": "Models\\Meal.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T11:57:54.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Recipe.cs",
+              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Recipe.cs",
+              "RelativeDocumentMoniker": "Models\\Recipe.cs",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Recipe.cs",
+              "RelativeToolTip": "Models\\Recipe.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T11:55:19.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Ingredient.cs",
+              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Ingredient.cs",
+              "RelativeDocumentMoniker": "Models\\Ingredient.cs",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Models\\Ingredient.cs",
+              "RelativeToolTip": "Models\\Ingredient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T11:54:16.157Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ActivityController.cs",
+              "DocumentMoniker": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\ActivityController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Public\\ActivityController.cs",
+              "ToolTip": "C:\\David\\Code\\Projects\\Vizsgaremek_Backend\\Vizsgaremek\\Controllers\\Public\\ActivityController.cs",
+              "RelativeToolTip": "Controllers\\Public\\ActivityController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T11:54:08.82Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
