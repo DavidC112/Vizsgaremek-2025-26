@@ -36,7 +36,6 @@ namespace Vizsgaremek.Controllers.Public
 
             var goalTypes = await _caloriesCalculationService.CalculateCalories(user);
 
-
             var result = await _context.UserAttributes
                 .Where(ua => ua.UserId == user.Id)
                 .Select(ua => new AttributesResponseDto
@@ -48,10 +47,9 @@ namespace Vizsgaremek.Controllers.Public
                     MeasuredAt = ua.MeasuredAt,
                     Calories = goalTypes.Calories,
                     GoalType = goalTypes.GoalType
-
                 }).ToListAsync();
 
-            return Ok(new {Message = $"{user.FirstName} {user.LastName}'s attributes.", Data = result});
+            return Ok(new { Message = $"{user.FirstName} {user.LastName}'s attributes.", Data = result });
         }
 
         [HttpPost("add")]

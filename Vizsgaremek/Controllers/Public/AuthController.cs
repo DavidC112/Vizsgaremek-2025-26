@@ -166,7 +166,7 @@ namespace Vizsgaremek.Controllers.Public
         }
 
 
-        private async Task<JwtSecurityToken> GenerateJwtToken([FromBody] User user)
+        private async Task<JwtSecurityToken> GenerateJwtToken(User user)
         {
             var roles = await _userManager.GetRolesAsync(user);
 

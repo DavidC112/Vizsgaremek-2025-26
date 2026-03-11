@@ -11,6 +11,7 @@ namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/users/me/activities")]
+    [Authorize]
     public class UserActivityController : Controller
     {
         private readonly HealthAppDbContext _context;
@@ -46,7 +47,6 @@ namespace Vizsgaremek.Controllers.Public
         }
 
         [HttpPost("add")]
-        [Authorize]
         public async Task<IActionResult> CreateActivity([FromBody] UserActivityDto dto)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -89,7 +89,6 @@ namespace Vizsgaremek.Controllers.Public
         }
 
         [HttpPatch("{id:int}/edit")]
-        [Authorize]
         public async Task<IActionResult> EditActivity([FromRoute] int id, [FromBody] UserActivityUpdateDto dto)
         {
             var user = await _userManager.GetUserAsync(User);

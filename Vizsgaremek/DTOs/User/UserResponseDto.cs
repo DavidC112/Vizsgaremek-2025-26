@@ -12,4 +12,5 @@ public class UserResponseDto
     public string? Role { get; set; }
     public bool IsDeleted { get; set; }
     public DateOnly BirthDate { get; set; }
+    public ICollection<RecipeUserDto> Recipes { get; set; } = new List<RecipeUserDto>();
 }

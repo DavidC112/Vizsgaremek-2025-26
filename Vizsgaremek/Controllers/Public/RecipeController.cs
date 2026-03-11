@@ -112,7 +112,7 @@ namespace Vizsgaremek.Controllers.Public
             var result = new RecipeResponseDto
             {
                 Id = recipe.Id,
-                UserName = $"{user.FirstName} ${user.LastName}",
+                UserName = $"{user.FirstName} {user.LastName}",
                 UserProfilePicture = user.ProfilePictureUrl,
                 Name = recipe.Name,
                 Category = recipe.Category,
@@ -200,7 +200,7 @@ namespace Vizsgaremek.Controllers.Public
             var result = new RecipeResponseDto
             {
                 Id = recipe.Id,
-                UserName = $"{user.FirstName} ${user.LastName}",
+                UserName = $"{user.FirstName} {user.LastName}",
                 UserProfilePicture = user.ProfilePictureUrl,
                 Name = recipe.Name,
                 Category = recipe.Category,
@@ -248,14 +248,13 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in recipe/uploadImage");
             }
-            if (user.Id != recipe.UserId)
-            {
-                return StatusCode(403, "You are not allowed to upload images for other user's recipes");
-            }
-
             if (recipe == null)
             {
                 return NotFound("Recipe was not found in recipe/uploadImage");
+            }
+            if (user.Id != recipe.UserId)
+            {
+                return StatusCode(403, "You are not allowed to upload images for other user's recipes");
             }
 
             if (dto.File == null || dto.File.Length == 0)
@@ -379,17 +378,16 @@ namespace Vizsgaremek.Controllers.Public
             }
 
             var recipe = await _context.Recipes.FindAsync(id);
+            if (recipe == null) 
+            {
+                return NotFound("Recipe was not found in recipe/delete");
+            }
 
             if (user.Id != recipe.UserId)
             {
                 return StatusCode(403, "You are not allowed to delete other user's recipes");
             }
             
-            
-            if (recipe == null) 
-            {
-                return NotFound("Recipe was not found in recipe/delete");
-            }
 
             if (recipe.FileId != "69a169e95c7cd75eb8bbd118")
             {

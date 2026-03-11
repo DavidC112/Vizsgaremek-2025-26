@@ -28,7 +28,9 @@ namespace Vizsgaremek.Controllers.Public
         private readonly CaloriesCalculationService _calculateCal;
 
 
-        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit, WeeklyMealService weeklyMeal, DailyIntakeService dailyIntakeService, CaloriesCalculationService calculateCal)
+        public UserController(HealthAppDbContext context, UserManager<User> userManager, ImageKitService imageKit,
+            WeeklyMealService weeklyMeal, DailyIntakeService dailyIntakeService,
+            CaloriesCalculationService calculateCal)
         {
             _context = context;
             _userManager = userManager;
@@ -45,32 +47,39 @@ namespace Vizsgaremek.Controllers.Public
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-            {
                 return Unauthorized("User was not found in user/");
-            }
-            
+
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
 
-            var u = await _context.Users.FirstOrDefaultAsync();
+            var Recipes = await _context.Users
+                .Include(u => u.Recipes)
+                .FirstOrDefaultAsync(u => u.Id == user.Id);
 
-
-            var response = new UsersResponseDto
+            var response = new UserResponseDto
             {
-                Id = u.Id,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                Email = u.Email,
-                ProfilePictureUrl = u.ProfilePictureUrl,
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                ProfilePictureUrl = user.ProfilePictureUrl,
                 Role = role,
-                IsDeleted = u.IsDeleted
+                IsDeleted = user.IsDeleted,
+                BirthDate = user.BirthDate,
+                Recipes = Recipes.Recipes
+                    .Select(r => new RecipeUserDto
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        ImageUrl = r.ImageUrl
+                    }).ToList()
             };
+
             return Ok(response);
         }
-
         [HttpPost("upload-picture")]
         [Authorize]
         public async Task<IActionResult> UploadProfilePicture(
-        [FromForm] UploadImageDto dto)
+            [FromForm] UploadImageDto dto)
         {
             if (dto.File == null || dto.File.Length == 0)
             {
@@ -79,12 +88,12 @@ namespace Vizsgaremek.Controllers.Public
 
             var user = await _userManager.GetUserAsync(User);
 
-            if(user == null)
+            if (user == null)
             {
                 return Unauthorized("User was not found in user/uploadImage");
             }
 
-            if(user.FileId != null)
+            if (user.FileId != null)
             {
                 var deleteResult = await _imageKit.DeleteImage(user.FileId);
 
@@ -146,6 +155,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return NotFound("User not found in user/delete");
             }
+
             user.IsDeleted = true;
             await _userManager.UpdateAsync(user);
 
@@ -158,12 +168,12 @@ namespace Vizsgaremek.Controllers.Public
         public async Task<IActionResult> GetDaily()
         {
             var user = await _userManager.GetUserAsync(User);
-            if(user == null)
+            if (user == null)
             {
                 return Unauthorized("User was not found in users/daily");
             }
-            
-            var  result = await _dailyIntakeService.GetDailyIntake(user.Id);
+
+            var result = await _dailyIntakeService.GetDailyIntake(user.Id);
 
             return Ok(result);
         }
@@ -174,13 +184,17 @@ namespace Vizsgaremek.Controllers.Public
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-            {
                 return Unauthorized("User was not found in users/weekly-meal-plan");
+
+            try
+            {
+                var result = await _weeklyMeal.GenerateDailyMeals(user);
+                return Ok(new { Message = "Weekly meal plan has been generated", Data = result });
             }
-
-            var result = await _weeklyMeal.GenerateDailyMeals(user);
-            return Ok(new { Message = "Weekly meal plan has been generated", Data = result});
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
-
     }
 }

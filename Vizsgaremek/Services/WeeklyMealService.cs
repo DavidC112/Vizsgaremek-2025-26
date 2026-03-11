@@ -46,6 +46,15 @@ namespace Vizsgaremek.Services
             var main = await _context.Recipes
                 .Where(r => r.Category == "Main").ToListAsync();
 
+            if (breakfast.Count == 0)
+                throw new InvalidOperationException("No Breakfast recipes available to generate a meal plan.");
+
+            if (soup.Count == 0)
+                throw new InvalidOperationException("No Soup recipes available to generate a meal plan.");
+
+            if (main.Count == 0)
+                throw new InvalidOperationException("No Main recipes available to generate a meal plan.");
+
 
             for (int i = 0; i < 7; i++)
             {

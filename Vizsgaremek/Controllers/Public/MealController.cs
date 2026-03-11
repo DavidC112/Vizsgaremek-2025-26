@@ -15,6 +15,7 @@ namespace Vizsgaremek.Controllers.Public
     {
         private readonly HealthAppDbContext _context;
         private readonly UserManager<User> _userManager;
+        
         public MealController(HealthAppDbContext context, UserManager<User> userManager)
         {
             _context = context;
@@ -32,11 +33,19 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("User was not found in  meal/");
             }
 
-            var result = await _context.Meals.Where(r => r.UserId == user.Id).Where(r => r.Log == DateOnly.FromDateTime(DateTime.Now))
+
+            var meals = await _context.Meals
+                .Where(r => r.UserId == user.Id)
+                .Where(r => r.Log == DateOnly.FromDateTime(DateTime.Now))
                 .Include(r => r.Recipe)
                 .Include(r => r.Ingredient)
                 .IgnoreQueryFilters()
-                .Select(r => new MealResponseDto
+                .ToListAsync();
+
+            var result = meals.Select(r =>
+            {
+                var nutrition = r.CalculateNutrition();
+                return new MealResponseDto
                 {
                     MealName = r.MealName,
                     Category = r.Category,
@@ -44,11 +53,12 @@ namespace Vizsgaremek.Controllers.Public
                     RecipeId = r.RecipeId,
                     IngredientId = r.IngredientId,
                     Amount = r.Amount,
-                    Calories = r.CalculateNutrition().Calories,
-                    Protein = r.CalculateNutrition().Protein,
-                    Fat = r.CalculateNutrition().Fat,
-                    Carbohydrate = r.CalculateNutrition().Carbohydrate
-                }).ToListAsync();
+                    Calories = nutrition.Calories,
+                    Protein = nutrition.Protein,
+                    Fat = nutrition.Fat,
+                    Carbohydrate = nutrition.Carbohydrate
+                };
+            }).ToList();
 
             return Ok(new { Message = $"{user.FirstName} {user.LastName}'s meals.", Data = result });
         }

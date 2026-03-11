@@ -17,7 +17,8 @@ namespace Vizsgaremek.Models
         public Ingredient? Ingredient { get; set; }
         public User? User { get; set; }
 
-        public DateOnly Log { get; set; } = DateOnly.FromDateTime(DateTime.Now);        public NutritionDto CalculateNutrition()
+        public DateOnly Log { get; set; } = DateOnly.FromDateTime(DateTime.Now);        
+        public NutritionDto CalculateNutrition()
         {
             var source = (object?)Recipe ?? Ingredient;
 

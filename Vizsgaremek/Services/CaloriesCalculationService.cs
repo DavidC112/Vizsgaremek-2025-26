@@ -26,7 +26,7 @@ namespace Vizsgaremek.Services
 
             if (userAttributes == null)
             {
-                throw new InvalidOperationException("User attributes missing.");
+                return null;
             }
 
             decimal weight = userAttributes.Weight;

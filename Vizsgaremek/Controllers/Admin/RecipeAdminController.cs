@@ -141,7 +141,7 @@
                 var result = new RecipeResponseDto
                 {
                     Id = recipe.Id,
-                    UserName = $"{admin.FirstName} ${admin.LastName}",
+                    UserName = $"{admin.FirstName} {admin.LastName}",
                     UserProfilePicture = admin.ProfilePictureUrl,
                     Name = recipe.Name,
                     Category = recipe.Category,

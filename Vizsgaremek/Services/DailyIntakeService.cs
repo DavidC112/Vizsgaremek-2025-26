@@ -16,8 +16,10 @@ namespace Vizsgaremek.Services
 
         public async Task<List<DailyIntakeDto>> GetDailyIntake(string userId)
         {
+            var cutoff = DateOnly.FromDateTime(DateTime.Now.AddDays(-30));
+
             var meals = await _context.Meals
-                .Where(m => m.UserId == userId)
+                .Where(m => m.UserId == userId && m.Log >= cutoff)
                 .Include(m => m.Ingredient)
                 .Include(m => m.Recipe)
                 .ToListAsync();
