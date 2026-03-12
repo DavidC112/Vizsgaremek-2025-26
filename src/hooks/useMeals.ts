@@ -62,7 +62,7 @@ export const useMeals = () => {
 
   const fetchRecommendedMeals = useCallback(async () => {
     try {
-      const res = await api.get("/users/me/daily-meal-plan", {
+      const res = await api.get("/users/me/weekly-meal-plan", {
         withCredentials: true,
       });
       console.log(res.data.dailyMeals);
@@ -79,6 +79,33 @@ export const useMeals = () => {
     );
   }, [recommendedMeals]);
 
+  const addMeal = useCallback(
+    async (recipeId: number, category: string, amount: number) => {
+      try {
+        const res = await api.post(
+          "/users/me/meals/add",
+          {
+            category: category,
+            recipeId: recipeId,
+            amount: amount,
+          },
+          {
+            withCredentials: true,
+          },
+        );
+        setMeals((prev) => ({
+          message: prev?.message ?? "",
+          data: [...(prev?.data ?? []), res.data.data],
+        }));
+        return res.data;
+      } catch (error) {
+        console.error("addMeal error:" + error);
+        throw error;
+      }
+    },
+    [],
+  );
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchRecommendedMeals();
@@ -89,5 +116,7 @@ export const useMeals = () => {
     reFetchMeals: fetchMeals,
     reFetchRecommendedMeals: fetchRecommendedMeals,
     todayRecommendedMeals,
+    recommendedMeals,
+    addMeal,
   };
 };

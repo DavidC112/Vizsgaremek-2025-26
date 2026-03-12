@@ -32,7 +32,7 @@ export const useActivity = () => {
 
   const fetchActivities = useCallback(async () => {
     const res = await api.get("/activity/all", { withCredentials: true });
-    setActivityData(res.data);
+    setActivityData(res.data.data);
   }, []);
 
   const addUserActivity = async (activityId: number, duration: number) => {

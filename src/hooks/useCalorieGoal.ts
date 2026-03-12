@@ -30,6 +30,7 @@ export const useCaliorie = () => {
   }, []);
 
   const netCalorie = useMemo(() => {
+    console.log(consumedCalorie, burnedCalorie);
     return consumedCalorie - burnedCalorie;
   }, [consumedCalorie, burnedCalorie]);
 
