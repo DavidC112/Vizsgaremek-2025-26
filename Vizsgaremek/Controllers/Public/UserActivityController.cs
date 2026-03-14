@@ -31,16 +31,20 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in userActivity/");
             }
+
+            var cutoff = DateOnly.FromDateTime(DateTime.Now.AddDays(-7));
             var result = await _context.UserActivities
-                .Where(ua => ua.UserId == user.Id && ua.Log  == DateOnly.FromDateTime(DateTime.Now))
+                .Where(ua => ua.UserId == user.Id && ua.Log  >= cutoff)
                 .Include(ua => ua.Activity)
                 .IgnoreQueryFilters()
                 .Select(ua => new UserActivityResponseDto
                 {
                     Id = ua.Id,
                     ActivityName = ua.Activity.Name,
+                    ActivityId = ua.ActivityId,
                     Duration = ua.Duration,
-                    CaloriesBurned = ua.CaloriesBurned
+                    CaloriesBurned = ua.CaloriesBurned,
+                    Date = ua.Log
                 }).ToListAsync();
 
             return Ok(new {Message = $"{user.FirstName} {user.LastName}'s activities", Data = result});
