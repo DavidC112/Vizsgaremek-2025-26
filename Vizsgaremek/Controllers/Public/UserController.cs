@@ -18,6 +18,7 @@ namespace Vizsgaremek.Controllers.Public
 {
     [ApiController]
     [Route("api/users/me")]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly HealthAppDbContext _context;
@@ -42,7 +43,6 @@ namespace Vizsgaremek.Controllers.Public
 
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetLoggedUser()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -76,8 +76,8 @@ namespace Vizsgaremek.Controllers.Public
 
             return Ok(response);
         }
+
         [HttpPost("upload-picture")]
-        [Authorize]
         public async Task<IActionResult> UploadProfilePicture(
             [FromForm] UploadImageDto dto)
         {
@@ -120,7 +120,6 @@ namespace Vizsgaremek.Controllers.Public
         }
 
         [HttpDelete("delete-picture")]
-        [Authorize]
         public async Task<IActionResult> DeleteProfilePicture()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -147,7 +146,6 @@ namespace Vizsgaremek.Controllers.Public
         }
 
         [HttpPatch("delete-account")]
-        [Authorize]
         public async Task<IActionResult> DeleteAccount()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -164,7 +162,6 @@ namespace Vizsgaremek.Controllers.Public
 
 
         [HttpGet("daily-intake")]
-        [Authorize]
         public async Task<IActionResult> GetDaily()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -179,7 +176,6 @@ namespace Vizsgaremek.Controllers.Public
         }
 
         [HttpGet("weekly-meal-plan")]
-        [Authorize]
         public async Task<IActionResult> GetWeeklyMealPlan()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -196,5 +192,25 @@ namespace Vizsgaremek.Controllers.Public
                 return BadRequest(new { Message = ex.Message });
             }
         }
-    }
+
+        [HttpPatch("edit")]
+        public async Task<IActionResult> EditUeser(UserEditDto dto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized("User was not found in User/edit");
+            }
+            
+            user.Email = dto.Email ?? user.Email;
+            user.FirstName = dto.FirstName ?? user.FirstName;
+            user.LastName = dto.LastName ?? user.LastName;
+            user.BirthDate = dto.BirthDate ?? user.BirthDate;
+            
+            await _userManager.UpdateAsync(user);   
+            
+            return Ok(new { Message = "User edited successfully" });
+        }
+
+}
 }

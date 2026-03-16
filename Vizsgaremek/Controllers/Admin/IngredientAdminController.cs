@@ -121,30 +121,11 @@ namespace Vizsgaremek.Controllers.Admin
                 return NotFound("Ingredient was not found in ingredientAdmin/edit");
             }
 
-            if (dto.Name != null)
-            {
-                ingredient.Name = dto.Name;
-            }
-
-            if (dto.Calories.HasValue)
-            {
-                ingredient.Calories = dto.Calories.Value;
-            }
-
-            if (dto.Protein.HasValue)
-            {
-                ingredient.Protein = dto.Protein.Value;
-            }
-
-            if (dto.Carbohydrate.HasValue)
-            {
-                ingredient.Carbohydrate = dto.Carbohydrate.Value;
-            }
-
-            if (dto.Fat.HasValue)
-            {
-                ingredient.Fat = dto.Fat.Value;
-            }
+            ingredient.Name = dto.Name ?? ingredient.Name;
+            ingredient.Calories = dto.Calories ?? ingredient.Calories;
+            ingredient.Protein = dto.Protein ?? ingredient.Protein;
+            ingredient.Carbohydrate = dto.Carbohydrate ?? ingredient.Carbohydrate;
+            ingredient.Fat = dto.Fat ?? ingredient.Fat;
 
             var result = new IngredientResponseDto
             {

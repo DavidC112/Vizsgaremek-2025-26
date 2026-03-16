@@ -81,7 +81,8 @@ namespace Vizsgaremek.Controllers.Public
                 Id = userActivity.Id,
                 ActivityName = activity.Name,
                 Duration = userActivity.Duration,
-                CaloriesBurned = userActivity.CaloriesBurned
+                CaloriesBurned = userActivity.CaloriesBurned,
+                Date = userActivity.Log
             };
 
             return Created("api/users/me/activities",
