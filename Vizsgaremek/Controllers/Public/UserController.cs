@@ -209,8 +209,30 @@ namespace Vizsgaremek.Controllers.Public
             
             await _userManager.UpdateAsync(user);   
             
+            
             return Ok(new { Message = "User edited successfully" });
         }
+        
+        [HttpPatch("change-password")]
+        public async Task<IActionResult> ChangePassword(EditPasswordDto dto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized("User was not found in User/change-password");
+            }
 
-}
+            var result = await _userManager.ChangePasswordAsync(
+                user,
+                dto.CurrentPassword,    
+                dto.NewPassword
+            );
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            };
+            return Ok(new { Message = "Password changed successfully" });
+        }
+    }
 }
