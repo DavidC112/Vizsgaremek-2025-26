@@ -17,7 +17,10 @@ export type UserAttributeResponse = {
 };
 
 export const useAttributes = () => {
-  const [attributesData, setAttributesData] = useState<UserAttributeResponse>();
+  const [attributesData, setAttributesData] = useState<UserAttributeResponse>({
+    message: "",
+    data: [],
+  });
 
   const fetchAttributes = useCallback(async () => {
     const res = await api.get("/users/me/attributes", {
