@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { theme } from "../../utils/MaterialUITheme";
 import MealAccordionList from "./MealAccordionList";
 import ActivityAccordionList from "./ActivityAccordionList";
@@ -23,7 +24,19 @@ function CustomTabPanel({ children, value, index, ...other }: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      <AnimatePresence mode="wait">
+        {value === index && (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <Box sx={{ p: 3 }}>{children}</Box>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -37,22 +50,28 @@ const StatisticsTab = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ maxWidth: "80rem", mx: "auto", width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={value} onChange={handleChange}>
-            <Tab label="Meals" />
-            <Tab label="Activity" />
-          </Tabs>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.55, duration: 0.5, ease: "easeOut" }}
+    >
+      <ThemeProvider theme={theme}>
+        <Box sx={{ maxWidth: "80rem", mx: "auto", width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs value={value} onChange={handleChange}>
+              <Tab label="Meals" />
+              <Tab label="Activity" />
+            </Tabs>
+          </Box>
+          <CustomTabPanel value={value} index={0}>
+            <MealAccordionList dailyIntake={dailyIntake} loading={loading} />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            <ActivityAccordionList userActivityData={userActivityData} />
+          </CustomTabPanel>
         </Box>
-        <CustomTabPanel value={value} index={0}>
-          <MealAccordionList dailyIntake={dailyIntake} loading={loading} />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <ActivityAccordionList userActivityData={userActivityData} />
-        </CustomTabPanel>
-      </Box>
-    </ThemeProvider>
+      </ThemeProvider>
+    </motion.div>
   );
 };
 
