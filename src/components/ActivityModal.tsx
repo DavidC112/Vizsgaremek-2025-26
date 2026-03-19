@@ -4,6 +4,7 @@ import { Field, Fieldset, Input, Label, Select } from "@headlessui/react";
 import type { ActivityType } from "../hooks/useActivity";
 import { useMemo, useState } from "react";
 import { useNotification } from "../context/NotificationProvider";
+import { motion } from "framer-motion";
 
 export type ExerciseModalPropType = {
   addUserActivity: (activityId: number, duration: number) => Promise<void>;
@@ -37,15 +38,27 @@ const AddExerciseModal = ({
           setDuration(1);
         }}
         trigger={
-          <div className="flex items-center space-x-5 rounded-xl border border-gray-200 bg-white p-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+          <motion.div
+            className="flex items-center space-x-5 rounded-xl border border-gray-200 bg-white p-4"
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100"
+              whileHover={{ rotate: 15, scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            >
               <NotebookTabs className="text-orange-600" />
-            </div>
+            </motion.div>
             <div>
               <h2 className="text-xl">Add Exerecise</h2>
               <h1 className="font-extralight">Track your workout activity</h1>
             </div>
-          </div>
+          </motion.div>
         }
         title="Add Exercise"
         actions={(close) => (
@@ -65,9 +78,9 @@ const AddExerciseModal = ({
                   addNotification("Exercise added successfully!");
                 } catch {
                   addNotification("Something went wrong", "error");
+                } finally {
+                  close();
                 }
-
-                close();
               }}
               className="bg-primary-green-400 hover:bg-primary-green-500 rounded-lg px-4 py-2 text-sm font-semibold text-white"
             >
