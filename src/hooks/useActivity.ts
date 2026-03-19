@@ -5,6 +5,7 @@ export type ActivityType = {
   id: number;
   name: string;
   caloriesBurnedPerHour: number;
+  isDeleted: boolean;
 };
 
 export type UserActivityType = {
@@ -55,6 +56,89 @@ export const useActivity = () => {
       0,
     );
   }, [userActivityData]);
+
+  //admin
+
+  const fetchAdminActivities = useCallback(async () => {
+    try {
+      const res = await api.get("/admin/activities/all", {
+        withCredentials: true,
+      });
+      setActivityData(res.data.data);
+    } catch (error) {
+      console.log("FetchAdminActivitiesError" + error);
+    }
+  }, []);
+
+  const deleteActivity = async (activityId: number) => {
+    try {
+      await api.patch(`/admin/activities/${activityId}/delete`, null, {
+        withCredentials: true,
+      });
+      setActivityData((prev) =>
+        prev.map((activity) =>
+          activity.id === activityId
+            ? { ...activity, isDeleted: true }
+            : activity,
+        ),
+      );
+    } catch (error) {
+      console.error("DeleteActivityError" + error);
+    }
+  };
+
+  const restoreActivity = async (activityId: number) => {
+    try {
+      await api.patch(`/admin/activities/${activityId}/restore`, null, {
+        withCredentials: true,
+      });
+      setActivityData((prev) =>
+        prev.map((activity) =>
+          activity.id === activityId
+            ? { ...activity, isDeleted: false }
+            : activity,
+        ),
+      );
+    } catch (error) {
+      console.log("RestoreActivityError" + error);
+    }
+  };
+
+  const editActivity = async (
+    activityId: number,
+    updatedFields: Partial<ActivityType>,
+  ) => {
+    try {
+      await api.patch(`/admin/activities/${activityId}/edit`, updatedFields, {
+        withCredentials: true,
+      });
+
+      setActivityData((prev) =>
+        prev.map((activity) =>
+          activity.id === activityId
+            ? { ...activity, ...updatedFields }
+            : activity,
+        ),
+      );
+    } catch (error) {
+      console.log("EditActivityError" + error);
+    }
+  };
+
+  const addActivity = async (data: {
+    name: string;
+    caloriesBurnedPerHour: number;
+  }) => {
+    try {
+      const res = await api.post("admin/activities/add", data, {
+        withCredentials: true,
+      });
+      setActivityData((prev) => prev.concat(res.data.data));
+    } catch (error) {
+      console.log("addActivityError" + error);
+    }
+  };
+
   return {
     userActivityData,
     fetchUserActivities,
@@ -62,5 +146,10 @@ export const useActivity = () => {
     activityData,
     burnedCalorie,
     addUserActivity,
+    deleteActivity,
+    restoreActivity,
+    fetchAdminActivities,
+    editActivity,
+    addActivity,
   };
 };
