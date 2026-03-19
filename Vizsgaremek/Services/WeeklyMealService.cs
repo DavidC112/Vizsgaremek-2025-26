@@ -101,13 +101,9 @@ namespace Vizsgaremek.Services
             result.Add(new DailyMealPlan
                 {
                     Date = curretDate,
-                    Breakfast = breakfastRecipe.Name,
                     BreakfastRecipeId = breakfastRecipe.Id,
-                    Soup = soupRecipe.Name,
                     SoupRecipeId = soupRecipe.Id,
-                    Lunch = lunchRecipe.Name,
                     LunchRecipeId = lunchRecipe.Id,
-                    Dinner = dinnerRecipe.Name,
                     DinnerRecipeId = dinnerRecipe.Id
                 });
             }
@@ -136,13 +132,13 @@ namespace Vizsgaremek.Services
                     .Select(d => new DailyMealPlanDto
                     {
                         Date = d.Date,
-                        Breakfast = d.Breakfast,
+                        Breakfast = _context.Recipes.First(r =>r.Id == d.BreakfastRecipeId).Name ,
                         BreakfastRecipeId = d.BreakfastRecipeId,
-                        Soup = d.Soup,
+                        Soup = _context.Recipes.First(r =>r.Id == d.SoupRecipeId).Name,
                         SoupRecipeId = d.SoupRecipeId,
-                        Lunch = d.Lunch,
+                        Lunch = _context.Recipes.First(r =>r.Id == d.LunchRecipeId).Name,
                         LunchRecipeId = d.LunchRecipeId,
-                        Dinner = d.Dinner,
+                        Dinner = _context.Recipes.First(r =>r.Id == d.DinnerRecipeId).Name,
                         DinnerRecipeId = d.DinnerRecipeId
                     }).ToList(),
                 ExpiryDate = plan.ExpiryDate

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vizsgaremek.Data;
+using Vizsgaremek.DTOs.Recipes;
 using Vizsgaremek.DTOs.User;
 using Vizsgaremek.Models;
 
@@ -116,8 +117,41 @@ namespace Vizsgaremek.Controllers.Admin
             {
                 return NotFound("User was not found in userAdmin/get");
             }
+            
+            
 
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            var returnRecipes = new List<RecipeUserDto>();
+
+            if (role == "Admin")
+            {
+                var recipes = _context.Recipes.Where(x => x.UserId == null).ToList();
+                
+                foreach (var r in recipes)
+                {
+                    returnRecipes.Add(new RecipeUserDto
+                        {
+                            Id = r.Id,
+                            Name =  r.Name,
+                            ImageUrl = r.ImageUrl,
+                        }
+                    );
+                }
+            }
+            else
+            {
+                var recipes = _context.Recipes.Where(x => x.UserId == x.UserId).ToList();
+                foreach (var r in recipes)
+                {
+                    returnRecipes.Add(new RecipeUserDto
+                        {
+                            Id = r.Id,
+                            Name =  r.Name,
+                            ImageUrl = r.ImageUrl,
+                        }
+                    );
+                }
+            }
 
             var result = new UserResponseDto
             {
@@ -129,6 +163,7 @@ namespace Vizsgaremek.Controllers.Admin
                 ProfilePictureUrl = user.ProfilePictureUrl,
                 Role = role,
                 BirthDate = user.BirthDate,
+                Recipes = returnRecipes
             };
             
             return Ok(new {Message = "Single User data", data = result});

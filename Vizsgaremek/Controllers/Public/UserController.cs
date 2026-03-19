@@ -50,10 +50,37 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("User was not found in user/");
 
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            var returnRecipes = new List<RecipeUserDto>();
 
-            var Recipes = await _context.Users
-                .Include(u => u.Recipes)
-                .FirstOrDefaultAsync(u => u.Id == user.Id);
+            if (role == "Admin")
+            {
+                var recipes = _context.Recipes.Where(x => x.UserId == null).ToList();
+                
+                foreach (var r in recipes)
+                {
+                    returnRecipes.Add(new RecipeUserDto
+                        {
+                            Id = r.Id,
+                            Name =  r.Name,
+                            ImageUrl = r.ImageUrl,
+                        }
+                    );
+                }
+            }
+            else
+            {
+                var recipes = _context.Recipes.Where(x => x.UserId == x.UserId).ToList();
+                foreach (var r in recipes)
+                {
+                    returnRecipes.Add(new RecipeUserDto
+                        {
+                            Id = r.Id,
+                            Name =  r.Name,
+                            ImageUrl = r.ImageUrl,
+                        }
+                    );
+                }
+            }
 
             var response = new UserResponseDto
             {
@@ -65,13 +92,7 @@ namespace Vizsgaremek.Controllers.Public
                 Role = role,
                 IsDeleted = user.IsDeleted,
                 BirthDate = user.BirthDate,
-                Recipes = Recipes.Recipes
-                    .Select(r => new RecipeUserDto
-                    {
-                        Id = r.Id,
-                        Name = r.Name,
-                        ImageUrl = r.ImageUrl
-                    }).ToList()
+                Recipes = returnRecipes
             };
 
             return Ok(response);

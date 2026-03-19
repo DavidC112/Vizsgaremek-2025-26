@@ -367,7 +367,7 @@ namespace Vizsgaremek.Controllers.Public
             return Ok(new { Message = "Recipe edited successfully" });
         }
 
-        [HttpDelete("community/{id:int}/delete")]
+        [HttpPatch("community/{id:int}/delete")]
         [Authorize]
         public async Task<IActionResult> DeleteOwnRecipe(int id)
         {
