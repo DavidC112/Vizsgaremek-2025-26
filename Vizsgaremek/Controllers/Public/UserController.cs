@@ -174,6 +174,10 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return NotFound("User not found in user/delete");
             }
+            if (await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                return StatusCode(418, "I'm a teapot!");
+            }
 
             user.IsDeleted = true;
             await _userManager.UpdateAsync(user);
