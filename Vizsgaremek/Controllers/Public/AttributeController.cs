@@ -33,21 +33,40 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return Unauthorized("User was not found in attributes/");
             }
+            
+            var attributes = await _context.UserAttributes
+                .Where(ua => ua.UserId == user.Id)
+                .ToListAsync();
+            
+            if (!attributes.Any())
+            {
+                var defaultAttributes = new UserAttributes
+                {
+                    UserId = user.Id,
+                    Weight = 60m,
+                    Height = 170m,
+                    MeasuredAt = DateOnly.FromDateTime(DateTime.UtcNow)
+                };
+
+                _context.UserAttributes.Add(defaultAttributes);
+                await _context.SaveChangesAsync();
+
+                attributes.Add(defaultAttributes);
+            }
 
             var goalTypes = await _caloriesCalculationService.CalculateCalories(user);
 
-            var result = await _context.UserAttributes
-                .Where(ua => ua.UserId == user.Id)
-                .Select(ua => new AttributesResponseDto
-                {
-                    Id = ua.Id,
-                    Weight = ua.Weight,
-                    Height = ua.Height,
-                    Bmi = ua.Bmi,
-                    MeasuredAt = ua.MeasuredAt,
-                    Calories = goalTypes.Calories,
-                    GoalType = goalTypes.GoalType
-                }).ToListAsync();
+            
+            var result = attributes.Select(ua => new AttributesResponseDto
+            {
+                Id = ua.Id,
+                Weight = ua.Weight,
+                Height = ua.Height,
+                Bmi = ua.Bmi,
+                MeasuredAt = ua.MeasuredAt,
+                Calories = goalTypes?.Calories,
+                GoalType = goalTypes?.GoalType
+            }).ToList();
 
             return Ok(new { Message = $"{user.FirstName} {user.LastName}'s attributes.", Data = result });
         }
