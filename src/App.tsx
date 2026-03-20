@@ -18,6 +18,7 @@ import Layout from "./utils/Layout";
 import MealPlanPage from "./pages/MealPlanPage";
 import AddRecipePage from "./pages/AddRecipePage";
 import StatisticsPage from "./pages/StatisticsPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   const { accessToken } = useAuthContext();
@@ -39,14 +40,14 @@ const App = () => {
             />
             <Route path="/register" element={<SignUpPage />} />
             <Route element={<ProtectedRoute />}>
-              
-               <Route path="/admin" element={<AdminPage />}>
+              <Route path="/admin" element={<AdminPage />}>
                 <Route index element={<Navigate to="users" replace />} />
                 <Route path="users" element={<UserAdmin />} />
                 <Route path="activities" element={<ActivityAdmin />} />
                 <Route path="ingredients" element={<IngredientAdmin />} />
-                <Route path="recipes" element={<RecipeAdmin />} />  
-              </Route>  
+                <Route path="recipes" element={<RecipeAdmin />} />
+              </Route>
+              <Route path="profile" element={<ProfilePage />} />
               <Route path="/stats" element={<StatisticsPage />} />
               <Route path="/recipes" element={<RecipesListPage />} />
               <Route path="/recipe/:id" element={<RecipePage />} />

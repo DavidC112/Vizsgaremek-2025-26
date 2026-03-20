@@ -16,7 +16,7 @@ const navigation = [
 ];
 
 const LoggedInNavElements = () => {
-  const { fetchUser, lastName, firstName, profilePictureUrl, role } = useUser();
+  const { fetchUser, singleUser } = useUser();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -57,11 +57,11 @@ const LoggedInNavElements = () => {
       <div className="hidden md:block">
         <Menu as="div" className="relative inline-block">
           <MenuButton className="flex items-center justify-center space-x-2 data-closed:border-none">
-            <p className="text-sm">{`${firstName} ${lastName}`}</p>
+            <p className="text-sm">{`${singleUser?.firstName} ${singleUser?.lastName}`}</p>
             <img
-              src={profilePictureUrl}
+              src={singleUser?.profilePictureUrl}
               alt=""
-              className="size-12 rounded-full"
+              className="inline-block size-12 rounded-full object-cover"
             />
           </MenuButton>
 
@@ -72,13 +72,13 @@ const LoggedInNavElements = () => {
             <div className="py-1">
               <MenuItem>
                 <Link
-                  to="/settings"
+                  to="/profile"
                   className="block px-4 py-2 text-sm text-black data-focus:bg-neutral-50 data-focus:outline-hidden"
                 >
-                  Settings
+                  Profile
                 </Link>
               </MenuItem>
-              {role === "Admin" && (
+              {singleUser?.role === "Admin" && (
                 <MenuItem>
                   <Link
                     to="/admin"
@@ -122,11 +122,11 @@ const LoggedInNavElements = () => {
         <div className="flex w-76 items-center justify-between border-b border-neutral-200 px-4 py-3">
           <div className="flex items-center gap-3">
             <img
-              src={profilePictureUrl}
+              src={singleUser?.profilePictureUrl}
               alt=""
               className="size-10 rounded-full"
             />
-            <p className="text-sm font-medium">{`${firstName} ${lastName}`}</p>
+            <p className="text-sm font-medium">{`${singleUser?.firstName} ${singleUser?.lastName}`}</p>
           </div>
           <IconButton
             onClick={() => setDrawerOpen(false)}
@@ -161,13 +161,13 @@ const LoggedInNavElements = () => {
 
         <div className="flex flex-col align-bottom text-sm">
           <Link
-            to="/settings"
+            to="/profile"
             onClick={() => setDrawerOpen(false)}
             className="px-5 py-4 text-black hover:bg-neutral-50"
           >
-            Settings
+            Profile
           </Link>
-          {role === "Admin" && (
+          {singleUser?.role === "Admin" && (
             <Link
               to="/admin"
               onClick={() => setDrawerOpen(false)}

@@ -32,6 +32,8 @@ export type UseAddRecipeFormReturn = {
   setTags: Dispatch<SetStateAction<string[]>>;
   image: File | null;
   setImage: Dispatch<SetStateAction<File | null>>;
+  setSteps: Dispatch<SetStateAction<string[]>>;
+  setRecipeIngredients: Dispatch<SetStateAction<RecipeIngredient[]>>;
 
   recipeIngredients: RecipeIngredient[];
   addRecipeIngredient: () => void;
@@ -142,5 +144,7 @@ export const useAddRecipeForm = (): UseAddRecipeFormReturn => {
     removeStep,
     updateStep,
     ingredients,
+    setSteps,
+    setRecipeIngredients,
   };
 };

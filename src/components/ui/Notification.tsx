@@ -92,7 +92,7 @@ export function NotificationContainer({
   removeNotification,
 }: NotificationProps) {
   return (
-    <div className="fixed top-22 left-4 z-50 flex flex-col gap-3">
+    <div className="fixed top-22 left-4 z-60 flex flex-col gap-3">
       <AnimatePresence mode="popLayout">
         {notifications.map((notification) => (
           <SingleNotification

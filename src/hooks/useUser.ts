@@ -1,6 +1,11 @@
 import { useCallback, useState } from "react";
 import api from "../api/axios";
-import type { Recipe } from "./useRecipe";
+
+type Recipe = {
+  id: number;
+  name: string;
+  imageUrl: string;
+};
 
 export type User = {
   id: string;
@@ -10,36 +15,19 @@ export type User = {
   role: string;
   profilePictureUrl: string;
   isDeleted: boolean;
-};
-// user should return birthdate as well?
-
-export type SingleUser = {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: string;
-  profilePictureUrl: string;
-  isDeleted: boolean;
   birthDate: string;
+  recipes: Recipe[];
 };
 
 export const useUser = () => {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [profilePictureUrl, setProfilePictureUrl] = useState<string>("");
-  const [role, setRole] = useState<string>("");
   const [userData, setUserData] = useState<User[]>([]);
-  const [singleUser, setSingleUser] = useState<SingleUser>();
+  const [singleUser, setSingleUser] = useState<User>();
 
   const fetchUser = useCallback(async () => {
     try {
       const res = await api.get("/users/me", { withCredentials: true });
 
-      setFirstName(res.data.firstName);
-      setLastName(res.data.lastName);
-      setProfilePictureUrl(res.data.profilePictureUrl);
-      setRole(res.data.role);
+      setSingleUser(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -96,10 +84,6 @@ export const useUser = () => {
   };
   return {
     singleUser,
-    firstName,
-    lastName,
-    profilePictureUrl,
-    role,
     userData,
     fetchUser,
     fetchAllUser,

@@ -5,7 +5,10 @@ export type ValidationError = string;
 export const validateRecipePayload = (
   payload: CreateRecipePayload,
   image: File | null,
+  options?: { requireImage?: boolean },
 ): ValidationError | null => {
+  const { requireImage = true } = options ?? {};
+
   if (!payload.name.trim()) return "Recipe name is required.";
 
   if (!payload.description.trim()) return "Description is required.";
@@ -40,7 +43,7 @@ export const validateRecipePayload = (
 
   if (!payload.fat || payload.fat < 1) return "Fat is required.";
 
-  if (!image) return "A recipe image is required.";
+  if (requireImage && !image) return "A recipe image is required.";
 
   return null;
 };
