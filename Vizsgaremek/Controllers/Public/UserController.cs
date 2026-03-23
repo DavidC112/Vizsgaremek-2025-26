@@ -51,11 +51,7 @@ namespace Vizsgaremek.Controllers.Public
 
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
             var returnRecipes = new List<RecipeUserDto>();
-
-            if (role == "Admin")
-            {
-                var recipes = _context.Recipes.Where(x => x.UserId == null).ToList();
-                
+                var recipes = _context.Recipes.Where(x => x.UserId == user.Id).ToList();
                 foreach (var r in recipes)
                 {
                     returnRecipes.Add(new RecipeUserDto
@@ -66,21 +62,7 @@ namespace Vizsgaremek.Controllers.Public
                         }
                     );
                 }
-            }
-            else
-            {
-                var recipes = _context.Recipes.Where(x => x.UserId == x.UserId).ToList();
-                foreach (var r in recipes)
-                {
-                    returnRecipes.Add(new RecipeUserDto
-                        {
-                            Id = r.Id,
-                            Name =  r.Name,
-                            ImageUrl = r.ImageUrl,
-                        }
-                    );
-                }
-            }
+            
 
             var response = new UserResponseDto
             {
@@ -178,6 +160,7 @@ namespace Vizsgaremek.Controllers.Public
             {
                 return StatusCode(418, "I'm a teapot!");
             }
+             
 
             user.IsDeleted = true;
             await _userManager.UpdateAsync(user);

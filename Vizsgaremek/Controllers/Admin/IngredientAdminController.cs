@@ -42,7 +42,7 @@ namespace Vizsgaremek.Controllers.Admin
         public async Task<IActionResult> AddIngredient([FromBody] IngredienCreatetDto dto)
         {
             var ingredients = await _context.Ingredients.IgnoreQueryFilters().ToListAsync();
-            if (ingredients.Any(i => i.Name == dto.Name))
+            if (ingredients.Any(i => i.Name.ToLower() == dto.Name.ToLower()))
             {
                 return BadRequest("Ingredient with that name already exist");
             }
@@ -55,6 +55,9 @@ namespace Vizsgaremek.Controllers.Admin
                 Carbohydrate = dto.Carbohydrate,
                 Fat = dto.Fat
             };
+            
+            _context.Ingredients.Add(ingredient);
+            await _context.SaveChangesAsync();
 
             
             var result = new IngredientResponseDto
@@ -66,9 +69,7 @@ namespace Vizsgaremek.Controllers.Admin
                 Carbohydrate = ingredient.Carbohydrate,
                 Fat = ingredient.Fat
             };
-
-            _context.Ingredients.Add(ingredient);
-            await _context.SaveChangesAsync();
+            
             return Created($"api/ingredient/{ingredient.Id}", 
                 new 
                 {

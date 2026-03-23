@@ -72,9 +72,7 @@ namespace Vizsgaremek.Controllers.Public
                 User = user,
                 Duration = dto.Duration,
             };
-
-            _context.UserActivities.Add(userActivity);
-            await _context.SaveChangesAsync();
+            
 
             var result = new UserActivityResponseDto
             {
@@ -84,6 +82,9 @@ namespace Vizsgaremek.Controllers.Public
                 CaloriesBurned = userActivity.CaloriesBurned,
                 Date = userActivity.Log
             };
+            
+            _context.UserActivities.Add(userActivity);
+            await _context.SaveChangesAsync();
 
             return Created("api/users/me/activities",
                 new

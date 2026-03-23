@@ -39,10 +39,9 @@ namespace Vizsgaremek.Controllers.Admin
         public async Task<IActionResult> AddActivity([FromBody] ActivityDto activityDto)
         {
             var activities = await _context.Activities.IgnoreQueryFilters().ToListAsync();
-            if (activities.Any(a => a.Name == activityDto.Name))
+            if (activities.Any(a => a.Name.ToLower() == activityDto.Name.ToLower()))
             {
-                return BadRequest("Activity with that name already exist"); 
-                    
+                return BadRequest("Activity with that name already exist");
             }
             
             var activity = new Activity
@@ -50,6 +49,9 @@ namespace Vizsgaremek.Controllers.Admin
                 Name = activityDto.Name,
                 CaloriesBurnedPerHour = activityDto.CaloriesBurnedPerHour
             };
+            
+            _context.Activities.Add(activity);
+            await _context.SaveChangesAsync();
 
             var result = new ActivityResponseDto
             {
@@ -58,8 +60,7 @@ namespace Vizsgaremek.Controllers.Admin
                 CaloriesBurnedPerHour = activity.CaloriesBurnedPerHour
             };
 
-            _context.Activities.Add(activity);
-            await _context.SaveChangesAsync();
+
             return Created($"api/activity/{activity.Id}",
                 new
                 {
