@@ -67,7 +67,6 @@ export const useActivity = () => {
     );
   }, [todayUserActivityData]);
 
-
   //admin
 
   const fetchAdminActivities = useCallback(async () => {
@@ -140,14 +139,10 @@ export const useActivity = () => {
     name: string;
     caloriesBurnedPerHour: number;
   }) => {
-    try {
-      const res = await api.post("admin/activities/add", data, {
-        withCredentials: true,
-      });
-      setActivityData((prev) => prev.concat(res.data.data));
-    } catch (error) {
-      console.log("addActivityError" + error);
-    }
+    const res = await api.post("admin/activities/add", data, {
+      withCredentials: true,
+    });
+    setActivityData((prev) => prev.concat(res.data.data));
   };
   return {
     userActivityData,

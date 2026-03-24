@@ -63,10 +63,10 @@ const IngredientAdmin = () => {
         {filtered.map((ingredient) => (
           <li
             key={ingredient.id}
-            className={`rounded-lg p-4 ${
+            className={`rounded-lg border-2 bg-white p-4 text-gray-600 shadow-md ${
               ingredient.isDeleted
-                ? "bg-red-100 text-red-800"
-                : "bg-emerald-100 text-emerald-900"
+                ? "bg-whit border-red-700"
+                : "border-primary-green-400"
             }`}
           >
             <div className="flex flex-col gap-3">
@@ -112,7 +112,7 @@ const IngredientAdmin = () => {
                         onClick={() => {
                           close();
                         }}
-                        className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100"
+                        className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-600 transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100"
                       >
                         Cancel
                       </button>
@@ -143,7 +143,7 @@ const IngredientAdmin = () => {
                     addNotification(`${ingredient.name} restored successfully`);
                   }}
                   disabled={!ingredient.isDeleted}
-                  className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
+                  className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-50"
                 >
                   Restore
                 </button>

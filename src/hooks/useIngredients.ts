@@ -95,14 +95,10 @@ const useIngredient = () => {
   };
 
   const addIngredient = async (ingredient: CreateIngredient) => {
-    try {
-      const res = await api.post("admin/ingredient/add", ingredient, {
-        withCredentials: true,
-      });
-      setIngredientData((prev) => prev.concat(res.data.data));
-    } catch (error) {
-      console.log("AddIngredientError" + error);
-    }
+    const res = await api.post("admin/ingredient/add", ingredient, {
+      withCredentials: true,
+    });
+    setIngredientData((prev) => prev.concat(res.data.data));
   };
 
   return {

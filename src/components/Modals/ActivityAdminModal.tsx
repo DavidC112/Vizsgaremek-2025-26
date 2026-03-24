@@ -35,7 +35,7 @@ const ActivityAdmintModal = ({
       trigger={
         <button
           disabled={activity.isDeleted}
-          className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 hover:border-emerald-300 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:border-red-500 disabled:bg-red-200 disabled:text-red-600 disabled:opacity-50"
+          className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-600 transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-50"
         >
           Edit
         </button>
@@ -47,7 +47,7 @@ const ActivityAdmintModal = ({
             onClick={() => {
               close();
             }}
-            className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
+            className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-50"
           >
             Cancel
           </button>
@@ -58,7 +58,7 @@ const ActivityAdmintModal = ({
               close();
               addNotification(`${tempData.name} updated successfully`);
             }}
-            className="brder-red-500 w-20 rounded border bg-red-100 px-2 py-1 text-sm font-medium text-red-600 transition hover:bg-red-200 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
+            className="bg-primary-green-400 border-primary-green-600 hover:bg-primary-green-300 w-20 rounded border-2 px-2 py-1 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-50"
           >
             Save
           </button>

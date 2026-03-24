@@ -82,10 +82,8 @@ const RecipeAdmin = () => {
         {filtered.map((recipe) => (
           <li
             key={recipe.id}
-            className={`overflow-hidden rounded-lg ${
-              recipe.isDeleted
-                ? "bg-red-100 text-red-800"
-                : "bg-emerald-100 text-emerald-900"
+            className={`overflow-hidden rounded-lg border-2 bg-white text-gray-600 shadow-md ${
+              recipe.isDeleted ? "border-red-700" : "border-primary-green-400"
             }`}
           >
             <div className="h-30 overflow-hidden">
@@ -137,7 +135,7 @@ const RecipeAdmin = () => {
                         onClick={() => {
                           close();
                         }}
-                        className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100"
+                        className="active:bg-gray-1000 w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-600 transition hover:border-gray-300 hover:bg-gray-50"
                       >
                         Cancel
                       </button>
@@ -168,7 +166,7 @@ const RecipeAdmin = () => {
                     addNotification(`${recipe.name} restored successfully`);
                   }}
                   disabled={!recipe.isDeleted}
-                  className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
+                  className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-50"
                 >
                   Restore
                 </button>

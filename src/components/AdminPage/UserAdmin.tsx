@@ -46,10 +46,10 @@ const UserAdmin = () => {
         {filtered.map((user) => (
           <li
             key={user.id}
-            className={`flex items-start gap-4 rounded-lg p-4 shadow ${
+            className={`flex items-start gap-4 rounded-lg border-2 bg-white p-4 text-gray-600 shadow-md ${
               user.isDeleted
-                ? "bg-red-100 text-red-800"
-                : "bg-emerald-100 text-emerald-900"
+                ? "border-red-700"
+                : "border-primary-green-400 border"
             } `}
           >
             <img
@@ -93,7 +93,7 @@ const UserAdmin = () => {
                         onClick={() => {
                           close();
                         }}
-                        className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100"
+                        className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100"
                       >
                         Cancel
                       </button>
@@ -118,7 +118,7 @@ const UserAdmin = () => {
                     <button
                       onClick={() => getOneUser(user.id)}
                       disabled={user.isDeleted}
-                      className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:border-red-500 disabled:bg-red-200 disabled:text-red-600 disabled:opacity-50"
+                      className="bg-pr w-20 rounded border border-gray-200 px-2 py-1 text-sm font-medium transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 disabled:cursor-not-allowed disabled:border-red-500 disabled:bg-red-200 disabled:text-red-600 disabled:opacity-50"
                     >
                       Details
                     </button>
@@ -129,7 +129,7 @@ const UserAdmin = () => {
                       onClick={() => {
                         close();
                       }}
-                      className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100"
+                      className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-600 transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100"
                     >
                       Cancel
                     </button>
@@ -181,7 +181,7 @@ const UserAdmin = () => {
                     );
                   }}
                   disabled={!user.isDeleted}
-                  className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
+                  className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-50"
                 >
                   Restore
                 </button>

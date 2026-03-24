@@ -3,10 +3,11 @@ import Modal from "../ui/Modal";
 import { type CreateRecipe, type Recipe } from "../../hooks/useRecipes";
 import ImageUpload from "../ImageUpload";
 import type { Ingredient } from "../../hooks/useIngredients";
+import type { NotificationType } from "../ui/Notification";
 
 type Props = {
   addAdminRecipe: (data: CreateRecipe) => Promise<Recipe | null>;
-  addNotification: (msg: string) => void;
+  addNotification: (msg: string, NotFiftype: NotificationType) => void;
   ingredientData: Ingredient[];
   fetchIngredients: () => Promise<void>;
   adminUploadRecipeImage: (id: number, file: File) => void;
@@ -75,7 +76,7 @@ const RecipeAdminCreateModal = ({
   ];
 
   const isValid =
-    tempData.name.trim() !== "" && tempData.category.trim() !== "";
+    tempData.name.trim() !== "" && tempData.ingredients.length > 0;
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -88,7 +89,8 @@ const RecipeAdminCreateModal = ({
           <label className="block text-sm font-medium">{f.label}</label>
           <input
             type="number"
-            value={tempData[f.key] as number}
+            min={0}
+            placeholder={tempData[f.key] as string}
             onChange={(e) =>
               setTempData((prev) => ({
                 ...prev,
@@ -106,7 +108,7 @@ const RecipeAdminCreateModal = ({
     <Modal
       onClose={() => {}}
       trigger={
-        <button className="flex h-6 w-25 items-center justify-center rounded border border-emerald-200 bg-white px-2 text-sm font-medium text-emerald-600 hover:border-emerald-300 hover:bg-emerald-50 md:h-7 md:w-30">
+        <button className="border-primary-green-600 bg-primary-green-400 hover:border-primary-green-300 hover:bg-primary-green-300 flex h-6 w-25 items-center justify-center rounded border-2 px-2 py-1 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-50 md:h-7 md:w-30">
           + Add
         </button>
       }
@@ -117,24 +119,33 @@ const RecipeAdminCreateModal = ({
             onClick={() => {
               close();
             }}
-            className="w-20 rounded border bg-red-100 px-2 py-1 text-sm font-medium text-red-600 hover:bg-red-200 disabled:cursor-not-allowed disabled:bg-red-200 disabled:opacity-50"
+            className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-50"
           >
             Cancel
           </button>
           <button
             disabled={!isValid}
             onClick={async () => {
-              const data = await addAdminRecipe(tempData);
-              console.log("created recipe response:", data);
-              if (selectedFile && data) {
-                await adminUploadRecipeImage(data.id, selectedFile);
+              try {
+                addNotification(
+                  `${tempData.name} created successfully`,
+                  "success",
+                );
+                close();
+                const data = await addAdminRecipe(tempData);
+                if (selectedFile && data) {
+                  await adminUploadRecipeImage(data.id, selectedFile);
+                }
+              } catch (error) {
+                addNotification(
+                  "An error occured while saving!" + error,
+                  "error",
+                );
               }
-              addNotification(`${tempData.name} created successfully`);
-              close();
             }}
-            className="w-20 rounded border border-emerald-500 bg-emerald-100 px-2 py-1 text-sm font-medium text-emerald-600 hover:bg-emerald-200 disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-primary-green-400 border-primary-green-600 hover:bg-primary-green-300 w-20 rounded border-2 px-2 py-1 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Create
+            Save
           </button>
         </div>
       )}

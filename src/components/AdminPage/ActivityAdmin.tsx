@@ -36,7 +36,7 @@ const ActivityAdmin = () => {
 
   return (
     <div className="mx-auto max-w-5xl p-5">
-      <div className="flex flex-col items-start gap-3 px-5 md:flex-row md:items-start md:justify-between lg:px-0">
+      <div className="flex flex-col items-start gap-3 px-5 md:flex-row md:items-center md:justify-between lg:px-0">
         <GenericAdminModal
           data={{ name: "", caloriesBurnedPerHour: 0 }}
           onSave={addActivity}
@@ -65,10 +65,10 @@ const ActivityAdmin = () => {
         {filtered.map((activity) => (
           <li
             key={activity.id}
-            className={`rounded-lg p-4 ${
+            className={`rounded-lg border-2 bg-white p-4 text-gray-600 shadow-md ${
               activity.isDeleted
-                ? "bg-red-100 text-red-800"
-                : "bg-emerald-100 text-emerald-900"
+                ? "border-red-700"
+                : "border-primary-green-400 border"
             }`}
           >
             <div className="flex flex-col gap-3">
@@ -108,7 +108,7 @@ const ActivityAdmin = () => {
                         onClick={() => {
                           close();
                         }}
-                        className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100"
+                        className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-600 transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100"
                       >
                         Cancel
                       </button>
@@ -140,7 +140,7 @@ const ActivityAdmin = () => {
                     addNotification(`${activity.name} restored successfully`);
                   }}
                   disabled={!activity.isDeleted}
-                  className="w-20 rounded border border-emerald-200 bg-white px-2 py-1 text-sm font-medium text-emerald-600/90 transition hover:border-emerald-300 hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:bg-emerald-200 disabled:opacity-50"
+                  className="w-20 rounded border border-gray-200 bg-white px-2 py-1 text-sm font-medium transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-50"
                 >
                   Restore
                 </button>
