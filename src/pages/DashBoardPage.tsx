@@ -10,6 +10,7 @@ import RecommendedMeals from "../components/DashBoardPage/RecommendedMeals";
 import AddExerciseModal from "../components/ActivityModal";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import UpdateProfileModal from "../components/Modals/UpdateAttributeModal";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -91,7 +92,7 @@ export const DashBoardPage = () => {
           </motion.div>
 
           <motion.section
-            className="grid grid-cols-1 gap-4 md:grid-cols-2"
+            className="grid grid-cols-1 gap-4 md:grid-cols-3"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.5, ease: "easeOut" }}
@@ -99,6 +100,15 @@ export const DashBoardPage = () => {
             <AddExerciseModal
               activityData={activityData}
               addUserActivity={addUserActivity}
+            />
+
+            <UpdateProfileModal
+              currentWeight={lastAttribute?.weight}
+              currentHeight={lastAttribute?.height}
+              onSaved={() => {
+                fetchAttributes();
+                reFetchDailyIntake();
+              }}
             />
 
             <Link to="/recipes">
