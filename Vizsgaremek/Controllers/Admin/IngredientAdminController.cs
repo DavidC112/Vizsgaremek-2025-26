@@ -42,7 +42,8 @@ namespace Vizsgaremek.Controllers.Admin
         public async Task<IActionResult> AddIngredient([FromBody] IngredienCreatetDto dto)
         {
             var ingredients = await _context.Ingredients.IgnoreQueryFilters().ToListAsync();
-            if (ingredients.Any(i => i.Name.ToLower() == dto.Name.ToLower()))
+            if (ingredients.Any(i => i.Name.ToLower() == dto.Name.ToLower(
+                    )))
             {
                 return BadRequest("Ingredient with that name already exist");
             }
