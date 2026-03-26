@@ -10,7 +10,7 @@ const AnimatedDiv = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
       initial="hidden"
-      whileInView="visible"
+      animate="visible"
       variants={isDesktop ? desktopVariant : mobileVariant}
     >
       {children}

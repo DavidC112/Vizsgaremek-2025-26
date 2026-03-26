@@ -39,6 +39,8 @@ const StatisticsCharts = () => {
     { id: 2, value: avgMacroNutrients.fat, label: "Fat" },
   ];
 
+  const hasPieData = pieChartData.some((item) => item.value > 0);
+
   const chartAttributes = [...attributesData];
   if (attributesData.length === 1) {
     const today = new Date().toISOString();
@@ -100,26 +102,33 @@ const StatisticsCharts = () => {
         className="col-span-1 flex w-full items-center justify-center rounded-xl border border-gray-200 bg-white p-4"
       >
         <div className="w-full" style={{ height: 220 }}>
-          <PieChart
-            height={220}
-            series={[
-              {
-                startAngle: -90,
-                endAngle: 90,
-                paddingAngle: 2,
-                innerRadius: "60%",
-                outerRadius: "90%",
-                data: pieChartData,
-              },
-            ]}
-            slotProps={{
-              legend: {
-                direction: "horizontal",
-                position: { vertical: "bottom", horizontal: "center" },
-                sx: { transform: "translateY(-50px)" },
-              },
-            }}
-          />
+          {hasPieData ? (
+            <PieChart
+              height={220}
+              series={[
+                {
+                  startAngle: -90,
+                  endAngle: 90,
+                  paddingAngle: 2,
+                  innerRadius: "60%",
+                  outerRadius: "90%",
+                  data: pieChartData,
+                },
+              ]}
+              slotProps={{
+                legend: {
+                  direction: "horizontal",
+                  position: { vertical: "bottom", horizontal: "center" },
+                  sx: { transform: "translateY(-50px)" },
+                },
+              }}
+            />
+          ) : (
+            <div className="flex h-full w-full flex-col items-center justify-center text-gray-400">
+              <p className="text-sm">No nutrition data yet</p>
+              <p className="text-xs">Start logging meals to see your macros</p>
+            </div>
+          )}
         </div>
       </motion.section>
     </div>

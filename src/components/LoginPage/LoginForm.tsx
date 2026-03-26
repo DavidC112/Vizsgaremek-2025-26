@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContextProvider";
+import { useNotification } from "../../context/NotificationProvider";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuthContext();
   const navigate = useNavigate();
+  const { addNotification } = useNotification();
+
+  const handleError = (error: string) => {
+    if (error === "500") return "Network error";
+    if (error === "401") return "Wrong e-mail or password";
+    return "";
+  };
 
   const handleLogin = async () => {
     const data = await login(email, password);
@@ -15,8 +23,7 @@ const LoginForm = () => {
       navigate("/");
       return;
     }
-    //TODO: UI
-    alert(data.error);
+    addNotification(handleError(data.error), "error");
   };
 
   return (

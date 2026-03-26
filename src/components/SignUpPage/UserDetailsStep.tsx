@@ -120,10 +120,7 @@ const UserDetailsStep = ({
               defaultValue=""
               value={details.gender}
               onChange={(e) =>
-                onChange(
-                  "gender",
-                  e.target.value as "" | "male" | "female" | "other",
-                )
+                onChange("gender", e.target.value as "" | "male" | "female")
               }
             >
               <option disabled value="">
@@ -131,7 +128,6 @@ const UserDetailsStep = ({
               </option>
               <option value="male">Male</option>
               <option value="female">Female</option>
-              <option value="other">Other</option>
             </select>
             {errors.gender && (
               <p className="my-1 text-[10px] text-red-600">{errors.gender}</p>

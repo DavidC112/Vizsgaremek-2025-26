@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import api from "../api/axios";
 import { setAccessToken } from "./authTokenService";
 
@@ -26,7 +27,9 @@ export const loginUser = async (
   } catch (error) {
     //TODO: better error handling
     console.error("Login error:", error);
-    return { error: error instanceof Error ? error.message : String(error) };
+    return {
+      error: error instanceof AxiosError ? String(error.status) : String(error),
+    };
   }
 };
 
