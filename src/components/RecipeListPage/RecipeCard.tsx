@@ -59,7 +59,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
             {recipe.calories} cal
           </div>
         </div>
-        <div className="flex items-center justify-between border-t pt-3 text-xs">
+        <div className="flex h-8 items-center justify-between border-t pt-3 text-xs">
           <div className="flex gap-2 font-extralight">
             <Tooltip title={"Protein"}>
               <span>P: {recipe.protein}g</span>
@@ -71,6 +71,15 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
               <span>F: {recipe.fat}g</span>
             </Tooltip>
           </div>
+          {recipe.isCommunity && (
+            <div className="flex items-center gap-2">
+              <div>{recipe.userName}</div>
+              <img
+                className="inline-block size-6 rounded-full object-cover"
+                src={recipe.userProfilePicture}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

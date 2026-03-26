@@ -30,7 +30,12 @@ const RecipePage = () => {
     <div className="from-primary-green-50 min-h-full min-w-full bg-linear-to-br to-blue-50">
       <main className="mx-auto max-w-7xl space-y-6 rounded-2xl p-4">
         <motion.section className="flex justify-between" {...fadeUp(0)}>
-          <h1 className="text-3xl font-semibold">{recipeData?.name}</h1>
+          <h1 className="text-3xl font-semibold">
+            {recipeData?.name}{" "}
+            <div className="mt-2 text-sm font-extralight">
+              {`by - ${recipeData?.isCommunity ? recipeData?.userName : "NutriLife"}`}
+            </div>
+          </h1>
           <div>
             {recipeData && (
               <AddTodayRecipeModal
@@ -161,9 +166,10 @@ const RecipePage = () => {
           {...fadeUp(0.5)}
         >
           <h1 className="pb-5 text-xl font-semibold">Ingredients</h1>
-          <ul className="space-y-1">
+          <ul className="list-disc pl-10 md:pl-18">
             {recipeData?.ingredients.map((ingredient, idx) => (
               <motion.li
+                className=""
                 key={idx}
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -173,7 +179,7 @@ const RecipePage = () => {
                   delay: 0.55 + idx * 0.05,
                 }}
               >
-                {ingredient.ingredientName} {ingredient.amount}
+                {` ${ingredient.ingredientName}: ${ingredient.amount} g`}
               </motion.li>
             ))}
           </ul>

@@ -126,9 +126,9 @@ const LoggedInNavElements = ({ navigation = defaultNavigation }: Props) => {
         <div className="flex w-76 items-center justify-between border-b border-neutral-200 px-4 py-3">
           <div className="flex items-center gap-3">
             <img
-              src={singleUser?.profilePictureUrl || "/default-avatar.png"}
+              src={singleUser?.profilePictureUrl}
               alt=""
-              className="size-10 rounded-full"
+              className="inline-block size-12 rounded-full object-cover"
             />
             <p className="text-sm font-medium">{`${singleUser?.firstName} ${singleUser?.lastName}`}</p>
           </div>

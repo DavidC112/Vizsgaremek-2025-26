@@ -36,7 +36,7 @@ const Navbar = () => {
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img src="placeholder.svg" alt="" />
-          <span className="self-center font-semibold">ProductName</span>
+          <span className="self-center font-semibold">NutriLife</span>
         </Link>
         {accessToken ? (
           <LoggedInNavElements navigation={navigation} />

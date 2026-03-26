@@ -41,24 +41,30 @@ const StatisticsCharts = () => {
 
   const hasPieData = pieChartData.some((item) => item.value > 0);
 
-  const chartAttributes = [...attributesData];
-  if (attributesData.length === 1) {
-    const today = new Date().toISOString();
-    chartAttributes.push({ ...attributesData[0], measuredAt: today });
-  }
+  const sortedAttributes = [...attributesData].sort(
+    (a, b) =>
+      new Date(a.measuredAt).getTime() - new Date(b.measuredAt).getTime(),
+  );
 
-  const lineChartData = chartAttributes
-    .sort(
-      (a, b) =>
-        new Date(a.measuredAt).getTime() - new Date(b.measuredAt).getTime(),
-    )
-    .map((attr) => ({
-      date: new Date(attr.measuredAt).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      }),
-      weight: attr.weight,
-    }));
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const lastEntry = sortedAttributes[sortedAttributes.length - 1];
+  const lastDate = lastEntry ? new Date(lastEntry.measuredAt) : null;
+  if (lastDate) lastDate.setHours(0, 0, 0, 0);
+
+  const chartAttributes =
+    lastEntry && lastDate?.getTime() !== today.getTime()
+      ? [...sortedAttributes, { ...lastEntry, measuredAt: today.toISOString() }]
+      : sortedAttributes;
+
+  const lineChartData = chartAttributes.map((attr) => ({
+    date: new Date(attr.measuredAt).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    }),
+    weight: attr.weight,
+  }));
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
