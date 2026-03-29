@@ -22,7 +22,7 @@ const AddRecipePage = () => {
   const form = useAddRecipeForm();
   const { submit, isSubmitting, isSubmitted } = useRecipeSubmit();
 
-  if (!isSubmitted) return <SubmittedView />;
+  if (isSubmitted) return <SubmittedView />;
   const handleSubmit = () =>
     submit(
       {
