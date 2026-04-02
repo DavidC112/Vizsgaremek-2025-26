@@ -114,7 +114,7 @@
                     IsCommunity = false,
                     RecipeIngredients = new List<RecipeIngredient>(),
                     ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg",
-                    FileId = "69ce8f2c5c7cd75eb8221256"
+                    FileId = "69ce9a025c7cd75eb86092e3"
                 };
 
                 foreach (var item in dto.Ingredients)
@@ -195,7 +195,7 @@
                     return NotFound("Recipe was not found in recipeAdmin/uploadImage");
                 }
                 
-                if(recipe.FileId != null && recipe.FileId != "69ce8f2c5c7cd75eb8221256")
+                if(recipe.FileId != null && recipe.FileId != "69ce9a025c7cd75eb86092e3")
                 {
                     var deleteResult = await _imageKit.DeleteImage(recipe.FileId);
                     if (!deleteResult)
@@ -307,13 +307,13 @@
                     return NotFound("Recipe was not found in recipeAdmin/delete");
                 }
 
-                if (recipe.FileId != "69ce8cae5c7cd75eb8169d44" && recipe.FileId != null)
+                if (recipe.FileId != "69ce9a025c7cd75eb86092e3" && recipe.FileId != null)
                 {
                     _imageKit.DeleteImage(recipe.FileId);
                 }
 
                 recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg";
-                recipe.FileId = "69ce8f2c5c7cd75eb8221256";
+                recipe.FileId = "69ce9a025c7cd75eb86092e3";
                 recipe.IsDeleted = true;
                 await _context.SaveChangesAsync();
 
