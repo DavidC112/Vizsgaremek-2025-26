@@ -66,7 +66,7 @@ const CalorieGoal = ({
       icon: <Calendar className="text-primary-green-600" />,
       bg: "bg-primary-green-100",
       label: "Current Weight",
-      value: weight ?? "—",
+      value: weight ?? "-",
     },
     {
       icon: <Dumbbell className="text-orange-600" />,
