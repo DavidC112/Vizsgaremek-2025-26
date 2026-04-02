@@ -1,11 +1,11 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import { useIngredient } from "./useIngredient";
 import type {
   RecipeCategory,
   RecipeIngredient,
   NumericField,
   Ingredient,
 } from "../utils/AddRecipe.type";
+import useIngredient from "./useIngredients";
 
 export type UseAddRecipeFormReturn = {
   name: string;
@@ -53,7 +53,7 @@ export type UseAddRecipeFormReturn = {
 };
 
 export const useAddRecipeForm = (): UseAddRecipeFormReturn => {
-  const { fetchIngredients, ingredients } = useIngredient();
+  const { fetchIngredients, ingredientData } = useIngredient();
 
   const [name, setName] = useState<string>("");
   const [category, setCategory] = useState<RecipeCategory>("Breakfast");
@@ -143,7 +143,7 @@ export const useAddRecipeForm = (): UseAddRecipeFormReturn => {
     addStep,
     removeStep,
     updateStep,
-    ingredients,
+    ingredients: ingredientData,
     setSteps,
     setRecipeIngredients,
   };
