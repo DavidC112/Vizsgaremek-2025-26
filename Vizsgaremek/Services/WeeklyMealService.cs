@@ -70,7 +70,7 @@ namespace Vizsgaremek.Services
                 }
 
                 var soupRecipe = soup[random.Next(soup.Count)];
-                if(i > 0 && soup.Count > 1)
+                if(i > 0 && soup.Count > 2)
                 {
                     while (soupRecipe.Id == result[i - 1].SoupRecipeId)
                     {
@@ -80,7 +80,7 @@ namespace Vizsgaremek.Services
                
 
                 var lunchRecipe = main[random.Next(main.Count)];
-                if(i > 0 && main.Count > 1)
+                if(i > 0 && main.Count > 2)
                 {
                     while (lunchRecipe.Id == result[i - 1].LunchRecipeId || lunchRecipe.Id == result[i-1].DinnerRecipeId)
                     {
@@ -90,13 +90,13 @@ namespace Vizsgaremek.Services
 
 
                 var dinnerRecipe = main[random.Next(main.Count)];
-                if(i > 0 && main.Count > 1)
+                if (main.Count > 2)
                 {
-                    while (dinnerRecipe.Id == result[i - 1].DinnerRecipeId || lunchRecipe.Id == dinnerRecipe.Id)
+                    while ((i > 0 && dinnerRecipe.Id == result[i - 1].DinnerRecipeId) || dinnerRecipe.Id == lunchRecipe.Id)
                     {
                         dinnerRecipe = main[random.Next(main.Count)];
                     }
-            }
+                }
 
             result.Add(new DailyMealPlan
                 {

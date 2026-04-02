@@ -96,7 +96,7 @@ namespace Vizsgaremek.Controllers.Public
                 return Unauthorized("User was not found in user/uploadImage");
             }
 
-            if (user.FileId != null)
+            if (user.FileId != null && user.FileId != "69ce89765c7cd75eb8077d81")
             {
                 var deleteResult = await _imageKit.DeleteImage(user.FileId);
 
@@ -127,7 +127,7 @@ namespace Vizsgaremek.Controllers.Public
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (string.IsNullOrEmpty(user.FileId))
+            if (string.IsNullOrEmpty(user.FileId) || user.FileId == "69ce89765c7cd75eb8077d81")
             {
                 return BadRequest("No profile picture to delete");
             }
@@ -140,8 +140,8 @@ namespace Vizsgaremek.Controllers.Public
             }
 
 
-            user.ProfilePictureUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20pfp.jpeg";
-            user.FileId = "698593d45c7cd75eb822b00b";
+            user.ProfilePictureUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultpfp.jpg";
+            user.FileId = "69ce89765c7cd75eb8077d81";
 
             await _userManager.UpdateAsync(user);
 
