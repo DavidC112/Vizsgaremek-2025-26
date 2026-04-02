@@ -52,6 +52,9 @@ export const useRecipes = () => {
   const [recipeArray, setRecipeArray] = useState<Recipe[]>([]);
   const [recipeData, setRecipeData] = useState<Recipe>();
 
+  const defaultImageUrl =
+    "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg";
+
   const fetchAllRecipes = useCallback(async () => {
     try {
       const res = await api.get("/recipe/all");
@@ -95,8 +98,7 @@ export const useRecipes = () => {
             ? {
                 ...recipe,
                 isDeleted: true,
-                imageUrl:
-                  "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649",
+                imageUrl: defaultImageUrl,
               }
             : recipe,
         ),
@@ -117,8 +119,7 @@ export const useRecipes = () => {
             ? {
                 ...recipe,
                 isDeleted: false,
-                imageUrl:
-                  "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649",
+                imageUrl: defaultImageUrl,
               }
             : recipe,
         ),
