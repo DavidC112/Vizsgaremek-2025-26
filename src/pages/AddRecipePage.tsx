@@ -16,11 +16,13 @@ import { useRecipeSubmit } from "../hooks/useRecipeSubmit";
 import type { NumericField, RecipeCategory } from "../utils/AddRecipe.type";
 import { theme } from "../utils/MaterialUITheme";
 import { motion } from "framer-motion";
+import SubmittedView from "../components/AddRecipePage/SubmittedView";
 
 const AddRecipePage = () => {
   const form = useAddRecipeForm();
-  const { submit, isSubmitting } = useRecipeSubmit();
+  const { submit, isSubmitting, isSubmitted } = useRecipeSubmit();
 
+  if (isSubmitted) return <SubmittedView />;
   const handleSubmit = () =>
     submit(
       {

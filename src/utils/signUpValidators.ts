@@ -66,8 +66,15 @@ export const validateUserAttributes = (
 
   if (a.height <= 0) errors.height = "Height must be greater than zero";
   if (a.weight <= 0) errors.weight = "Weight must be greater than zero";
-  if (!isValidIsoDate(a.measuredAt))
+  if (!isValidIsoDate(a.measuredAt)) {
     errors.measuredAt = "Please enter a valid measurement date";
+  } else {
+    const measuredAtMs = Date.parse(a.measuredAt);
+    const nowMs = Date.now();
+    if (measuredAtMs > nowMs) {
+      errors.measuredAt = "Measurement date cannot be in the future";
+    }
+  }
 
   return { isValid: Object.keys(errors).length === 0, errors };
 };

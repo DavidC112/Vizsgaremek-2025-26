@@ -35,7 +35,7 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img src="placeholder.svg" alt="" />
+          <img src="logo.png" alt="" className="object-fit w-20" />
           <span className="self-center font-semibold">NutriLife</span>
         </Link>
         {accessToken ? (

@@ -7,6 +7,8 @@ import type { Recipe } from "../hooks/useRecipes";
 import { Field, Fieldset, Input, Label, Select } from "@headlessui/react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../utils/MaterialUITheme";
 
 type AddTodayRecipeModalProps =
   | {
@@ -92,9 +94,9 @@ const AddTodayRecipeModal = ({
           </>
         )}
       >
-        <Fieldset className="space-y-5">
+        <Fieldset className="space-y-5 pt-5">
           {props.isSearch && (
-            <Field>
+            <ThemeProvider theme={theme}>
               <Autocomplete
                 onChange={(_, value) => {
                   const found = props.recipeArray.find(
@@ -117,7 +119,7 @@ const AddTodayRecipeModal = ({
                   />
                 )}
               />
-            </Field>
+            </ThemeProvider>
           )}
           <Field>
             <Label className="text-sm font-medium">Category</Label>

@@ -155,7 +155,7 @@ const UserAdmin = () => {
                       <span>
                         {singleUser?.birthDate
                           ? new Date(singleUser.birthDate).toLocaleDateString()
-                          : "—"}
+                          : "-"}
                       </span>
                     </div>
 
@@ -168,7 +168,7 @@ const UserAdmin = () => {
                                 new Date(singleUser.birthDate).getTime()) /
                                 (1000 * 60 * 60 * 24 * 365.25),
                             )
-                          : "—"}
+                          : "-"}
                       </span>
                     </div>
                   </div>

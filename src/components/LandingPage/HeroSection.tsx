@@ -20,7 +20,8 @@ const HeroSection = () => {
                 </span>
               </h1>
               <p className="max-w-xl text-2xl font-extralight tracking-tight italic md:max-lg:mx-auto">
-                Everything in one place for a healthier lifestyle.
+                Log meals, plan your week, track workouts, and watch your
+                progress - all in one place.
               </p>
               <span className="border-b border-gray-400"></span>
               <div className="flex flex-col gap-4 text-center md:flex-row md:gap-6 md:max-lg:mx-auto xl:justify-between">

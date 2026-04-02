@@ -10,6 +10,7 @@ import { validateRecipePayload } from "../utils/validateRecipePayload";
 export const useRecipeSubmit = () => {
   const { addNotification } = useNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const submit = async (
     payload: CreateRecipePayload,
@@ -50,7 +51,7 @@ export const useRecipeSubmit = () => {
       }
 
       // TODO: navigate to success page
-      addNotification("Recipe uploaded successfully!", "success");
+      setIsSubmitted(true);
     } catch {
       addNotification("Something went wrong.", "error");
     } finally {
@@ -58,5 +59,5 @@ export const useRecipeSubmit = () => {
     }
   };
 
-  return { submit, isSubmitting };
+  return { submit, isSubmitting, isSubmitted };
 };
