@@ -16,8 +16,8 @@ namespace Vizsgaremek.Models
         public DateTime CreatedAt { get; set; }
         public bool IsDeleted { get; set; } = false;
         public WeeklyMealPlan? WeeklyMealPlan { get; set; }
-        public string ProfilePictureUrl { get; set; } = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20pfp.jpeg";
-        public string FileId { get; set; } = "69ba672a5c7cd75eb8350941";
+        public string ProfilePictureUrl { get; set; } = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultpfp.jpg";
+        public string FileId { get; set; } = "69ce89765c7cd75eb8077d81";
         public ICollection<UserAttributes> UserAttributes { get; set; } = new List<UserAttributes>();
         public ICollection<UserActivity> UserActivities { get; set; } = new List<UserActivity>();
         public UserGoal? UserGoals { get; set; }

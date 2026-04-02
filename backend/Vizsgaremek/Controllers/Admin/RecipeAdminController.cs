@@ -113,7 +113,8 @@
                     Fat = dto.Fat,
                     IsCommunity = false,
                     RecipeIngredients = new List<RecipeIngredient>(),
-                    ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649",
+                    ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg",
+                    FileId = "69ce9a025c7cd75eb86092e3"
                 };
 
                 foreach (var item in dto.Ingredients)
@@ -193,10 +194,14 @@
                 {
                     return NotFound("Recipe was not found in recipeAdmin/uploadImage");
                 }
-
-                if (dto.File == null || dto.File.Length == 0)
+                
+                if(recipe.FileId != null && recipe.FileId != "69ce9a025c7cd75eb86092e3")
                 {
-                    return BadRequest("No file uploaded in recipeAdmin/uploadImage");
+                    var deleteResult = await _imageKit.DeleteImage(recipe.FileId);
+                    if (!deleteResult)
+                    {
+                        return StatusCode(500, "Failed to delete existing image from ImageKit");
+                    }
                 }
 
                 var imageUrl = await _imageKit.UploadImage(dto.File);
@@ -301,7 +306,14 @@
                 {
                     return NotFound("Recipe was not found in recipeAdmin/delete");
                 }
-                
+
+                if (recipe.FileId != "69ce9a025c7cd75eb86092e3" && recipe.FileId != null)
+                {
+                    _imageKit.DeleteImage(recipe.FileId);
+                }
+
+                recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg";
+                recipe.FileId = "69ce9a025c7cd75eb86092e3";
                 recipe.IsDeleted = true;
                 await _context.SaveChangesAsync();
 
@@ -327,8 +339,7 @@
                 {
                     return BadRequest("Recipe is not deleted");
                 }
-
-                recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649";
+                
                 recipe.IsDeleted = false;
                 await _context.SaveChangesAsync();
 

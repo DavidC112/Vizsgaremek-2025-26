@@ -173,7 +173,8 @@ namespace Vizsgaremek.Controllers.Public
                 IsVegetarian = dto.IsVegetarian,
                 IsCommunity = true,
                 RecipeIngredients = new List<RecipeIngredient>(),
-                ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649",
+                ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg",
+                FileId = "69ce9a025c7cd75eb86092e3"
             };
 
             foreach (var item in dto.Ingredients)
@@ -262,7 +263,7 @@ namespace Vizsgaremek.Controllers.Public
                 return BadRequest("No file uploaded.");
             }
 
-            if(recipe.FileId != null)
+            if(recipe.FileId != null && recipe.FileId != "69ce9a025c7cd75eb86092e3")
             {
                 var deleteResult = await _imageKit.DeleteImage(recipe.FileId);
                 if (!deleteResult)
@@ -389,13 +390,15 @@ namespace Vizsgaremek.Controllers.Public
             }
             
 
-            if (recipe.FileId != "69a169e95c7cd75eb8bbd118")
+            if (recipe.FileId != "69ce8f2c5c7cd75eb8221256" && recipe.FileId != null)
             {
                 await _imageKit.DeleteImage(recipe.FileId);
+                recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg";
+                recipe.FileId = "69ce9a025c7cd75eb86092e3";
+                await _context.SaveChangesAsync();
             }
-            
-            recipe.ImageUrl = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649";
 
+            
             recipe.IsDeleted = true;
             await _context.SaveChangesAsync();
 

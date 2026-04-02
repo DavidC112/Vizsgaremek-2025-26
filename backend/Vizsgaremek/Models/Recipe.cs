@@ -19,8 +19,8 @@ namespace Vizsgaremek.Models
         public decimal Protein { get; set; }
         public decimal Carbohydrate { get; set; }
         public decimal Fat { get; set; }
-        public string? ImageUrl { get; set; } = "https://ik.imagekit.io/nrt5lwugy/pictures/default%20recipe.jpg?updatedAt=1772186089649";
-        public string? FileId { get; set; } = "69a169e95c7cd75eb8bbd118";
+        public string? ImageUrl { get; set; } = "https://ik.imagekit.io/nrt5lwugy/pictures/defaultrecipe.jpg";
+        public string? FileId { get; set; } = "69ce9a025c7cd75eb86092e3";
         public bool IsCommunity { get; set; }
         public bool IsVegan { get; set; } = false;
         public bool IsVegetarian { get; set; } = false;
