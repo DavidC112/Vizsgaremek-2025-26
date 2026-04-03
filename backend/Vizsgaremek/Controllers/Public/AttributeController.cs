@@ -88,6 +88,8 @@ namespace Vizsgaremek.Controllers.Public
                 Height = dto.Height,
                 MeasuredAt = dto.MeasuredAt
             };
+            
+            var goalTypes = await _caloriesCalculationService.CalculateCalories(user);
 
             _context.UserAttributes.Add(userAttributes);
             await _context.SaveChangesAsync();
@@ -98,7 +100,9 @@ namespace Vizsgaremek.Controllers.Public
                 Weight = userAttributes.Weight,
                 Height = userAttributes.Height,
                 Bmi = userAttributes.Bmi,
-                MeasuredAt = userAttributes.MeasuredAt
+                MeasuredAt = userAttributes.MeasuredAt, 
+                Calories = goalTypes?.Calories,
+                GoalType = goalTypes?.GoalType
             };
             
             return Created("api/users/me/attributes",
