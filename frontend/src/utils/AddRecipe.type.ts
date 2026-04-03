@@ -1,4 +1,4 @@
-export type RecipeCategory = "Breakfast" | "Soup" | "Main course" | "Dinner";
+export type RecipeCategory = "Breakfast" | "Soup" | "Main course";
 
 export type RecipeIngredient = {
   id: number;

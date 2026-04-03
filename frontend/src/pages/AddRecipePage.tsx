@@ -106,9 +106,8 @@ const AddRecipePage = () => {
                   }
                 >
                   <MenuItem value="Breakfast">Breakfast</MenuItem>
-                  <MenuItem value="Soup">Lunch</MenuItem>
+                  <MenuItem value="Soup">Soup</MenuItem>
                   <MenuItem value="Main Course">Main Course</MenuItem>
-                  <MenuItem value="Dinner">Dinner</MenuItem>
                 </Select>
               </FormControl>
               <span className="flex items-end">

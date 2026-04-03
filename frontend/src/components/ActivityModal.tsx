@@ -24,8 +24,7 @@ const AddExerciseModal = ({
   const burnedActivityCalorie = useMemo(() => {
     const activity = activityData.find((item) => item.id === selectedActivity);
     if (!activity) return 0;
-    console.log("calories burned / h" + activity?.caloriesBurnedPerHour);
-    return (activity.caloriesBurnedPerHour / 60) * duration;
+    return Math.round((activity.caloriesBurnedPerHour / 60) * duration);
   }, [selectedActivity, duration, activityData]);
 
   const { addNotification } = useNotification();

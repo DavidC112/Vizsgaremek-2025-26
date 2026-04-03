@@ -37,7 +37,7 @@ const AddTodayRecipeModal = ({
 }) => {
   const [category, setCategory] = useState<string>("Breakfast");
   const [amount, setAmount] = useState<number>(1);
-  const mealCategories = ["Breakfast", "Soup", "Main course", "Dinner"];
+  const mealCategories = ["Breakfast", "Soup", "Lunch", "Dinner"];
 
   const { addNotification } = useNotification();
 
